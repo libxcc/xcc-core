@@ -1,64 +1,78 @@
 ﻿#include <xcc-core/XTimeZone.h>
+#include <xcc-core/XDateTime.h>
 
 
-
+// constructors
 XTimeZone::XTimeZone() noexcept
 {
+	memberRegion = XTimeZone::UTC;
 }
 
-XTimeZone::XTimeZone(ENUM_TIME_ZONE _TimeZone) noexcept
+// constructors
+XTimeZone::XTimeZone(XTimeZone::Region _Region) noexcept
 {
-	this->_info_time_zone = _TimeZone;
+	memberRegion = _Region;
 }
 
-XTimeZone::XTimeZone(const XTimeZone& _Other) noexcept
+// constructors
+XTimeZone::XTimeZone(const XTimeZone& _Other) noexcept = default;
+
+// destructor
+XTimeZone::~XTimeZone() noexcept = default;
+
+
+
+// override operator =
+XTimeZone& XTimeZone::operator = (XTimeZone::Region _Region) noexcept
 {
-	this->_info_time_zone = _Other._info_time_zone;
-}
-
-XTimeZone::~XTimeZone() noexcept
-{
-}
-
-
-
-
-
-
-XTimeZone& XTimeZone::operator = (ENUM_TIME_ZONE _TimeZone) noexcept
-{
-	this->_info_time_zone = _TimeZone;
+	memberRegion = _Region;
 	return *this;
 }
 
-XTimeZone& XTimeZone::operator = (const XTimeZone& _Other) noexcept
+// override operator =
+XTimeZone& XTimeZone::operator = (const XTimeZone& _Other) noexcept = default;
+
+
+
+// [set] 当前区域
+void XTimeZone::setRegion(XTimeZone::Region _Region) noexcept
 {
-	this->_info_time_zone = _Other._info_time_zone;
-	return *this;
+	memberRegion = _Region;
+}
+
+// [get] 当前区域
+XTimeZone::Region XTimeZone::region() const noexcept
+{
+	return memberRegion;
 }
 
 
 
-
-
-XTimeZone::ENUM_TIME_ZONE XTimeZone::timeZone() const noexcept
+// [cnv] 转化为毫秒
+Xcc::time_type XTimeZone::toMillisecond() const noexcept
 {
-	return this->_info_time_zone;
+	return XTimeZone::toMillisecond(memberRegion);
+}
+
+// [cnv] 转化为秒
+Xcc::time_type XTimeZone::toSecond() const noexcept
+{
+	return XTimeZone::toSecond(memberRegion);
 }
 
 
 
-
-
-std::int64_t XTimeZone::toMillisecond() const noexcept
+// [cnv] 转化为毫秒
+Xcc::time_type XTimeZone::toMillisecond(XTimeZone::Region _Region) noexcept
 {
-	return this->toSecond() * 1000;
+	return XTimeZone::toSecond(_Region) * 1000;
 }
 
-std::int64_t XTimeZone::toSecond() const noexcept
+// [cnv] 转化为秒
+Xcc::time_type XTimeZone::toSecond(XTimeZone::Region _Region) noexcept
 {
-	auto		vHour = this->_info_time_zone / 100;
-	auto		vMinute = this->_info_time_zone % 100;
+	auto		vHour = _Region / 100;
+	auto		vMinute = _Region % 100;
 
 	if(vHour == 0)
 	{
@@ -68,33 +82,19 @@ std::int64_t XTimeZone::toSecond() const noexcept
 		}
 		else if(vMinute > 0)
 		{
-			return vMinute * XCC_TIME_MINUTE;
+			return vMinute * XDateTime::second_minute;
 		}
 		else
 		{
-			return -(vMinute * XCC_TIME_MINUTE);
+			return -(vMinute * XDateTime::second_minute);
 		}
 	}
 	else if(vHour > 0)
 	{
-		return (vHour * XCC_TIME_HOUR) + (vMinute * XCC_TIME_MINUTE);
+		return (vHour * XDateTime::second_hour) + (vMinute * XDateTime::second_minute);
 	}
 	else
 	{
-		return -((vHour * XCC_TIME_HOUR) + (vMinute * XCC_TIME_MINUTE));
+		return -((vHour * XDateTime::second_hour) + (vMinute * XDateTime::second_minute));
 	}
-}
-
-
-
-
-
-std::int64_t XTimeZone::toMillisecond(ENUM_TIME_ZONE _TimeZone) noexcept
-{
-	return XTimeZone(_TimeZone).toMillisecond();
-}
-
-std::int64_t XTimeZone::toSecond(ENUM_TIME_ZONE _TimeZone) noexcept
-{
-	return XTimeZone(_TimeZone).toSecond();
 }

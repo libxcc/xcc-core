@@ -113,6 +113,28 @@
 
 
 
+/// XCC命名空间
+namespace Xcc
+{
+	// 类型定义
+	typedef 	x_size_t					size_t;
+	typedef 	x_ssize_t					ssize_t;
+
+	typedef 	x_size_t					pos_type;
+	typedef 	x_ssize_t					diff_type;
+	typedef 	x_time_type					time_type;
+
+	typedef 	x_int8_t 					int8_t;
+	typedef 	x_uint8_t 					uint8_t;
+	typedef 	x_int16_t 					int16_t;
+	typedef 	x_uint16_t 					uint16_t;
+	typedef 	x_int32_t 					int32_t;
+	typedef 	x_uint32_t 					uint32_t;
+	typedef 	x_int64_t 					int64_t;
+	typedef 	x_uint64_t 					uint64_t;
+}
+
+
 /// namespace X-Series
 namespace Xcc
 {

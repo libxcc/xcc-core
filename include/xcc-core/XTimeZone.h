@@ -2,7 +2,6 @@
 #define			_XCC_CORE_TIME_ZONE_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XTime.h>
 
 
 // 时区
@@ -10,7 +9,7 @@ class _XCOREAPI_ XTimeZone
 {
 public:
 	// http://www.loglogo.com/front/countryCode/
-	enum ENUM_TIME_ZONE
+	typedef enum Region
 	{
 		UTC = 0,			// 默认为UTC >> 0:00
 		A0000 = UTC,			// +00:00
@@ -39,39 +38,54 @@ public:
 		S1000 = -1000,			// -10:00
 		S1100 = -1100,			// -11:00
 		S1200 = -1200,			// -12:00
-		CN = A0800,			// 中国，中华人民共和国
-		HK = A0800,			// 中国，香港特别行政区
-	};
+		ZH_CN = A0800,			// 中国，中华人民共和国
+		ZH_HK = A0800,			// 中国，香港特别行政区
+	}Region;
 
 private:
-	ENUM_TIME_ZONE					_info_time_zone;
+	// 区域
+	Region					memberRegion;
 
 public:
+	// constructors
 	XTimeZone() noexcept;
 
-	XTimeZone(ENUM_TIME_ZONE _TimeZone) noexcept;
+	// constructors
+	XTimeZone(XTimeZone::Region _Region) noexcept; // NOLINT(google-explicit-constructor)
 
+	// constructors
 	XTimeZone(const XTimeZone& _Other) noexcept;
 
+	// destructor
 	virtual ~XTimeZone() noexcept;
 
 public:
-	virtual XTimeZone& operator = (ENUM_TIME_ZONE _TimeZone) noexcept;
+	// override operator =
+	XTimeZone& operator = (XTimeZone::Region _Region) noexcept;
 
-	virtual XTimeZone& operator = (const XTimeZone& _Other) noexcept;
-
-public:
-	virtual ENUM_TIME_ZONE timeZone() const noexcept;
-
-public:
-	virtual std::int64_t toMillisecond() const noexcept;
-
-	virtual std::int64_t toSecond() const noexcept;
+	// override operator =
+	XTimeZone& operator = (const XTimeZone& _Other) noexcept;
 
 public:
-	static std::int64_t toMillisecond(ENUM_TIME_ZONE _TimeZone) noexcept;
+	// [set] 当前区域
+	virtual void setRegion(XTimeZone::Region _Region) noexcept final;
 
-	static std::int64_t toSecond(ENUM_TIME_ZONE _TimeZone) noexcept;
+	// [get] 当前区域
+	virtual XTimeZone::Region region() const noexcept final;
+
+public:
+	// [cnv] 转化为毫秒
+	virtual Xcc::time_type toMillisecond() const noexcept;
+
+	// [cnv] 转化为秒
+	virtual Xcc::time_type toSecond() const noexcept;
+
+public:
+	// [cnv] 转化为毫秒
+	static Xcc::time_type toMillisecond(XTimeZone::Region _Region) noexcept;
+
+	// [cnv] 转化为秒
+	static Xcc::time_type toSecond(XTimeZone::Region _Region) noexcept;
 };
 
 #endif
