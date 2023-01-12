@@ -104,6 +104,7 @@
 
 
 // Macro definition of X-Series
+#define			XCC_CORE_LOG_TAG				u8"xcc-core"
 #define			XCC_CHECK_RETURN(_Value, ...)			if(!(_Value)){	return __VA_ARGS__;	}
 #define			XCC_DELETE_ARR(_Value)				if(_Value){ delete[] _Value;_Value = nullptr;}
 #define			XCC_DELETE_PTR(_Value)				if(_Value){ delete _Value;	_Value = nullptr;}

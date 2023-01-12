@@ -10,6 +10,12 @@
 class _XCOREAPI_ XDateTime
 {
 public:
+	// 与TM结构相对偏移
+	static constexpr Xcc::int32_t			tm_offset_year		= 1900;			// 偏移的年数
+	static constexpr Xcc::int32_t			tm_offset_month		= 1;			// 偏移的月数
+	static constexpr Xcc::int32_t			tm_offset_day		= 0;			// 偏移的天数
+
+public:
 	// 秒数定值
 	static constexpr Xcc::time_type			second_year		= 31536000;		// 一年的秒数
 	static constexpr Xcc::time_type			second_week		= 604800;		// 一周的秒数
@@ -27,65 +33,30 @@ public:
 	static constexpr Xcc::time_type			millisecond_second	= 1000;			// 一秒的毫秒数
 
 public:
-	// 与TM结构相对偏移
-	static constexpr Xcc::int32_t			tm_offset_year		= 1900;			// 偏移的年数
-	static constexpr Xcc::int32_t			tm_offset_month		= 1;			// 偏移的月数
-	static constexpr Xcc::int32_t			tm_offset_day		= 0;			// 偏移的天数
-
-public:
-	// 月份名称
-	static constexpr const char*			month_Jan		= "January";		// 一月的名称
-	static constexpr const char*			month_Feb		= "February";		// 二月的名称
-	static constexpr const char*			month_Mar		= "March";		// 三月的名称
-	static constexpr const char*			month_Apr		= "April";		// 四月的名称
-	static constexpr const char*			month_May		= "May";		// 五月的名称
-	static constexpr const char*			month_Jun		= "June";		// 六月的名称
-	static constexpr const char*			month_Jul		= "July";		// 七月的名称
-	static constexpr const char*			month_Aug		= "August";		// 八月的名称
-	static constexpr const char*			month_Sept		= "September";		// 九月的名称
-	static constexpr const char*			month_Oct		= "October";		// 十月的名称
-	static constexpr const char*			month_Nov		= "November";		// 十一月的名称
-	static constexpr const char*			month_Dec		= "December";		// 十二月的名称
-	static constexpr const char*			month_name[]		= {
-		month_Jan, month_Feb, month_Mar, month_Apr, month_May, month_Jun, month_Jul, month_Aug, month_Sept, month_Oct, month_Nov, month_Dec, nullptr
-	};
-
-public:
-	// 年的天数
+	// 天数定值
 	static constexpr Xcc::time_type			days_in_year		= 365;			// 一年的天数
-
-	// 月份的天数
-	static constexpr Xcc::time_type			days_in_Jan		= 31;			// 一月的天数
-	static constexpr Xcc::time_type			days_in_Feb		= 28;			// 二月的天数
-	static constexpr Xcc::time_type			days_in_Mar		= 31;			// 三月的天数
-	static constexpr Xcc::time_type			days_in_Apr		= 30;			// 四月的天数
-	static constexpr Xcc::time_type			days_in_May		= 31;			// 五月的天数
-	static constexpr Xcc::time_type			days_in_Jun		= 30;			// 六月的天数
-	static constexpr Xcc::time_type			days_in_Jul		= 31;			// 七月的天数
-	static constexpr Xcc::time_type			days_in_Aug		= 31;			// 八月的天数
-	static constexpr Xcc::time_type			days_in_Sept		= 30;			// 九月的天数
-	static constexpr Xcc::time_type			days_in_Oct		= 31;			// 十月的天数
-	static constexpr Xcc::time_type			days_in_Nov		= 30;			// 十一月的天数
-	static constexpr Xcc::time_type			days_in_Dec		= 31;			// 十二月的天数
-	static constexpr Xcc::time_type			days_month[]		= {
-		days_in_Jan, days_in_Feb, days_in_Mar, days_in_Apr, days_in_May, days_in_Jun, days_in_Jul, days_in_Aug, days_in_Sept, days_in_Oct, days_in_Nov, days_in_Dec, 0
-	};
-
-	// 周的天数
+	static constexpr Xcc::time_type			days_in_month[]		= {
+		31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 0
+	};												// 月份的天数
 	static constexpr Xcc::time_type			days_in_week		= 7;			// 一周的天数
 
 public:
+	// 月份名称
+	static constexpr const char*			month_name_long[]	= {
+		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", nullptr
+	};												// 长名称
+	static constexpr const char*			month_name_short[]	= {
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec", nullptr
+	};												// 短名称
+
+public:
 	// 星期名称
-	static constexpr const char*			week_Mon		= "Monday";		// 周一的名称
-	static constexpr const char*			week_Tue		= "Tuesday";		// 周二的名称
-	static constexpr const char*			week_Wed		= "Wednesday";		// 周三的名称
-	static constexpr const char*			week_Thur		= "Thursday";		// 周四的名称
-	static constexpr const char*			week_Fri		= "Friday";		// 周五的名称
-	static constexpr const char*			week_Sat		= "Saturday";		// 周六的名称
-	static constexpr const char*			week_Sun		= "Sunday";		// 周日的名称
-	static constexpr const char*			week_name[]		= {
-		week_Mon, week_Tue, week_Wed, week_Thur, week_Fri, week_Sat, week_Sun, nullptr
-	};
+	static constexpr const char*			week_name_long[]	= {
+		"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", nullptr
+	};												// 长名称
+	static constexpr const char*			week_name_short[]	= {
+		"Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun", nullptr
+	};												// 短名称
 
 private:
 	// 当前毫秒数
