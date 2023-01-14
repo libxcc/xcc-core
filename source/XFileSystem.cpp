@@ -570,7 +570,7 @@ unsigned long long XFileSystem::path::size(const XFileSystem::path& _Path) noexc
 bool XFileSystem::path::suffixMatch(const XFileSystem::path& _Path, const XString& _Suffix) noexcept
 {
 	auto		vFileSuffix = _Path.suffix();
-	return vFileSuffix.compare(_Suffix, Xcc::CaseInsensitive) == 0;
+	return vFileSuffix.compare(_Suffix, xcc::CaseInsensitive) == 0;
 }
 
 // 修复	\/:*?"<>|

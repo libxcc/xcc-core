@@ -49,13 +49,13 @@ XTimeZone::Region XTimeZone::region() const noexcept
 
 
 // [cnv] 转化为毫秒
-Xcc::time_type XTimeZone::toMillisecond() const noexcept
+xcc::time_type XTimeZone::toMillisecond() const noexcept
 {
 	return XTimeZone::toMillisecond(memberRegion);
 }
 
 // [cnv] 转化为秒
-Xcc::time_type XTimeZone::toSecond() const noexcept
+xcc::time_type XTimeZone::toSecond() const noexcept
 {
 	return XTimeZone::toSecond(memberRegion);
 }
@@ -63,13 +63,13 @@ Xcc::time_type XTimeZone::toSecond() const noexcept
 
 
 // [cnv] 转化为毫秒
-Xcc::time_type XTimeZone::toMillisecond(XTimeZone::Region _Region) noexcept
+xcc::time_type XTimeZone::toMillisecond(XTimeZone::Region _Region) noexcept
 {
 	return XTimeZone::toSecond(_Region) * 1000;
 }
 
 // [cnv] 转化为秒
-Xcc::time_type XTimeZone::toSecond(XTimeZone::Region _Region) noexcept
+xcc::time_type XTimeZone::toSecond(XTimeZone::Region _Region) noexcept
 {
 	auto		vHour = _Region / 100;
 	auto		vMinute = _Region % 100;

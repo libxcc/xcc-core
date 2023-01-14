@@ -34,6 +34,156 @@ XJsonValue::~XJsonValue() noexcept
 
 
 
+// constructor
+XJsonValue::XJsonValue(bool _Status) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Boolean;
+	memberData->value.v_boolean = _Status;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::int8_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = true;
+	memberData->sign.s_integer = true;
+	memberData->value.v_int64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::uint8_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = true;
+	memberData->value.v_uint64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::int16_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = true;
+	memberData->sign.s_integer = true;
+	memberData->value.v_int64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::uint16_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = true;
+	memberData->value.v_uint64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::int32_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = true;
+	memberData->sign.s_integer = true;
+	memberData->value.v_int64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::uint32_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = true;
+	memberData->value.v_uint64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::int64_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = true;
+	memberData->sign.s_integer = true;
+	memberData->value.v_int64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(xcc::uint64_t _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = true;
+	memberData->value.v_uint64 = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(float _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = true;
+	memberData->sign.s_integer = false;
+	memberData->value.v_double = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(double _Number) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Number;
+	memberData->sign.s_signed = true;
+	memberData->sign.s_integer = false;
+	memberData->value.v_double = _Number;
+}
+
+// constructor
+XJsonValue::XJsonValue(const char* _String) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::String;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = false;
+	memberData->value.v_string = new(std::nothrow) XString(_String);
+}
+
+// constructor
+XJsonValue::XJsonValue(const XString& _String) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::String;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = false;
+	memberData->value.v_string = new(std::nothrow) XString(_String);
+}
+
+// constructor
+XJsonValue::XJsonValue(const XJsonArray& _JsonArray) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Array;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = false;
+	memberData->value.v_array = new(std::nothrow) XJsonArray(_JsonArray);
+}
+
+// constructor
+XJsonValue::XJsonValue(const XJsonObject& _JsonObject) noexcept
+{
+	memberData = XJsonPrivate::newValue();
+	memberData->type = XJsonValue::Object;
+	memberData->sign.s_signed = false;
+	memberData->sign.s_integer = false;
+	memberData->value.v_object = new(std::nothrow) XJsonObject(_JsonObject);
+}
+
+
+
 // operator overload =
 XJsonValue& XJsonValue::operator = (const XJsonValue& _Object) noexcept
 {
@@ -59,13 +209,22 @@ XJsonValue& XJsonValue::operator = (XJsonValue&& _Object) noexcept
 
 
 
-// [fmt] 创建一个空值
+// 设置为空值
+void XJsonValue::clear() noexcept
+{
+	XJsonPrivate::free(memberData);
+	memberData = XJsonPrivate::newValue();
+}
+
+
+
+// 创建一个空值
 XJsonValue XJsonValue::null() noexcept
 {
 	return {};
 }
 
-// [fmt] 创建一个布尔值
+// 创建一个布尔值
 XJsonValue XJsonValue::boolean(bool _Status) noexcept
 {
 	XJsonValue	vJsonValue;
@@ -76,44 +235,44 @@ XJsonValue XJsonValue::boolean(bool _Status) noexcept
 	return vJsonValue;
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::int8_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::int8_t _Number) noexcept
 {
-	return XJsonValue::number((Xcc::int64_t)_Number);
+	return XJsonValue::number((xcc::int64_t)_Number);
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::uint8_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::uint8_t _Number) noexcept
 {
-	return XJsonValue::number((Xcc::uint64_t)_Number);
+	return XJsonValue::number((xcc::uint64_t)_Number);
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::int16_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::int16_t _Number) noexcept
 {
-	return XJsonValue::number((Xcc::int64_t)_Number);
+	return XJsonValue::number((xcc::int64_t)_Number);
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::uint16_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::uint16_t _Number) noexcept
 {
-	return XJsonValue::number((Xcc::uint64_t)_Number);
+	return XJsonValue::number((xcc::uint64_t)_Number);
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::int32_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::int32_t _Number) noexcept
 {
-	return XJsonValue::number((Xcc::int64_t)_Number);
+	return XJsonValue::number((xcc::int64_t)_Number);
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::uint32_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::uint32_t _Number) noexcept
 {
-	return XJsonValue::number((Xcc::uint64_t)_Number);
+	return XJsonValue::number((xcc::uint64_t)_Number);
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::int64_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::int64_t _Number) noexcept
 {
 	XJsonValue	vJsonValue;
 
@@ -125,26 +284,26 @@ XJsonValue XJsonValue::number(Xcc::int64_t _Number) noexcept
 	return vJsonValue;
 }
 
-// [fmt] 创建一个整型
-XJsonValue XJsonValue::number(Xcc::uint64_t _Number) noexcept
+// 创建一个整型
+XJsonValue XJsonValue::number(xcc::uint64_t _Number) noexcept
 {
 	XJsonValue	vJsonValue;
 
 	vJsonValue.memberData->type = XJsonValue::Number;
 	vJsonValue.memberData->sign.s_signed = false;
-	vJsonValue.memberData->sign.s_integer = false;
+	vJsonValue.memberData->sign.s_integer = true;
 	vJsonValue.memberData->value.v_uint64 = _Number;
 
 	return vJsonValue;
 }
 
-// [fmt] 创建一个单精度浮点数
+// 创建一个单精度浮点数
 XJsonValue XJsonValue::number(float _Number) noexcept
 {
 	return XJsonValue::number((double)_Number);
 }
 
-// [fmt] 创建一个双精度浮点数
+// 创建一个双精度浮点数
 XJsonValue XJsonValue::number(double _Number) noexcept
 {
 	XJsonValue	vJsonValue;
@@ -157,7 +316,20 @@ XJsonValue XJsonValue::number(double _Number) noexcept
 	return vJsonValue;
 }
 
-// [fmt] 创建一个字符串
+// 创建一个字符串
+XJsonValue XJsonValue::string(const char* _String) noexcept
+{
+	XJsonValue	vJsonValue;
+
+	vJsonValue.memberData->type = XJsonValue::String;
+	vJsonValue.memberData->sign.s_signed = false;
+	vJsonValue.memberData->sign.s_integer = false;
+	vJsonValue.memberData->value.v_string = new(std::nothrow) XString(_String);
+
+	return vJsonValue;
+}
+
+// 创建一个字符串
 XJsonValue XJsonValue::string(const XString& _String) noexcept
 {
 	XJsonValue	vJsonValue;
@@ -170,7 +342,7 @@ XJsonValue XJsonValue::string(const XString& _String) noexcept
 	return vJsonValue;
 }
 
-// [fmt] 创建一个数组
+// 创建一个数组
 XJsonValue XJsonValue::array(const XJsonArray& _JsonArray) noexcept
 {
 	XJsonValue	vJsonValue;
@@ -183,15 +355,15 @@ XJsonValue XJsonValue::array(const XJsonArray& _JsonArray) noexcept
 	return vJsonValue;
 }
 
-// [fmt] 创建一个对象
-XJsonValue XJsonValue::object(const XJsonObjectT& _JsonObject) noexcept
+// 创建一个对象
+XJsonValue XJsonValue::object(const XJsonObject& _JsonObject) noexcept
 {
 	XJsonValue	vJsonValue;
 
 	vJsonValue.memberData->type = XJsonValue::Object;
 	vJsonValue.memberData->sign.s_signed = false;
 	vJsonValue.memberData->sign.s_integer = false;
-	vJsonValue.memberData->value.v_object = new(std::nothrow) XJsonObjectT(_JsonObject);
+	vJsonValue.memberData->value.v_object = new(std::nothrow) XJsonObject(_JsonObject);
 
 	return vJsonValue;
 }
@@ -267,7 +439,7 @@ bool XJsonValue::toBoolean() const noexcept
 }
 
 // 转换为有符号整型
-Xcc::int64_t XJsonValue::toLLong() const noexcept
+xcc::int64_t XJsonValue::toLLong() const noexcept
 {
 	if(memberData->type == XJsonValue::Number)
 	{
@@ -277,7 +449,7 @@ Xcc::int64_t XJsonValue::toLLong() const noexcept
 }
 
 // 转换为无符号整型
-Xcc::uint64_t XJsonValue::toULLong() const noexcept
+xcc::uint64_t XJsonValue::toULLong() const noexcept
 {
 	if(memberData->type == XJsonValue::Number)
 	{
@@ -327,7 +499,7 @@ XJsonArray XJsonValue::toArray() const noexcept
 }
 
 // 转换为对象
-XJsonObjectT XJsonValue::toObject() const noexcept
+XJsonObject XJsonValue::toObject() const noexcept
 {
 	if(memberData->type == XJsonValue::Object)
 	{

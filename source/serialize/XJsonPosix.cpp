@@ -1370,48 +1370,48 @@ _XCOREAPI_ void __xcall__ XJson_ReplaceItemInObject(XCC_JSON_INFO* _Object, cons
 
 
 // constructor
-XJsonObject::XJsonObject(XCC_JSON_INFO* _JsonData) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(_JsonData)
+XJsonPosix::XJsonPosix(XCC_JSON_INFO* _JsonData) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(_JsonData)
 {
-	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonObject*>();
-	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonObject*>();
+	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonPosix*>();
+	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonPosix*>();
 }
 
 // constructor
-XJsonObject::XJsonObject() noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
+XJsonPosix::XJsonPosix() noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
 {
-	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonObject*>();
-	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonObject*>();
+	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonPosix*>();
+	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonPosix*>();
 }
 
 // constructor
-XJsonObject::XJsonObject(const UString& _JsonString) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
+XJsonPosix::XJsonPosix(const UString& _JsonString) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
 {
-	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonObject*>();
-	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonObject*>();
+	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonPosix*>();
+	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonPosix*>();
 	parse(_JsonString);
 }
 
 // constructor
-XJsonObject::XJsonObject(const XByteArray& _JsonBytes) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
+XJsonPosix::XJsonPosix(const XByteArray& _JsonBytes) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
 {
-	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonObject*>();
-	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonObject*>();
+	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonPosix*>();
+	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonPosix*>();
 	parse(_JsonBytes);
 }
 
 // constructor
-XJsonObject::XJsonObject(const XString& _JsonString) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
+XJsonPosix::XJsonPosix(const XString& _JsonString) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
 {
-	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonObject*>();
-	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonObject*>();
+	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonPosix*>();
+	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonPosix*>();
 	parse(_JsonString);
 }
 
 // constructor
-XJsonObject::XJsonObject(const XJsonObject* _JsonObject) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
+XJsonPosix::XJsonPosix(const XJsonPosix* _JsonObject) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
 {
-	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonObject*>();
-	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonObject*>();
+	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonPosix*>();
+	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonPosix*>();
 	if(_JsonObject)
 	{
 		parse(_JsonObject->toString());
@@ -1419,15 +1419,15 @@ XJsonObject::XJsonObject(const XJsonObject* _JsonObject) noexcept : _ThisJsonDat
 }
 
 // constructor
-XJsonObject::XJsonObject(const XJsonObject& _JsonObject) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
+XJsonPosix::XJsonPosix(const XJsonPosix& _JsonObject) noexcept : _ThisJsonData(nullptr), _ThisExternJsonDataRef(nullptr)
 {
-	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonObject*>();
-	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonObject*>();
+	this->_ThisJsonArrayRef = new(std::nothrow) std::map<unsigned int, XJsonPosix*>();
+	this->_ThisJsonObjectRef = new(std::nothrow) std::map<UString, XJsonPosix*>();
 	parse(_JsonObject.toString());
 }
 
 // destructor
-XJsonObject::~XJsonObject() noexcept
+XJsonPosix::~XJsonPosix() noexcept
 {
 	clear();
 	XCC_DELETE_PTR(this->_ThisJsonArrayRef);
@@ -1437,21 +1437,21 @@ XJsonObject::~XJsonObject() noexcept
 
 
 // [opt] operators overload =
-XJsonObject& XJsonObject::operator =(const XJsonObject& _Value) noexcept
+XJsonPosix& XJsonPosix::operator =(const XJsonPosix& _Value) noexcept
 {
 	parse(_Value.toString());
 	return *this;
 }
 
 // [opt] operators overload ==
-bool XJsonObject::operator==(const XJsonObject& _Value) const noexcept
+bool XJsonPosix::operator==(const XJsonPosix& _Value) const noexcept
 {
 	return(this->toString() == _Value.toString());
 }
 
 
 
-bool XJsonObject::appendEmptySubObject(const UString& _Key) noexcept
+bool XJsonPosix::appendEmptySubObject(const UString& _Key) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -1488,7 +1488,7 @@ bool XJsonObject::appendEmptySubObject(const UString& _Key) noexcept
 	return true;
 }
 
-bool XJsonObject::appendEmptySubArray(const UString& _Key) noexcept
+bool XJsonPosix::appendEmptySubArray(const UString& _Key) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -1525,7 +1525,7 @@ bool XJsonObject::appendEmptySubArray(const UString& _Key) noexcept
 	return true;
 }
 
-XJsonObject& XJsonObject::operator[](const UString& _Key) noexcept
+XJsonPosix& XJsonPosix::operator[](const UString& _Key) noexcept
 {
 	auto		vIterator = _ThisJsonObjectRef->find(_Key);
 	if(vIterator == _ThisJsonObjectRef->end())
@@ -1547,14 +1547,14 @@ XJsonObject& XJsonObject::operator[](const UString& _Key) noexcept
 		}
 		if(vJsonStruct)
 		{
-			auto		vJsonObject = new XJsonObject(vJsonStruct);
-			_ThisJsonObjectRef->insert(std::pair<UString, XJsonObject*>(_Key, vJsonObject));
+			auto		vJsonObject = new XJsonPosix(vJsonStruct);
+			_ThisJsonObjectRef->insert(std::pair<UString, XJsonPosix*>(_Key, vJsonObject));
 			return(*vJsonObject);
 		}
 		else
 		{
-			auto		vJsonObject = new XJsonObject();
-			_ThisJsonObjectRef->insert(std::pair<UString, XJsonObject*>(_Key, vJsonObject));
+			auto		vJsonObject = new XJsonPosix();
+			_ThisJsonObjectRef->insert(std::pair<UString, XJsonPosix*>(_Key, vJsonObject));
 			return(*vJsonObject);
 		}
 	}
@@ -1565,7 +1565,7 @@ XJsonObject& XJsonObject::operator[](const UString& _Key) noexcept
 }
 
 // [get] 根据下标获取子项
-XJsonObject& XJsonObject::operator[](unsigned int _Index) noexcept
+XJsonPosix& XJsonPosix::operator[](unsigned int _Index) noexcept
 {
 	auto		vIterator = _ThisJsonArrayRef->find(_Index);
 	if(vIterator == _ThisJsonArrayRef->end())
@@ -1587,14 +1587,14 @@ XJsonObject& XJsonObject::operator[](unsigned int _Index) noexcept
 		}
 		if(vJsonStruct)
 		{
-			auto		vJsonObject = new XJsonObject(vJsonStruct);
-			_ThisJsonArrayRef->insert(std::pair<unsigned int, XJsonObject*>(_Index, vJsonObject));
+			auto		vJsonObject = new XJsonPosix(vJsonStruct);
+			_ThisJsonArrayRef->insert(std::pair<unsigned int, XJsonPosix*>(_Index, vJsonObject));
 			return(*vJsonObject);
 		}
 		else
 		{
-			auto		vJsonObject = new XJsonObject();
-			_ThisJsonArrayRef->insert(std::pair<unsigned int, XJsonObject*>(_Index, vJsonObject));
+			auto		vJsonObject = new XJsonPosix();
+			_ThisJsonArrayRef->insert(std::pair<unsigned int, XJsonPosix*>(_Index, vJsonObject));
 			return(*vJsonObject);
 		}
 	}
@@ -1606,7 +1606,7 @@ XJsonObject& XJsonObject::operator[](unsigned int _Index) noexcept
 
 
 
-UString XJsonObject::operator()(const UString& _Key) const noexcept
+UString XJsonPosix::operator()(const UString& _Key) const noexcept
 {
 	auto		vJsonStruct = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -1683,7 +1683,7 @@ UString XJsonObject::operator()(const UString& _Key) const noexcept
 }
 
 // [get] 根据下标获取子项
-UString XJsonObject::operator()(unsigned int _Index) const noexcept
+UString XJsonPosix::operator()(unsigned int _Index) const noexcept
 {
 	auto		vJsonStruct = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -1762,7 +1762,7 @@ UString XJsonObject::operator()(unsigned int _Index) const noexcept
 
 
 // [fmt] from string
-bool XJsonObject::parse(const char* _Bytes) noexcept
+bool XJsonPosix::parse(const char* _Bytes) noexcept
 {
 	clear();
 	_ThisJsonData = XJson_parse(_Bytes);
@@ -1776,7 +1776,7 @@ bool XJsonObject::parse(const char* _Bytes) noexcept
 }
 
 // [fmt] from string
-bool XJsonObject::parse(const UString& strJson) noexcept
+bool XJsonPosix::parse(const UString& strJson) noexcept
 {
 	clear();
 	_ThisJsonData = XJson_parse(strJson.data());
@@ -1790,20 +1790,20 @@ bool XJsonObject::parse(const UString& strJson) noexcept
 }
 
 // [fmt] from bytes
-bool XJsonObject::parse(const XByteArray& _JsonBytes) noexcept
+bool XJsonPosix::parse(const XByteArray& _JsonBytes) noexcept
 {
 	return this->parse(UString(_JsonBytes.data(), _JsonBytes.size()));
 }
 
 // [fmt] from string
-bool XJsonObject::parse(const XString& _JsonString) noexcept
+bool XJsonPosix::parse(const XString& _JsonString) noexcept
 {
 	return this->parse(_JsonString.toUString());
 }
 
 
 
-void XJsonObject::clear() noexcept
+void XJsonPosix::clear() noexcept
 {
 	_ThisExternJsonDataRef = nullptr;
 	if(_ThisJsonData)
@@ -1832,7 +1832,7 @@ void XJsonObject::clear() noexcept
 }
 
 // [get] 是否为空
-bool XJsonObject::empty() const noexcept
+bool XJsonPosix::empty() const noexcept
 {
 	if(_ThisJsonData)
 	{
@@ -1846,12 +1846,12 @@ bool XJsonObject::empty() const noexcept
 }
 
 // [get] 是否有值
-bool XJsonObject::exist() const noexcept
+bool XJsonPosix::exist() const noexcept
 {
 	return _ThisJsonData || _ThisExternJsonDataRef;
 }
 
-bool XJsonObject::isArray() const noexcept
+bool XJsonPosix::isArray() const noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -1877,7 +1877,7 @@ bool XJsonObject::isArray() const noexcept
 	}
 }
 
-XString XJsonObject::toString() const noexcept
+XString XJsonPosix::toString() const noexcept
 {
 	auto		vJsonString = static_cast<char*>(nullptr);
 	auto		vJsonData = XString();
@@ -1897,7 +1897,7 @@ XString XJsonObject::toString() const noexcept
 	return vJsonData;
 }
 
-XString XJsonObject::toFormattedString() const noexcept
+XString XJsonPosix::toFormattedString() const noexcept
 {
 	auto		vJsonString = static_cast<char*>(nullptr);
 	auto		vJsonData = XString();
@@ -1917,7 +1917,7 @@ XString XJsonObject::toFormattedString() const noexcept
 	return vJsonData;
 }
 
-const XString& XJsonObject::getErrorMessage() const noexcept
+const XString& XJsonPosix::getErrorMessage() const noexcept
 {
 	return _ThisErrorMessage;
 }
@@ -1925,7 +1925,7 @@ const XString& XJsonObject::getErrorMessage() const noexcept
 
 
 // [get] 获取指定Key的子项
-XCC_JSON_INFO* XJsonObject::_get(const UString& _Key) const noexcept
+XCC_JSON_INFO* XJsonPosix::_get(const UString& _Key) const noexcept
 {
 	auto		vJsonStruct = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -1948,7 +1948,7 @@ XCC_JSON_INFO* XJsonObject::_get(const UString& _Key) const noexcept
 
 
 // [get] 遍历
-bool XJsonObject::traverse(const std::function<void(const UString& _Key)>& _Lambda) const noexcept
+bool XJsonPosix::traverse(const std::function<void(const UString& _Key)>& _Lambda) const noexcept
 {
 	auto		vJsonStruct = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -1992,7 +1992,7 @@ bool XJsonObject::traverse(const std::function<void(const UString& _Key)>& _Lamb
 
 
 // [get] 获取指定Key的值 Object
-bool XJsonObject::get(const UString& _Key, XJsonObject& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, XJsonPosix& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2015,7 +2015,7 @@ bool XJsonObject::get(const UString& _Key, XJsonObject& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 String
-bool XJsonObject::get(const UString& _Key, UString& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, UString& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2031,7 +2031,7 @@ bool XJsonObject::get(const UString& _Key, UString& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 Bytes
-bool XJsonObject::get(const UString& _Key, XByteArray& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, XByteArray& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2047,7 +2047,7 @@ bool XJsonObject::get(const UString& _Key, XByteArray& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 Bytes
-bool XJsonObject::get(const UString& _Key, XString& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, XString& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2063,7 +2063,7 @@ bool XJsonObject::get(const UString& _Key, XString& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 Bool
-bool XJsonObject::get(const UString& _Key, bool& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, bool& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2079,7 +2079,7 @@ bool XJsonObject::get(const UString& _Key, bool& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 char
-bool XJsonObject::get(const UString& _Key, char& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, char& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2095,7 +2095,7 @@ bool XJsonObject::get(const UString& _Key, char& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 unsigned char
-bool XJsonObject::get(const UString& _Key, unsigned char& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, unsigned char& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2111,7 +2111,7 @@ bool XJsonObject::get(const UString& _Key, unsigned char& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 short
-bool XJsonObject::get(const UString& _Key, short& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, short& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2127,7 +2127,7 @@ bool XJsonObject::get(const UString& _Key, short& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 unsigned short
-bool XJsonObject::get(const UString& _Key, unsigned short& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, unsigned short& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2143,7 +2143,7 @@ bool XJsonObject::get(const UString& _Key, unsigned short& _Value) const noexcep
 }
 
 // [get] 获取指定Key的值 int
-bool XJsonObject::get(const UString& _Key, int& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, int& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2159,7 +2159,7 @@ bool XJsonObject::get(const UString& _Key, int& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 unsigned int
-bool XJsonObject::get(const UString& _Key, unsigned int& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, unsigned int& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2175,7 +2175,7 @@ bool XJsonObject::get(const UString& _Key, unsigned int& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 long
-bool XJsonObject::get(const UString& _Key, long& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2191,7 +2191,7 @@ bool XJsonObject::get(const UString& _Key, long& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 unsigned long
-bool XJsonObject::get(const UString& _Key, unsigned long& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, unsigned long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2207,7 +2207,7 @@ bool XJsonObject::get(const UString& _Key, unsigned long& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 long long
-bool XJsonObject::get(const UString& _Key, long long& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, long long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2223,7 +2223,7 @@ bool XJsonObject::get(const UString& _Key, long long& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 unsigned long long
-bool XJsonObject::get(const UString& _Key, unsigned long long& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, unsigned long long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2239,7 +2239,7 @@ bool XJsonObject::get(const UString& _Key, unsigned long long& _Value) const noe
 }
 
 // [get] 获取指定Key的值 float
-bool XJsonObject::get(const UString& _Key, float& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, float& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2255,7 +2255,7 @@ bool XJsonObject::get(const UString& _Key, float& _Value) const noexcept
 }
 
 // [get] 获取指定Key的值 double
-bool XJsonObject::get(const UString& _Key, double& _Value) const noexcept
+bool XJsonPosix::get(const UString& _Key, double& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Key);
 	if(nullptr == vJsonStruct)
@@ -2273,7 +2273,7 @@ bool XJsonObject::get(const UString& _Key, double& _Value) const noexcept
 
 
 // [set] 添加子项 Object
-bool XJsonObject::append(const UString& _Key, const XJsonObject& _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, const XJsonPosix& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -2326,7 +2326,7 @@ bool XJsonObject::append(const UString& _Key, const XJsonObject& _Value) noexcep
 }
 
 // [set] 添加子项 String
-bool XJsonObject::append(const UString& _Key, const UString& _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, const UString& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -2367,19 +2367,19 @@ bool XJsonObject::append(const UString& _Key, const UString& _Value) noexcept
 }
 
 // [set] 添加子项 XByteArray
-bool XJsonObject::append(const UString& _Key, const XByteArray& _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, const XByteArray& _Value) noexcept
 {
 	return this->append(_Key, _Value.exist() ? UString(_Value.data(), _Value.size()) : UString());
 }
 
 // [set] 添加子项 XString
-bool XJsonObject::append(const UString& _Key, const XString& _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, const XString& _Value) noexcept
 {
 	return this->append(_Key, _Value.toBytes());
 }
 
 // [set] 添加子项 Bool
-bool XJsonObject::append(const UString& _Key, bool _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, bool _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -2420,55 +2420,55 @@ bool XJsonObject::append(const UString& _Key, bool _Value) noexcept
 }
 
 // [set] 添加子项 char
-bool XJsonObject::append(const UString& _Key, char _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, char _Value) noexcept
 {
 	return this->append(_Key, static_cast<long long>(_Value));
 }
 
 // [set] 添加子项 unsigned char
-bool XJsonObject::append(const UString& _Key, unsigned char _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, unsigned char _Value) noexcept
 {
 	return this->append(_Key, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 添加子项 short
-bool XJsonObject::append(const UString& _Key, short _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, short _Value) noexcept
 {
 	return this->append(_Key, static_cast<long long>(_Value));
 }
 
 // [set] 添加子项 unsigned short
-bool XJsonObject::append(const UString& _Key, unsigned short _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, unsigned short _Value) noexcept
 {
 	return this->append(_Key, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 添加子项 int
-bool XJsonObject::append(const UString& _Key, int _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, int _Value) noexcept
 {
 	return this->append(_Key, static_cast<long long>(_Value));
 }
 
 // [set] 添加子项 unsigned int
-bool XJsonObject::append(const UString& _Key, unsigned int _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, unsigned int _Value) noexcept
 {
 	return this->append(_Key, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 添加子项 long
-bool XJsonObject::append(const UString& _Key, long _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, long _Value) noexcept
 {
 	return this->append(_Key, static_cast<long long>(_Value));
 }
 
 // [set] 添加子项 unsigned long
-bool XJsonObject::append(const UString& _Key, unsigned long _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, unsigned long _Value) noexcept
 {
 	return this->append(_Key, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 添加子项 long long
-bool XJsonObject::append(const UString& _Key, long long _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -2509,7 +2509,7 @@ bool XJsonObject::append(const UString& _Key, long long _Value) noexcept
 }
 
 // [set] 添加子项 unsigned long long
-bool XJsonObject::append(const UString& _Key, unsigned long long _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, unsigned long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -2550,13 +2550,13 @@ bool XJsonObject::append(const UString& _Key, unsigned long long _Value) noexcep
 }
 
 // [set] 添加子项 float
-bool XJsonObject::append(const UString& _Key, float _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, float _Value) noexcept
 {
 	return this->append(_Key, static_cast<double>(_Value));
 }
 
 // [set] 添加子项 double
-bool XJsonObject::append(const UString& _Key, double _Value) noexcept
+bool XJsonPosix::append(const UString& _Key, double _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -2599,7 +2599,7 @@ bool XJsonObject::append(const UString& _Key, double _Value) noexcept
 
 
 // [set] 移除子项
-bool XJsonObject::remove(const UString& _Key) noexcept
+bool XJsonPosix::remove(const UString& _Key) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2637,7 +2637,7 @@ bool XJsonObject::remove(const UString& _Key) noexcept
 
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, const XJsonObject& _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, const XJsonPosix& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2684,7 +2684,7 @@ bool XJsonObject::replace(const UString& _Key, const XJsonObject& _Value) noexce
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, const UString& _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, const UString& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2719,21 +2719,21 @@ bool XJsonObject::replace(const UString& _Key, const UString& _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, const XByteArray& _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, const XByteArray& _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, const XString& _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, const XString& _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, bool _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, bool _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2768,35 +2768,35 @@ bool XJsonObject::replace(const UString& _Key, bool _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, char _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, char _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, unsigned char _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, unsigned char _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, short _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, short _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, unsigned short _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, unsigned short _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, int _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, int _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2831,7 +2831,7 @@ bool XJsonObject::replace(const UString& _Key, int _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, unsigned int _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, unsigned int _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2866,21 +2866,21 @@ bool XJsonObject::replace(const UString& _Key, unsigned int _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, long _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, long _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, unsigned long _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, unsigned long _Value) noexcept
 {
 	this->remove(_Key);
 	return this->append(_Key, _Value);
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, long long _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2915,7 +2915,7 @@ bool XJsonObject::replace(const UString& _Key, long long _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, unsigned long long _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, unsigned long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2950,7 +2950,7 @@ bool XJsonObject::replace(const UString& _Key, unsigned long long _Value) noexce
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, float _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, float _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -2985,7 +2985,7 @@ bool XJsonObject::replace(const UString& _Key, float _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(const UString& _Key, double _Value) noexcept
+bool XJsonPosix::replace(const UString& _Key, double _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -3022,15 +3022,15 @@ bool XJsonObject::replace(const UString& _Key, double _Value) noexcept
 
 
 // [get] 获取子项 Object
-XJsonObject XJsonObject::toObject(const UString& _Key) const noexcept
+XJsonPosix XJsonPosix::toObject(const UString& _Key) const noexcept
 {
-	auto		vValue = XJsonObject();
+	auto		vValue = XJsonPosix();
 	get(_Key, vValue);
 	return vValue;
 }
 
 // [get] 获取子项 String
-UString XJsonObject::toString(const UString& _Key) const noexcept
+UString XJsonPosix::toString(const UString& _Key) const noexcept
 {
 	auto		vValue = UString("");
 	get(_Key, vValue);
@@ -3038,7 +3038,7 @@ UString XJsonObject::toString(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 Bytes
-XByteArray XJsonObject::toBytes(const UString& _Key) const noexcept
+XByteArray XJsonPosix::toBytes(const UString& _Key) const noexcept
 {
 	auto		vValue = UString("");
 	get(_Key, vValue);
@@ -3046,7 +3046,7 @@ XByteArray XJsonObject::toBytes(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 XString
-XString XJsonObject::toXString(const UString& _Key) const noexcept
+XString XJsonPosix::toXString(const UString& _Key) const noexcept
 {
 	auto		vValue = UString("");
 	get(_Key, vValue);
@@ -3054,7 +3054,7 @@ XString XJsonObject::toXString(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 bool
-bool XJsonObject::toBool(const UString& _Key) const noexcept
+bool XJsonPosix::toBool(const UString& _Key) const noexcept
 {
 	auto		vValue = false;
 	get(_Key, vValue);
@@ -3062,7 +3062,7 @@ bool XJsonObject::toBool(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 char
-char XJsonObject::toChar(const UString& _Key) const noexcept
+char XJsonPosix::toChar(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<char>(0);
 	get(_Key, vValue);
@@ -3070,7 +3070,7 @@ char XJsonObject::toChar(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 unsigned char
-unsigned char XJsonObject::toUChar(const UString& _Key) const noexcept
+unsigned char XJsonPosix::toUChar(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<unsigned char>(0);
 	get(_Key, vValue);
@@ -3078,7 +3078,7 @@ unsigned char XJsonObject::toUChar(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 short
-short XJsonObject::toShort(const UString& _Key) const noexcept
+short XJsonPosix::toShort(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<short>(0);
 	get(_Key, vValue);
@@ -3086,7 +3086,7 @@ short XJsonObject::toShort(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 unsigned short
-unsigned short XJsonObject::toUShort(const UString& _Key) const noexcept
+unsigned short XJsonPosix::toUShort(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<unsigned short>(0);
 	get(_Key, vValue);
@@ -3094,7 +3094,7 @@ unsigned short XJsonObject::toUShort(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 int
-int XJsonObject::toInt(const UString& _Key) const noexcept
+int XJsonPosix::toInt(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<int>(0);
 	get(_Key, vValue);
@@ -3102,7 +3102,7 @@ int XJsonObject::toInt(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 unsigned int
-unsigned int XJsonObject::toUInt(const UString& _Key) const noexcept
+unsigned int XJsonPosix::toUInt(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<unsigned int>(0);
 	get(_Key, vValue);
@@ -3110,7 +3110,7 @@ unsigned int XJsonObject::toUInt(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 long
-long XJsonObject::toLong(const UString& _Key) const noexcept
+long XJsonPosix::toLong(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<long>(0);
 	get(_Key, vValue);
@@ -3118,7 +3118,7 @@ long XJsonObject::toLong(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 unsigned long
-unsigned long XJsonObject::toULong(const UString& _Key) const noexcept
+unsigned long XJsonPosix::toULong(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<unsigned long>(0);
 	get(_Key, vValue);
@@ -3126,7 +3126,7 @@ unsigned long XJsonObject::toULong(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 long long
-long long XJsonObject::toLLong(const UString& _Key) const noexcept
+long long XJsonPosix::toLLong(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<long long>(0);
 	get(_Key, vValue);
@@ -3134,7 +3134,7 @@ long long XJsonObject::toLLong(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 unsigned long long
-unsigned long long XJsonObject::toULLong(const UString& _Key) const noexcept
+unsigned long long XJsonPosix::toULLong(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<unsigned long long>(0);
 	get(_Key, vValue);
@@ -3142,7 +3142,7 @@ unsigned long long XJsonObject::toULLong(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 float
-float XJsonObject::toFloat(const UString& _Key) const noexcept
+float XJsonPosix::toFloat(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<float>(0.0f);
 	get(_Key, vValue);
@@ -3150,7 +3150,7 @@ float XJsonObject::toFloat(const UString& _Key) const noexcept
 }
 
 // [get] 获取子项 double
-double XJsonObject::toDouble(const UString& _Key) const noexcept
+double XJsonPosix::toDouble(const UString& _Key) const noexcept
 {
 	auto		vValue = static_cast<double>(0.0f);
 	get(_Key, vValue);
@@ -3160,7 +3160,7 @@ double XJsonObject::toDouble(const UString& _Key) const noexcept
 
 
 // [get] 获取数组大小
-int XJsonObject::arraySize() const noexcept
+int XJsonPosix::arraySize() const noexcept
 {
 	if(_ThisJsonData)
 	{
@@ -3182,7 +3182,7 @@ int XJsonObject::arraySize() const noexcept
 
 
 // [get] 根据下标获取子项
-XCC_JSON_INFO* XJsonObject::_get(int _Index) const noexcept
+XCC_JSON_INFO* XJsonPosix::_get(int _Index) const noexcept
 {
 	auto		vJsonStruct = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3205,7 +3205,7 @@ XCC_JSON_INFO* XJsonObject::_get(int _Index) const noexcept
 
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, XJsonObject& _Value) const noexcept
+bool XJsonPosix::get(int _Index, XJsonPosix& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3226,7 +3226,7 @@ bool XJsonObject::get(int _Index, XJsonObject& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, UString& _Value) const noexcept
+bool XJsonPosix::get(int _Index, UString& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3242,7 +3242,7 @@ bool XJsonObject::get(int _Index, UString& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, XByteArray& _Value) const noexcept
+bool XJsonPosix::get(int _Index, XByteArray& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3258,7 +3258,7 @@ bool XJsonObject::get(int _Index, XByteArray& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, XString& _Value) const noexcept
+bool XJsonPosix::get(int _Index, XString& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3274,7 +3274,7 @@ bool XJsonObject::get(int _Index, XString& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, bool& _Value) const noexcept
+bool XJsonPosix::get(int _Index, bool& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3290,7 +3290,7 @@ bool XJsonObject::get(int _Index, bool& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, char& _Value) const noexcept
+bool XJsonPosix::get(int _Index, char& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3306,7 +3306,7 @@ bool XJsonObject::get(int _Index, char& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, unsigned char& _Value) const noexcept
+bool XJsonPosix::get(int _Index, unsigned char& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3322,7 +3322,7 @@ bool XJsonObject::get(int _Index, unsigned char& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, short& _Value) const noexcept
+bool XJsonPosix::get(int _Index, short& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3338,7 +3338,7 @@ bool XJsonObject::get(int _Index, short& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, unsigned short& _Value) const noexcept
+bool XJsonPosix::get(int _Index, unsigned short& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3354,7 +3354,7 @@ bool XJsonObject::get(int _Index, unsigned short& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, int& _Value) const noexcept
+bool XJsonPosix::get(int _Index, int& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3370,7 +3370,7 @@ bool XJsonObject::get(int _Index, int& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, unsigned int& _Value) const noexcept
+bool XJsonPosix::get(int _Index, unsigned int& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3386,7 +3386,7 @@ bool XJsonObject::get(int _Index, unsigned int& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, long& _Value) const noexcept
+bool XJsonPosix::get(int _Index, long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3402,7 +3402,7 @@ bool XJsonObject::get(int _Index, long& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, unsigned long& _Value) const noexcept
+bool XJsonPosix::get(int _Index, unsigned long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3418,7 +3418,7 @@ bool XJsonObject::get(int _Index, unsigned long& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, long long& _Value) const noexcept
+bool XJsonPosix::get(int _Index, long long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3434,7 +3434,7 @@ bool XJsonObject::get(int _Index, long long& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, unsigned long long& _Value) const noexcept
+bool XJsonPosix::get(int _Index, unsigned long long& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3450,7 +3450,7 @@ bool XJsonObject::get(int _Index, unsigned long long& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, float& _Value) const noexcept
+bool XJsonPosix::get(int _Index, float& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3466,7 +3466,7 @@ bool XJsonObject::get(int _Index, float& _Value) const noexcept
 }
 
 // [get] 根据下标获取子项
-bool XJsonObject::get(int _Index, double& _Value) const noexcept
+bool XJsonPosix::get(int _Index, double& _Value) const noexcept
 {
 	auto		vJsonStruct = this->_get(_Index);
 	if(nullptr == vJsonStruct)
@@ -3483,7 +3483,7 @@ bool XJsonObject::get(int _Index, double& _Value) const noexcept
 
 
 
-bool XJsonObject::prepend(const XJsonObject& _Value) noexcept
+bool XJsonPosix::prepend(const XJsonPosix& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3536,7 +3536,7 @@ bool XJsonObject::prepend(const XJsonObject& _Value) noexcept
 	return true;
 }
 
-bool XJsonObject::prepend(const UString& _Value) noexcept
+bool XJsonPosix::prepend(const UString& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3579,19 +3579,19 @@ bool XJsonObject::prepend(const UString& _Value) noexcept
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(const XByteArray& _Value) noexcept
+bool XJsonPosix::prepend(const XByteArray& _Value) noexcept
 {
 	return this->prepend(_Value.exist() ? UString(_Value.data(), _Value.size()) : UString());
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(const XString& _Value) noexcept
+bool XJsonPosix::prepend(const XString& _Value) noexcept
 {
 	return this->prepend(_Value.toBytes());
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(bool _Value) noexcept
+bool XJsonPosix::prepend(bool _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3634,55 +3634,55 @@ bool XJsonObject::prepend(bool _Value) noexcept
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(char _Value) noexcept
+bool XJsonPosix::prepend(char _Value) noexcept
 {
 	return this->prepend(static_cast<long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(unsigned char _Value) noexcept
+bool XJsonPosix::prepend(unsigned char _Value) noexcept
 {
 	return this->prepend(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(short _Value) noexcept
+bool XJsonPosix::prepend(short _Value) noexcept
 {
 	return this->prepend(static_cast<long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(unsigned short _Value) noexcept
+bool XJsonPosix::prepend(unsigned short _Value) noexcept
 {
 	return this->prepend(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(int _Value) noexcept
+bool XJsonPosix::prepend(int _Value) noexcept
 {
 	return this->prepend(static_cast<long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(unsigned int _Value) noexcept
+bool XJsonPosix::prepend(unsigned int _Value) noexcept
 {
 	return this->prepend(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(long _Value) noexcept
+bool XJsonPosix::prepend(long _Value) noexcept
 {
 	return this->prepend(static_cast<long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(unsigned long _Value) noexcept
+bool XJsonPosix::prepend(unsigned long _Value) noexcept
 {
 	return this->prepend(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(long long _Value) noexcept
+bool XJsonPosix::prepend(long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3725,7 +3725,7 @@ bool XJsonObject::prepend(long long _Value) noexcept
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(unsigned long long _Value) noexcept
+bool XJsonPosix::prepend(unsigned long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3768,7 +3768,7 @@ bool XJsonObject::prepend(unsigned long long _Value) noexcept
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(float _Value) noexcept
+bool XJsonPosix::prepend(float _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3811,7 +3811,7 @@ bool XJsonObject::prepend(float _Value) noexcept
 }
 
 // [set] 在数组开头添加子项
-bool XJsonObject::prepend(double _Value) noexcept
+bool XJsonPosix::prepend(double _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3856,7 +3856,7 @@ bool XJsonObject::prepend(double _Value) noexcept
 
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(const XJsonObject& _Value) noexcept
+bool XJsonPosix::append(const XJsonPosix& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3918,7 +3918,7 @@ bool XJsonObject::append(const XJsonObject& _Value) noexcept
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(const UString& _Value) noexcept
+bool XJsonPosix::append(const UString& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -3961,19 +3961,19 @@ bool XJsonObject::append(const UString& _Value) noexcept
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(const XByteArray& _Value) noexcept
+bool XJsonPosix::append(const XByteArray& _Value) noexcept
 {
 	return this->append(_Value.exist() ? UString(_Value.data(), _Value.size()) : UString());
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(const XString& _Value) noexcept
+bool XJsonPosix::append(const XString& _Value) noexcept
 {
 	return this->append(_Value.toBytes());
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(bool _Value) noexcept
+bool XJsonPosix::append(bool _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -4016,55 +4016,55 @@ bool XJsonObject::append(bool _Value) noexcept
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(char _Value) noexcept
+bool XJsonPosix::append(char _Value) noexcept
 {
 	return this->append(static_cast<long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(unsigned char _Value) noexcept
+bool XJsonPosix::append(unsigned char _Value) noexcept
 {
 	return this->append(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(short _Value) noexcept
+bool XJsonPosix::append(short _Value) noexcept
 {
 	return this->append(static_cast<long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(unsigned short _Value) noexcept
+bool XJsonPosix::append(unsigned short _Value) noexcept
 {
 	return this->append(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(int _Value) noexcept
+bool XJsonPosix::append(int _Value) noexcept
 {
 	return this->append(static_cast<long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(unsigned int _Value) noexcept
+bool XJsonPosix::append(unsigned int _Value) noexcept
 {
 	return this->append(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(long _Value) noexcept
+bool XJsonPosix::append(long _Value) noexcept
 {
 	return this->append(static_cast<long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(unsigned long _Value) noexcept
+bool XJsonPosix::append(unsigned long _Value) noexcept
 {
 	return this->append(static_cast<unsigned long long>(_Value));
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(long long _Value) noexcept
+bool XJsonPosix::append(long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -4107,7 +4107,7 @@ bool XJsonObject::append(long long _Value) noexcept
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(unsigned long long _Value) noexcept
+bool XJsonPosix::append(unsigned long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -4150,7 +4150,7 @@ bool XJsonObject::append(unsigned long long _Value) noexcept
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(float _Value) noexcept
+bool XJsonPosix::append(float _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -4193,7 +4193,7 @@ bool XJsonObject::append(float _Value) noexcept
 }
 
 // [set] 在数组结尾添加子项
-bool XJsonObject::append(double _Value) noexcept
+bool XJsonPosix::append(double _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(_ThisJsonData)
@@ -4238,7 +4238,7 @@ bool XJsonObject::append(double _Value) noexcept
 
 
 // [set] 移除子项
-bool XJsonObject::remove(int _Index) noexcept
+bool XJsonPosix::remove(int _Index) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -4282,7 +4282,7 @@ bool XJsonObject::remove(int _Index) noexcept
 
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, const XJsonObject& _Value) noexcept
+bool XJsonPosix::replace(int _Index, const XJsonPosix& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -4328,7 +4328,7 @@ bool XJsonObject::replace(int _Index, const XJsonObject& _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, const UString& _Value) noexcept
+bool XJsonPosix::replace(int _Index, const UString& _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -4363,19 +4363,19 @@ bool XJsonObject::replace(int _Index, const UString& _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, const XByteArray& _Value) noexcept
+bool XJsonPosix::replace(int _Index, const XByteArray& _Value) noexcept
 {
 	return this->replace(_Index, _Value.exist() ? UString(_Value.data(), _Value.size()) : UString());
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, const XString& _Value) noexcept
+bool XJsonPosix::replace(int _Index, const XString& _Value) noexcept
 {
 	return this->replace(_Index, _Value.toBytes());
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, bool _Value) noexcept
+bool XJsonPosix::replace(int _Index, bool _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -4410,55 +4410,55 @@ bool XJsonObject::replace(int _Index, bool _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, char _Value) noexcept
+bool XJsonPosix::replace(int _Index, char _Value) noexcept
 {
 	return this->replace(_Index, static_cast<long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, unsigned char _Value) noexcept
+bool XJsonPosix::replace(int _Index, unsigned char _Value) noexcept
 {
 	return this->replace(_Index, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, short _Value) noexcept
+bool XJsonPosix::replace(int _Index, short _Value) noexcept
 {
 	return this->replace(_Index, static_cast<long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, unsigned short _Value) noexcept
+bool XJsonPosix::replace(int _Index, unsigned short _Value) noexcept
 {
 	return this->replace(_Index, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, int _Value) noexcept
+bool XJsonPosix::replace(int _Index, int _Value) noexcept
 {
 	return this->replace(_Index, static_cast<long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, unsigned int _Value) noexcept
+bool XJsonPosix::replace(int _Index, unsigned int _Value) noexcept
 {
 	return this->replace(_Index, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, long _Value) noexcept
+bool XJsonPosix::replace(int _Index, long _Value) noexcept
 {
 	return this->replace(_Index, static_cast<long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, unsigned long _Value) noexcept
+bool XJsonPosix::replace(int _Index, unsigned long _Value) noexcept
 {
 	return this->replace(_Index, static_cast<unsigned long long>(_Value));
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, long long _Value) noexcept
+bool XJsonPosix::replace(int _Index, long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -4493,7 +4493,7 @@ bool XJsonObject::replace(int _Index, long long _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, unsigned long long _Value) noexcept
+bool XJsonPosix::replace(int _Index, unsigned long long _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -4528,7 +4528,7 @@ bool XJsonObject::replace(int _Index, unsigned long long _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, float _Value) noexcept
+bool XJsonPosix::replace(int _Index, float _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)
@@ -4563,7 +4563,7 @@ bool XJsonObject::replace(int _Index, float _Value) noexcept
 }
 
 // [set] 替换子项
-bool XJsonObject::replace(int _Index, double _Value) noexcept
+bool XJsonPosix::replace(int _Index, double _Value) noexcept
 {
 	auto		vFocusData = static_cast<XCC_JSON_INFO*>(nullptr);
 	if(nullptr == _ThisJsonData)

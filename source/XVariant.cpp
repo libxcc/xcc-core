@@ -446,7 +446,7 @@ bool XVariant::toBool() const noexcept
 		case VariantDouble:
 			return this->_variant_data._VDouble == 0.0f;
 		case VariantString:
-			return 0 == this->toString().compare("true", Xcc::CaseInsensitive);
+			return 0 == this->toString().compare("true", xcc::CaseInsensitive);
 		case VariantByteArray:
 			return 0 == this->toBytes().compare("true");
 		default:

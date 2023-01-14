@@ -60,13 +60,13 @@ XJsonArray& XJsonArray::operator = (XJsonArray&& _Object) noexcept
 
 
 // operator overload []
-XJsonValue& XJsonArray::operator[](Xcc::size_t _Index)
+XJsonValue& XJsonArray::operator[](xcc::size_t _Index)
 {
 	return memberData->data[_Index];
 }
 
 // operator overload []
-const XJsonValue& XJsonArray::operator[](Xcc::size_t _Index) const
+const XJsonValue& XJsonArray::operator[](xcc::size_t _Index) const
 {
 	return memberData->data[_Index];
 }
@@ -74,7 +74,7 @@ const XJsonValue& XJsonArray::operator[](Xcc::size_t _Index) const
 
 
 // 子项数量
-Xcc::size_t XJsonArray::size() const noexcept
+xcc::size_t XJsonArray::size() const noexcept
 {
 	return memberData->data.size();
 }
@@ -91,170 +91,44 @@ bool XJsonArray::exist() const noexcept
 	return !memberData->data.empty();
 }
 
-
-
-// 插入至最前
-void XJsonArray::prepend(bool _Status) noexcept
+// 清空
+void XJsonArray::clear() noexcept
 {
-	this->prepend(XJsonValue::boolean(_Status));
+	return memberData->data.clear();
 }
 
-// 插入至最前
-void XJsonArray::prepend(Xcc::int8_t _Number) noexcept
+
+
+// 正向迭代器起点
+XJsonArray::iterator XJsonArray::begin() noexcept
 {
-	this->prepend(XJsonValue::number(_Number));
+	return iterator(XJsonPrivate::newArrayIter(memberData, 0));
 }
 
-// 插入至最前
-void XJsonArray::prepend(Xcc::uint8_t _Number) noexcept
+// 正向迭代器终点
+XJsonArray::iterator XJsonArray::end() noexcept
 {
-	this->prepend(XJsonValue::number(_Number));
+	return iterator(XJsonPrivate::newArrayIter(memberData, this->size()));
 }
 
-// 插入至最前
-void XJsonArray::prepend(Xcc::int16_t _Number) noexcept
+// 正向只读迭代器起点
+XJsonArray::const_iterator XJsonArray::begin() const noexcept
 {
-	this->prepend(XJsonValue::number(_Number));
+	return const_iterator(XJsonPrivate::newArrayIter(memberData, 0));
 }
 
-// 插入至最前
-void XJsonArray::prepend(Xcc::uint16_t _Number) noexcept
+// 正向只读迭代器终点
+XJsonArray::const_iterator XJsonArray::end() const noexcept
 {
-	this->prepend(XJsonValue::number(_Number));
+	return const_iterator(XJsonPrivate::newArrayIter(memberData, this->size()));
 }
 
-// 插入至最前
-void XJsonArray::prepend(Xcc::int32_t _Number) noexcept
-{
-	this->prepend(XJsonValue::number(_Number));
-}
 
-// 插入至最前
-void XJsonArray::prepend(Xcc::uint32_t _Number) noexcept
-{
-	this->prepend(XJsonValue::number(_Number));
-}
-
-// 插入至最前
-void XJsonArray::prepend(Xcc::int64_t _Number) noexcept
-{
-	this->prepend(XJsonValue::number(_Number));
-}
-
-// 插入至最前
-void XJsonArray::prepend(Xcc::uint64_t _Number) noexcept
-{
-	this->prepend(XJsonValue::number(_Number));
-}
-
-// 插入至最前
-void XJsonArray::prepend(float _Number) noexcept
-{
-	this->prepend(XJsonValue::number(_Number));
-}
-
-// 插入至最前
-void XJsonArray::prepend(double _Number) noexcept
-{
-	this->prepend(XJsonValue::number(_Number));
-}
-
-// 插入至最前
-void XJsonArray::prepend(const XString& _String) noexcept
-{
-	this->prepend(XJsonValue::string(_String));
-}
 
 // 插入至最前
 void XJsonArray::prepend(const XJsonValue& _JsonValue) noexcept
 {
 	memberData->data.insert(memberData->data.begin(), _JsonValue);
-}
-
-// 插入至最前
-void XJsonArray::prepend(const XJsonArray& _JsonArray) noexcept
-{
-	this->prepend(XJsonValue::array(_JsonArray));
-}
-
-// 插入至最前
-void XJsonArray::prepend(const XJsonObjectT& _JsonObject) noexcept
-{
-	this->prepend(XJsonValue::object(_JsonObject));
-}
-
-
-
-// 插入至末尾
-void XJsonArray::append(bool _Status) noexcept
-{
-	this->append(XJsonValue::boolean(_Status));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::int8_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::uint8_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::int16_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::uint16_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::int32_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::uint32_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::int64_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(Xcc::uint64_t _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(float _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(double _Number) noexcept
-{
-	this->append(XJsonValue::number(_Number));
-}
-
-// 插入至末尾
-void XJsonArray::append(const XString& _String) noexcept
-{
-	this->append(XJsonValue::string(_String));
 }
 
 // 插入至末尾
@@ -263,94 +137,8 @@ void XJsonArray::append(const XJsonValue& _JsonValue) noexcept
 	memberData->data.insert(memberData->data.end(), _JsonValue);
 }
 
-// 插入至末尾
-void XJsonArray::append(const XJsonArray& _JsonArray) noexcept
-{
-	this->append(XJsonValue::array(_JsonArray));
-}
-
-// 插入至末尾
-void XJsonArray::append(const XJsonObjectT& _JsonObject) noexcept
-{
-	this->append(XJsonValue::object(_JsonObject));
-}
-
-
-
 // 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, bool _Status) noexcept
-{
-	this->insert(_Index, XJsonValue::boolean(_Status));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::int8_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::uint8_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::int16_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::uint16_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::int32_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::uint32_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::int64_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, Xcc::uint64_t _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, float _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, double _Number) noexcept
-{
-	this->insert(_Index, XJsonValue::number(_Number));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, const XString& _String) noexcept
-{
-	this->insert(_Index, XJsonValue::string(_String));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept
+void XJsonArray::insert(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept
 {
 	if(_Index >= memberData->data.size())
 	{
@@ -358,139 +146,489 @@ void XJsonArray::insert(Xcc::size_t _Index, const XJsonValue& _JsonValue) noexce
 	}
 	else
 	{
-		memberData->data.insert(memberData->data.begin() + _Index, _JsonValue);
+		memberData->data.insert(memberData->data.begin() + (xcc::ssize_t)_Index, _JsonValue);
 	}
 }
 
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, const XJsonArray& _JsonArray) noexcept
-{
-	this->insert(_Index, XJsonValue::array(_JsonArray));
-}
-
-// 插入至指定下标
-void XJsonArray::insert(Xcc::size_t _Index, const XJsonObjectT& _JsonObject) noexcept
-{
-	this->insert(_Index, XJsonValue::object(_JsonObject));
-}
-
-
-
 // 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, bool _Status) noexcept
-{
-	this->replace(_Index, XJsonValue::boolean(_Status));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::int8_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::uint8_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::int16_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::uint16_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::int32_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::uint32_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::int64_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, Xcc::uint64_t _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, float _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, double _Number) noexcept
-{
-	this->replace(_Index, XJsonValue::number(_Number));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, const XString& _String) noexcept
-{
-	this->replace(_Index, XJsonValue::string(_String));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept
+void XJsonArray::replace(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept
 {
 	this->insert(_Index, _JsonValue);
 	this->remove(_Index + 1);
 }
 
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, const XJsonArray& _JsonArray) noexcept
-{
-	this->replace(_Index, XJsonValue::array(_JsonArray));
-}
-
-// 替换指定下标
-void XJsonArray::replace(Xcc::size_t _Index, const XJsonObjectT& _JsonObject) noexcept
-{
-	this->replace(_Index, XJsonValue::object(_JsonObject));
-}
-
-
-
 // 删除指定下标
-void XJsonArray::remove(Xcc::size_t _Index) noexcept
+void XJsonArray::remove(xcc::size_t _Index) noexcept
 {
 	if(_Index >= memberData->data.size())
 	{
 		return;
 	}
-	auto		vIterator = memberData->data.begin() + (int)_Index;
+	auto		vIterator = memberData->data.begin() + (xcc::ssize_t)_Index;
 	memberData->data.erase(vIterator);
 }
 
-
-
 // 分离指定下标
-XJsonValue XJsonArray::detach(Xcc::size_t _Index) noexcept
+XJsonValue XJsonArray::detach(xcc::size_t _Index) noexcept
 {
 	if(_Index >= memberData->data.size())
 	{
 		return {};
 	}
-	auto		vIterator = memberData->data.begin() + (int)_Index;
+	auto		vIterator = memberData->data.begin() + (xcc::ssize_t)_Index;
 	auto		vJsonValue = *vIterator;
 	memberData->data.erase(vIterator);
 	return vJsonValue;
+}
+
+
+
+// 查找迭代器
+XJsonArray::iterator XJsonArray::find(xcc::size_t _Index) noexcept
+{
+	return iterator(XJsonPrivate::newArrayIter(memberData, _Index));
+}
+
+// 查找迭代器
+XJsonArray::const_iterator XJsonArray::find(xcc::size_t _Index) const noexcept
+{
+	return const_iterator(XJsonPrivate::newArrayIter(memberData, _Index));
+}
+
+// 删除迭代器
+XJsonArray::iterator XJsonArray::remove(iterator _Iterator) noexcept
+{
+	if(_Iterator.isValid())
+	{
+		auto		vIndex = _Iterator.index();
+		auto		vIterator = memberData->data.erase(_Iterator.memberData->iter);
+		if(vIterator != memberData->data.end())
+		{
+			return iterator(XJsonPrivate::newArrayIter(memberData, vIndex));
+		}
+	}
+	return this->end();
+}
+
+// 删除迭代器
+XJsonArray::const_iterator XJsonArray::remove(const_iterator _Iterator) noexcept
+{
+	if(_Iterator.isValid())
+	{
+		auto		vIndex = _Iterator.index();
+		auto		vIterator = memberData->data.erase(_Iterator.memberData->iter);
+		if(vIterator != memberData->data.end())
+		{
+			return const_iterator(XJsonPrivate::newArrayIter(memberData, vIndex));
+		}
+	}
+	return const_iterator(XJsonPrivate::newArrayIter(memberData, this->size()));
+}
+
+// 分离迭代器
+XJsonValue XJsonArray::detach(iterator _Iterator) noexcept
+{
+	if(_Iterator.isValid())
+	{
+		auto		vJsonValue = _Iterator.value();
+		this->remove(_Iterator);
+		return vJsonValue;
+	}
+	return {};
+}
+
+// 分离迭代器
+XJsonValue XJsonArray::detach(const_iterator _Iterator) noexcept
+{
+	if(_Iterator.isValid())
+	{
+		auto		vJsonValue = _Iterator.value();
+		this->remove(_Iterator);
+		return vJsonValue;
+	}
+	return {};
+}
+
+
+
+
+
+// constructor
+XJsonArray::iterator::iterator() noexcept
+{
+	memberData = XJsonPrivate::newArrayIter(nullptr, 0);
+}
+
+// constructor
+XJsonArray::iterator::iterator(XJsonArrayIterPrivate* _PrivateData) noexcept
+{
+	memberData = _PrivateData ? _PrivateData : XJsonPrivate::newArrayIter(nullptr, 0);
+}
+
+// constructor
+XJsonArray::iterator::iterator(const iterator& _Object) noexcept
+{
+	memberData = XJsonPrivate::clone(_Object.memberData);
+}
+
+// constructor
+XJsonArray::iterator::iterator(iterator&& _Object) noexcept
+{
+	memberData = _Object.memberData;
+	_Object.memberData = nullptr;
+}
+
+// destructor
+XJsonArray::iterator::~iterator() noexcept
+{
+	XJsonPrivate::free(memberData);
+}
+
+
+
+// operator overload =
+XJsonArray::iterator& XJsonArray::iterator::operator =(const iterator& _Object) noexcept
+{
+	if(this != &_Object)
+	{
+		XJsonPrivate::free(memberData);
+		memberData = XJsonPrivate::clone(_Object.memberData);
+	}
+	return *this;
+}
+
+// operator overload =
+XJsonArray::iterator& XJsonArray::iterator::operator =(iterator&& _Object) noexcept
+{
+	if(this != &_Object)
+	{
+		XJsonPrivate::free(memberData);
+		memberData = _Object.memberData;
+		_Object.memberData = nullptr;
+	}
+	return *this;
+}
+
+
+
+// operator overload =
+bool XJsonArray::iterator::operator ==(const iterator& _Object) noexcept
+{
+	if(memberData && _Object.memberData)
+	{
+		return memberData->array == _Object.memberData->array && memberData->iter == _Object.memberData->iter;
+	}
+	return false;
+}
+
+// operator overload =
+bool XJsonArray::iterator::operator !=(const iterator& _Object) noexcept
+{
+	if(memberData && _Object.memberData)
+	{
+		return memberData->array != _Object.memberData->array || memberData->iter != _Object.memberData->iter;
+	}
+	return true;
+}
+
+
+
+// operator overload ++
+XJsonArray::iterator& XJsonArray::iterator::operator ++() noexcept
+{
+	operator += (1);
+	return *this;
+}
+
+// operator overload ++
+XJsonArray::iterator XJsonArray::iterator::operator ++() const noexcept
+{
+	auto		vIterator = *this;
+	vIterator += 1;
+	return vIterator;
+}
+
+// operator overload --
+XJsonArray::iterator& XJsonArray::iterator::operator --() noexcept
+{
+	operator -= (1);
+	return *this;
+}
+
+// operator overload --
+XJsonArray::iterator XJsonArray::iterator::operator --() const noexcept
+{
+	auto		vIterator = *this;
+	vIterator -= 1;
+	return vIterator;
+}
+
+// operator overload +
+XJsonArray::iterator XJsonArray::iterator::operator +(xcc::ssize_t _Size) const noexcept
+{
+	auto		vIterator = *this;
+	vIterator += _Size;
+	return vIterator;
+}
+
+// operator overload -
+XJsonArray::iterator XJsonArray::iterator::operator -(xcc::ssize_t _Size) const noexcept
+{
+	auto		vIterator = *this;
+	vIterator -= _Size;
+	return vIterator;
+}
+
+// operator overload +=
+XJsonArray::iterator& XJsonArray::iterator::operator +=(xcc::ssize_t _Size) noexcept
+{
+	if(memberData)
+	{
+		memberData->iter += _Size;
+	}
+	return *this;
+}
+
+// operator overload -=
+XJsonArray::iterator& XJsonArray::iterator::operator -=(xcc::ssize_t _Size) noexcept
+{
+	if(memberData)
+	{
+		memberData->iter -= _Size;
+	}
+	return *this;
+}
+
+
+
+// operator overload *
+XJsonValue& XJsonArray::iterator::operator *()
+{
+	return *(memberData->iter);
+}
+
+// operator overload *
+const XJsonValue& XJsonArray::iterator::operator *() const
+{
+	return *(memberData->iter);
+}
+
+
+
+// 是否有效
+bool XJsonArray::iterator::isValid() const noexcept
+{
+	if(memberData && memberData->array && memberData->iter != memberData->array->data.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+// 下标
+xcc::size_t XJsonArray::iterator::index() const noexcept
+{
+	if(this->isValid())
+	{
+		return std::distance(memberData->array->data.begin(), memberData->iter);
+	}
+	return 0;
+}
+
+// Value
+XJsonValue& XJsonArray::iterator::value()
+{
+	return *(memberData->iter);
+}
+
+// Value
+const XJsonValue& XJsonArray::iterator::value() const
+{
+	return *(memberData->iter);
+}
+
+
+
+
+
+// constructor
+XJsonArray::const_iterator::const_iterator() noexcept
+{
+	memberData = XJsonPrivate::newArrayIter(nullptr, 0);
+}
+
+// constructor
+XJsonArray::const_iterator::const_iterator(XJsonArrayIterPrivate* _PrivateData) noexcept
+{
+	memberData = _PrivateData ? _PrivateData : XJsonPrivate::newArrayIter(nullptr, 0);
+}
+
+// constructor
+XJsonArray::const_iterator::const_iterator(const const_iterator& _Object) noexcept
+{
+	memberData = XJsonPrivate::clone(_Object.memberData);
+}
+
+// constructor
+XJsonArray::const_iterator::const_iterator(const_iterator&& _Object) noexcept
+{
+	memberData = _Object.memberData;
+	_Object.memberData = nullptr;
+}
+
+// destructor
+XJsonArray::const_iterator::~const_iterator() noexcept
+{
+	XJsonPrivate::free(memberData);
+}
+
+
+
+// operator overload =
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator =(const const_iterator& _Object) noexcept
+{
+	if(this != &_Object)
+	{
+		XJsonPrivate::free(memberData);
+		memberData = XJsonPrivate::clone(_Object.memberData);
+	}
+	return *this;
+}
+
+// operator overload =
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator =(const_iterator&& _Object) noexcept
+{
+	if(this != &_Object)
+	{
+		XJsonPrivate::free(memberData);
+		memberData = _Object.memberData;
+		_Object.memberData = nullptr;
+	}
+	return *this;
+}
+
+
+
+// operator overload =
+bool XJsonArray::const_iterator::operator ==(const const_iterator& _Object) noexcept
+{
+	if(memberData && _Object.memberData)
+	{
+		return memberData->array == _Object.memberData->array && memberData->iter == _Object.memberData->iter;
+	}
+	return false;
+}
+
+// operator overload =
+bool XJsonArray::const_iterator::operator !=(const const_iterator& _Object) noexcept
+{
+	if(memberData && _Object.memberData)
+	{
+		return memberData->array != _Object.memberData->array || memberData->iter != _Object.memberData->iter;
+	}
+	return true;
+}
+
+
+
+// operator overload ++
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator ++() noexcept
+{
+	operator += (1);
+	return *this;
+}
+
+// operator overload ++
+XJsonArray::const_iterator XJsonArray::const_iterator::operator ++() const noexcept
+{
+	auto		vIterator = *this;
+	vIterator += 1;
+	return vIterator;
+}
+
+// operator overload --
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator --() noexcept
+{
+	operator -= (1);
+	return *this;
+}
+
+// operator overload --
+XJsonArray::const_iterator XJsonArray::const_iterator::operator --() const noexcept
+{
+	auto		vIterator = *this;
+	vIterator -= 1;
+	return vIterator;
+}
+
+// operator overload +
+XJsonArray::const_iterator XJsonArray::const_iterator::operator +(xcc::ssize_t _Size) const noexcept
+{
+	auto		vIterator = *this;
+	vIterator += _Size;
+	return vIterator;
+}
+
+// operator overload -
+XJsonArray::const_iterator XJsonArray::const_iterator::operator -(xcc::ssize_t _Size) const noexcept
+{
+	auto		vIterator = *this;
+	vIterator -= _Size;
+	return vIterator;
+}
+
+// operator overload +=
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator +=(xcc::ssize_t _Size) noexcept
+{
+	if(memberData)
+	{
+		memberData->iter += _Size;
+	}
+	return *this;
+}
+
+// operator overload -=
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator -=(xcc::ssize_t _Size) noexcept
+{
+	if(memberData)
+	{
+		memberData->iter -= _Size;
+	}
+	return *this;
+}
+
+
+
+// operator overload *
+const XJsonValue& XJsonArray::const_iterator::operator *() const
+{
+	return *(memberData->iter);
+}
+
+
+
+// 是否有效
+bool XJsonArray::const_iterator::isValid() const noexcept
+{
+	if(memberData && memberData->array && memberData->iter != memberData->array->data.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+// 下标
+xcc::size_t XJsonArray::const_iterator::index() const noexcept
+{
+	if(this->isValid())
+	{
+		return std::distance(memberData->array->data.begin(), memberData->iter);
+	}
+	return 0;
+}
+
+// Value
+const XJsonValue& XJsonArray::const_iterator::value() const
+{
+	return *(memberData->iter);
 }

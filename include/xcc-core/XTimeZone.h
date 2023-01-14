@@ -75,17 +75,17 @@ public:
 
 public:
 	// [cnv] 转化为毫秒
-	virtual Xcc::time_type toMillisecond() const noexcept;
+	virtual xcc::time_type toMillisecond() const noexcept;
 
 	// [cnv] 转化为秒
-	virtual Xcc::time_type toSecond() const noexcept;
+	virtual xcc::time_type toSecond() const noexcept;
 
 public:
 	// [cnv] 转化为毫秒
-	static Xcc::time_type toMillisecond(XTimeZone::Region _Region) noexcept;
+	static xcc::time_type toMillisecond(XTimeZone::Region _Region) noexcept;
 
 	// [cnv] 转化为秒
-	static Xcc::time_type toSecond(XTimeZone::Region _Region) noexcept;
+	static xcc::time_type toSecond(XTimeZone::Region _Region) noexcept;
 };
 
 #endif

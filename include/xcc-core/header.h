@@ -115,7 +115,7 @@
 
 
 /// XCC命名空间
-namespace Xcc
+namespace xcc
 {
 	// 类型定义
 	typedef 	x_size_t					size_t;
@@ -137,7 +137,7 @@ namespace Xcc
 
 
 /// namespace X-Series
-namespace Xcc
+namespace xcc
 {
 	// Case Sensitivity enum
 	typedef enum CaseSensitivity

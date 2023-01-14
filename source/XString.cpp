@@ -123,114 +123,114 @@ XString XString::operator + (const XString& _String) const noexcept
 bool XString::operator == (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
-	return this->compare(vBytes, 1, Xcc::CaseSensitive) == 0;
+	return this->compare(vBytes, 1, xcc::CaseSensitive) == 0;
 }
 
 // operator overload ==
 bool XString::operator == (const elem_type* _String) const noexcept
 {
-	return this->compare(_String, x_posix_strlen(_String), Xcc::CaseSensitive) == 0;
+	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) == 0;
 }
 
 // operator overload ==
 bool XString::operator == (const XString& _String) const noexcept
 {
-	return this->compare(_String.data(), _String.size(), Xcc::CaseSensitive) == 0;
+	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) == 0;
 }
 
 // operator overload !=
 bool XString::operator != (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
-	return this->compare(vBytes, 1, Xcc::CaseSensitive) != 0;
+	return this->compare(vBytes, 1, xcc::CaseSensitive) != 0;
 }
 
 // operator overload !=
 bool XString::operator != (const elem_type* _String) const noexcept
 {
-	return this->compare(_String, x_posix_strlen(_String), Xcc::CaseSensitive) != 0;
+	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) != 0;
 }
 
 // operator overload !=
 bool XString::operator != (const XString& _String) const noexcept
 {
-	return this->compare(_String.data(), _String.size(), Xcc::CaseSensitive) != 0;
+	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) != 0;
 }
 
 // operator overload <
 bool XString::operator < (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
-	return this->compare(vBytes, 1, Xcc::CaseSensitive) < 0;
+	return this->compare(vBytes, 1, xcc::CaseSensitive) < 0;
 }
 
 // operator overload <
 bool XString::operator < (const elem_type* _String) const noexcept
 {
-	return this->compare(_String, x_posix_strlen(_String), Xcc::CaseSensitive) < 0;
+	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) < 0;
 }
 
 // operator overload <
 bool XString::operator < (const XString& _String) const noexcept
 {
-	return this->compare(_String.data(), _String.size(), Xcc::CaseSensitive) < 0;
+	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) < 0;
 }
 
 // operator overload >
 bool XString::operator > (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
-	return this->compare(vBytes, 1, Xcc::CaseSensitive) > 0;
+	return this->compare(vBytes, 1, xcc::CaseSensitive) > 0;
 }
 
 // operator overload >
 bool XString::operator > (const elem_type* _String) const noexcept
 {
-	return this->compare(_String, x_posix_strlen(_String), Xcc::CaseSensitive) > 0;
+	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) > 0;
 }
 
 // operator overload >
 bool XString::operator > (const XString& _String) const noexcept
 {
-	return this->compare(_String.data(), _String.size(), Xcc::CaseSensitive) > 0;
+	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) > 0;
 }
 
 // operator overload <=
 bool XString::operator <= (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
-	return this->compare(vBytes, 1, Xcc::CaseSensitive) <= 0;
+	return this->compare(vBytes, 1, xcc::CaseSensitive) <= 0;
 }
 
 // operator overload <=
 bool XString::operator <= (const elem_type* _String) const noexcept
 {
-	return this->compare(_String, x_posix_strlen(_String), Xcc::CaseSensitive) <= 0;
+	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) <= 0;
 }
 
 // operator overload <=
 bool XString::operator <= (const XString& _String) const noexcept
 {
-	return this->compare(_String.data(), _String.size(), Xcc::CaseSensitive) <= 0;
+	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) <= 0;
 }
 
 // operator overload >=
 bool XString::operator >= (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
-	return this->compare(vBytes, 1, Xcc::CaseSensitive) >= 0;
+	return this->compare(vBytes, 1, xcc::CaseSensitive) >= 0;
 }
 
 // operator overload >=
 bool XString::operator >= (const elem_type* _String) const noexcept
 {
-	return this->compare(_String, x_posix_strlen(_String), Xcc::CaseSensitive) >= 0;
+	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) >= 0;
 }
 
 // operator overload >=
 bool XString::operator >= (const XString& _String) const noexcept
 {
-	return this->compare(_String.data(), _String.size(), Xcc::CaseSensitive) >= 0;
+	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) >= 0;
 }
 
 
@@ -428,11 +428,11 @@ XString XString::mid(pos_type _Pos, size_type _Size) const noexcept
 // [mid] 从源中截取部分数据
 XString XString::mid(const elem_type* _Left, const elem_type* _Right) const noexcept
 {
-	return this->mid(_Left, x_posix_strlen(_Left), _Right, x_posix_strlen(_Right), Xcc::CaseSensitive);
+	return this->mid(_Left, x_posix_strlen(_Left), _Right, x_posix_strlen(_Right), xcc::CaseSensitive);
 }
 
 // [mid] 从源中截取部分数据
-XString XString::mid(const elem_type* _Left, const elem_type* _Right, Xcc::CaseSensitivity _XCS) const noexcept
+XString XString::mid(const elem_type* _Left, const elem_type* _Right, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->mid(_Left, x_posix_strlen(_Left), _Right, x_posix_strlen(_Right), _XCS);
 }
@@ -440,11 +440,11 @@ XString XString::mid(const elem_type* _Left, const elem_type* _Right, Xcc::CaseS
 // [mid] 从源中截取部分数据
 XString XString::mid(const elem_type* _Left, size_type _LengthL, const elem_type* _Right, size_type _LengthR) const noexcept
 {
-	return this->mid(_Left, _LengthL, _Right, _LengthR, Xcc::CaseSensitive);
+	return this->mid(_Left, _LengthL, _Right, _LengthR, xcc::CaseSensitive);
 }
 
 // [mid] 从源中截取部分数据
-XString XString::mid(const elem_type* _Left, size_type _LengthL, const elem_type* _Right, size_type _LengthR, Xcc::CaseSensitivity _XCS) const noexcept
+XString XString::mid(const elem_type* _Left, size_type _LengthL, const elem_type* _Right, size_type _LengthR, xcc::CaseSensitivity _XCS) const noexcept
 {
 	pos_type 	vPosL = 0;
 	pos_type 	vPosR = 0;
@@ -470,11 +470,11 @@ XString XString::mid(const elem_type* _Left, size_type _LengthL, const elem_type
 // [mid] 从源中截取部分数据
 XString XString::mid(const elem_type* _Left, const XString& _Right) const noexcept
 {
-	return this->mid(_Left, x_posix_strlen(_Left), _Right.data(), _Right.size(), Xcc::CaseSensitive);
+	return this->mid(_Left, x_posix_strlen(_Left), _Right.data(), _Right.size(), xcc::CaseSensitive);
 }
 
 // [mid] 从源中截取部分数据
-XString XString::mid(const elem_type* _Left, const XString& _Right, Xcc::CaseSensitivity _XCS) const noexcept
+XString XString::mid(const elem_type* _Left, const XString& _Right, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->mid(_Left, x_posix_strlen(_Left), _Right.data(), _Right.size(), _XCS);
 }
@@ -482,11 +482,11 @@ XString XString::mid(const elem_type* _Left, const XString& _Right, Xcc::CaseSen
 // [mid] 从源中截取部分数据
 XString XString::mid(const XString& _Left, const elem_type* _Right) const noexcept
 {
-	return this->mid(_Left.data(), _Left.size(), _Right, x_posix_strlen(_Right), Xcc::CaseSensitive);
+	return this->mid(_Left.data(), _Left.size(), _Right, x_posix_strlen(_Right), xcc::CaseSensitive);
 }
 
 // [mid] 从源中截取部分数据
-XString XString::mid(const XString& _Left, const elem_type* _Right, Xcc::CaseSensitivity _XCS) const noexcept
+XString XString::mid(const XString& _Left, const elem_type* _Right, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->mid(_Left.data(), _Left.size(), _Right, x_posix_strlen(_Right), _XCS);
 }
@@ -494,11 +494,11 @@ XString XString::mid(const XString& _Left, const elem_type* _Right, Xcc::CaseSen
 // [mid] 从源中截取部分数据
 XString XString::mid(const XString& _Left, const XString& _Right) const noexcept
 {
-	return this->mid(_Left.data(), _Left.size(), _Right.data(), _Right.size(), Xcc::CaseSensitive);
+	return this->mid(_Left.data(), _Left.size(), _Right.data(), _Right.size(), xcc::CaseSensitive);
 }
 
 // [mid] 从源中截取部分数据
-XString XString::mid(const XString& _Left, const XString& _Right, Xcc::CaseSensitivity _XCS) const noexcept
+XString XString::mid(const XString& _Left, const XString& _Right, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->mid(_Left.data(), _Left.size(), _Right.data(), _Right.size(), _XCS);
 }
@@ -511,11 +511,11 @@ XString XString::mid(const XString& _Left, const XString& _Right, Xcc::CaseSensi
 bool XString::startsWith(elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->startsWith(vBytes, 1, Xcc::CaseSensitive);
+	return this->startsWith(vBytes, 1, xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的前缀
-bool XString::startsWith(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::startsWith(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->startsWith(vBytes, 1, _XCS);
@@ -524,11 +524,11 @@ bool XString::startsWith(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexc
 // 检测源数据是否存在指定的前缀
 bool XString::startsWith(const elem_type* _Memory) const noexcept
 {
-	return this->startsWith(_Memory, x_posix_strlen(_Memory), Xcc::CaseSensitive);
+	return this->startsWith(_Memory, x_posix_strlen(_Memory), xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的前缀
-bool XString::startsWith(const elem_type* _Memory, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::startsWith(const elem_type* _Memory, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->startsWith(_Memory, x_posix_strlen(_Memory), _XCS);
 }
@@ -536,11 +536,11 @@ bool XString::startsWith(const elem_type* _Memory, Xcc::CaseSensitivity _XCS) co
 // 检测源数据是否存在指定的前缀
 bool XString::startsWith(const elem_type* _Memory, size_type _Length) const noexcept
 {
-	return this->startsWith(_Memory, _Length, Xcc::CaseSensitive);
+	return this->startsWith(_Memory, _Length, xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的前缀
-bool XString::startsWith(const elem_type* _Memory, size_type _Length, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::startsWith(const elem_type* _Memory, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept
 {
 	if(this->size() >= _Length)
 	{
@@ -552,11 +552,11 @@ bool XString::startsWith(const elem_type* _Memory, size_type _Length, Xcc::CaseS
 // 检测源数据是否存在指定的前缀
 bool XString::startsWith(const XString& _String) const noexcept
 {
-	return this->startsWith(_String.data(), _String.size(), Xcc::CaseSensitive);
+	return this->startsWith(_String.data(), _String.size(), xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的前缀
-bool XString::startsWith(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::startsWith(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->startsWith(_String.data(), _String.size(), _XCS);
 }
@@ -569,11 +569,11 @@ bool XString::startsWith(const XString& _String, Xcc::CaseSensitivity _XCS) cons
 bool XString::endsWith(elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->endsWith(vBytes, 1, Xcc::CaseSensitive);
+	return this->endsWith(vBytes, 1, xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的后缀
-bool XString::endsWith(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::endsWith(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->endsWith(vBytes, 1, _XCS);
@@ -582,11 +582,11 @@ bool XString::endsWith(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcep
 // 检测源数据是否存在指定的后缀
 bool XString::endsWith(const elem_type* _Memory) const noexcept
 {
-	return this->endsWith(_Memory, x_posix_strlen(_Memory), Xcc::CaseSensitive);
+	return this->endsWith(_Memory, x_posix_strlen(_Memory), xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的后缀
-bool XString::endsWith(const elem_type* _Memory, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::endsWith(const elem_type* _Memory, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->endsWith(_Memory, x_posix_strlen(_Memory), _XCS);
 }
@@ -594,11 +594,11 @@ bool XString::endsWith(const elem_type* _Memory, Xcc::CaseSensitivity _XCS) cons
 // 检测源数据是否存在指定的后缀
 bool XString::endsWith(const elem_type* _Memory, size_type _Length) const noexcept
 {
-	return this->endsWith(_Memory, _Length, Xcc::CaseSensitive);
+	return this->endsWith(_Memory, _Length, xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的后缀
-bool XString::endsWith(const elem_type* _Memory, size_type _Length, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::endsWith(const elem_type* _Memory, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept
 {
 	if(this->size() >= _Length)
 	{
@@ -610,11 +610,11 @@ bool XString::endsWith(const elem_type* _Memory, size_type _Length, Xcc::CaseSen
 // 检测源数据是否存在指定的后缀
 bool XString::endsWith(const XString& _String) const noexcept
 {
-	return this->endsWith(_String.data(), _String.size(), Xcc::CaseSensitive);
+	return this->endsWith(_String.data(), _String.size(), xcc::CaseSensitive);
 }
 
 // 检测源数据是否存在指定的后缀
-bool XString::endsWith(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::endsWith(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->endsWith(_String.data(), _String.size(), _XCS);
 }
@@ -627,11 +627,11 @@ bool XString::endsWith(const XString& _String, Xcc::CaseSensitivity _XCS) const 
 XString::pos_type XString::find(elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->find(vBytes, 1, 0, Xcc::CaseSensitive);
+	return this->find(vBytes, 1, 0, xcc::CaseSensitive);
 }
 
 // 从指定位置按正序查找数据
-XString::pos_type XString::find(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::find(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->find(vBytes, 1, 0, _XCS);
@@ -641,11 +641,11 @@ XString::pos_type XString::find(elem_type _Char, Xcc::CaseSensitivity _XCS) cons
 XString::pos_type XString::find(elem_type _Char, pos_type _Pos) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->find(vBytes, 1, _Pos, Xcc::CaseSensitive);
+	return this->find(vBytes, 1, _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按正序查找数据
-XString::pos_type XString::find(elem_type _Char, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::find(elem_type _Char, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->find(vBytes, 1, _Pos, _XCS);
@@ -654,11 +654,11 @@ XString::pos_type XString::find(elem_type _Char, pos_type _Pos, Xcc::CaseSensiti
 // 从指定位置按正序查找数据
 XString::pos_type XString::find(const elem_type* _String) const noexcept
 {
-	return this->find(_String, x_posix_strlen(_String), 0, Xcc::CaseSensitive);
+	return this->find(_String, x_posix_strlen(_String), 0, xcc::CaseSensitive);
 }
 
 // 从指定位置按正序查找数据
-XString::pos_type XString::find(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::find(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->find(_String, x_posix_strlen(_String), 0, _XCS);
 }
@@ -666,11 +666,11 @@ XString::pos_type XString::find(const elem_type* _String, Xcc::CaseSensitivity _
 // 从指定位置按正序查找数据
 XString::pos_type XString::find(const elem_type* _String, pos_type _Pos) const noexcept
 {
-	return this->find(_String, x_posix_strlen(_String), _Pos, Xcc::CaseSensitive);
+	return this->find(_String, x_posix_strlen(_String), _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按正序查找数据
-XString::pos_type XString::find(const elem_type* _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::find(const elem_type* _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->find(_String, x_posix_strlen(_String), _Pos, _XCS);
 }
@@ -678,11 +678,11 @@ XString::pos_type XString::find(const elem_type* _String, pos_type _Pos, Xcc::Ca
 // 从指定位置按正序查找数据
 XString::pos_type XString::find(const elem_type* _String, size_type _Length, pos_type _Pos) const noexcept
 {
-	return this->find(_String, _Length, _Pos, Xcc::CaseSensitive);
+	return this->find(_String, _Length, _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按正序查找数据
-XString::pos_type XString::find(const elem_type* _String, size_type _Length, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::find(const elem_type* _String, size_type _Length, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	auto 		vFind = static_cast<const XString::elem_type*>(nullptr);
 
@@ -691,7 +691,7 @@ XString::pos_type XString::find(const elem_type* _String, size_type _Length, pos
 		return XString::npos;
 	}
 
-	if(_XCS == Xcc::CaseInsensitive)
+	if(_XCS == xcc::CaseInsensitive)
 	{
 		vFind = x_posix_stristr(this->data() + _Pos, _String);
 	}
@@ -710,11 +710,11 @@ XString::pos_type XString::find(const elem_type* _String, size_type _Length, pos
 // 从指定位置按正序查找数据
 XString::pos_type XString::find(const XString& _String) const noexcept
 {
-	return this->find(_String.data(), _String.size(), 0, Xcc::CaseSensitive);
+	return this->find(_String.data(), _String.size(), 0, xcc::CaseSensitive);
 }
 
 // 从指定位置按正序查找数据
-XString::pos_type XString::find(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::find(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->find(_String.data(), _String.size(), 0, _XCS);
 }
@@ -722,11 +722,11 @@ XString::pos_type XString::find(const XString& _String, Xcc::CaseSensitivity _XC
 // 从指定位置按正序查找数据
 XString::pos_type XString::find(const XString& _String, pos_type _Pos) const noexcept
 {
-	return this->find(_String.data(), _String.size(), _Pos, Xcc::CaseSensitive);
+	return this->find(_String.data(), _String.size(), _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按正序查找数据
-XString::pos_type XString::find(const XString& _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::find(const XString& _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->find(_String.data(), _String.size(), _Pos, _XCS);
 }
@@ -739,11 +739,11 @@ XString::pos_type XString::find(const XString& _String, pos_type _Pos, Xcc::Case
 XString::pos_type XString::rfind(elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->rfind(vBytes, 1, this->size() - 1, Xcc::CaseSensitive);
+	return this->rfind(vBytes, 1, this->size() - 1, xcc::CaseSensitive);
 }
 
 // 从指定位置按倒序查找数据
-XString::pos_type XString::rfind(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::rfind(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->rfind(vBytes, 1, this->size() - 1, _XCS);
@@ -753,11 +753,11 @@ XString::pos_type XString::rfind(elem_type _Char, Xcc::CaseSensitivity _XCS) con
 XString::pos_type XString::rfind(elem_type _Char, pos_type _Pos) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->rfind(vBytes, 1, _Pos, Xcc::CaseSensitive);
+	return this->rfind(vBytes, 1, _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按倒序查找数据
-XString::pos_type XString::rfind(elem_type _Char, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::rfind(elem_type _Char, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->rfind(vBytes, 1, _Pos, _XCS);
@@ -766,11 +766,11 @@ XString::pos_type XString::rfind(elem_type _Char, pos_type _Pos, Xcc::CaseSensit
 // 从指定位置按倒序查找数据
 XString::pos_type XString::rfind(const elem_type* _String) const noexcept
 {
-	return  this->rfind(_String, x_posix_strlen(_String), this->size() - 1, Xcc::CaseSensitive);
+	return  this->rfind(_String, x_posix_strlen(_String), this->size() - 1, xcc::CaseSensitive);
 }
 
 // 从指定位置按倒序查找数据
-XString::pos_type XString::rfind(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::rfind(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return  this->rfind(_String, x_posix_strlen(_String), this->size() - 1, _XCS);
 }
@@ -778,11 +778,11 @@ XString::pos_type XString::rfind(const elem_type* _String, Xcc::CaseSensitivity 
 // 从指定位置按倒序查找数据
 XString::pos_type XString::rfind(const elem_type* _String, pos_type _Pos) const noexcept
 {
-	return  this->rfind(_String, x_posix_strlen(_String), _Pos, Xcc::CaseSensitive);
+	return  this->rfind(_String, x_posix_strlen(_String), _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按倒序查找数据
-XString::pos_type XString::rfind(const elem_type* _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::rfind(const elem_type* _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return  this->rfind(_String, x_posix_strlen(_String), _Pos, _XCS);
 }
@@ -790,11 +790,11 @@ XString::pos_type XString::rfind(const elem_type* _String, pos_type _Pos, Xcc::C
 // 从指定位置按倒序查找数据
 XString::pos_type XString::rfind(const elem_type* _String, size_type _Length, pos_type _Pos) const noexcept
 {
-	return this->rfind(_String, _Length, _Pos, Xcc::CaseSensitive);
+	return this->rfind(_String, _Length, _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按倒序查找数据
-XString::pos_type XString::rfind(const elem_type* _String, size_type _Length, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::rfind(const elem_type* _String, size_type _Length, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	auto 		vFind = static_cast<int>(1);
 
@@ -805,7 +805,7 @@ XString::pos_type XString::rfind(const elem_type* _String, size_type _Length, po
 
 	for(; _Pos != XString::npos; --_Pos)
 	{
-		if(_XCS == Xcc::CaseInsensitive)
+		if(_XCS == xcc::CaseInsensitive)
 		{
 			vFind = x_posix_strnicmp(this->data() + _Pos, _String, _Length);
 		}
@@ -824,11 +824,11 @@ XString::pos_type XString::rfind(const elem_type* _String, size_type _Length, po
 // 从指定位置按倒序查找数据
 XString::pos_type XString::rfind(const XString& _String) const noexcept
 {
-	return this->rfind(_String.data(), _String.size(), this->size() - 1, Xcc::CaseSensitive);
+	return this->rfind(_String.data(), _String.size(), this->size() - 1, xcc::CaseSensitive);
 }
 
 // 从指定位置按倒序查找数据
-XString::pos_type XString::rfind(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::rfind(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->rfind(_String.data(), _String.size(), this->size() - 1, _XCS);
 }
@@ -836,11 +836,11 @@ XString::pos_type XString::rfind(const XString& _String, Xcc::CaseSensitivity _X
 // 从指定位置按倒序查找数据
 XString::pos_type XString::rfind(const XString& _String, pos_type _Pos) const noexcept
 {
-	return this->rfind(_String.data(), _String.size(), _Pos, Xcc::CaseSensitive);
+	return this->rfind(_String.data(), _String.size(), _Pos, xcc::CaseSensitive);
 }
 
 // 从指定位置按倒序查找数据
-XString::pos_type XString::rfind(const XString& _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept
+XString::pos_type XString::rfind(const XString& _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->rfind(_String.data(), _String.size(), _Pos, _XCS);
 }
@@ -853,11 +853,11 @@ XString::pos_type XString::rfind(const XString& _String, pos_type _Pos, Xcc::Cas
 bool XString::contains(elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->contains(vBytes, 1, Xcc::CaseSensitive);
+	return this->contains(vBytes, 1, xcc::CaseSensitive);
 }
 
 // 检查是否包含指定数据
-bool XString::contains(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::contains(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->contains(vBytes, 1, _XCS);
@@ -866,11 +866,11 @@ bool XString::contains(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcep
 // 检查是否包含指定数据
 bool XString::contains(const elem_type* _String) const noexcept
 {
-	return this->contains(_String, x_posix_strlen(_String), Xcc::CaseSensitive);
+	return this->contains(_String, x_posix_strlen(_String), xcc::CaseSensitive);
 }
 
 // 检查是否包含指定数据
-bool XString::contains(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::contains(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->contains(_String, x_posix_strlen(_String), _XCS);
 }
@@ -878,11 +878,11 @@ bool XString::contains(const elem_type* _String, Xcc::CaseSensitivity _XCS) cons
 // 检查是否包含指定数据
 bool XString::contains(const elem_type* _String, size_type _Length) const noexcept
 {
-	return this->contains(_String, _Length, Xcc::CaseSensitive);
+	return this->contains(_String, _Length, xcc::CaseSensitive);
 }
 
 // 检查是否包含指定数据
-bool XString::contains(const elem_type* _String, size_type _Length, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::contains(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept
 {
 	auto		vFind = this->find(_String, _Length, 0, _XCS);
 	return vFind != XString::npos;
@@ -891,11 +891,11 @@ bool XString::contains(const elem_type* _String, size_type _Length, Xcc::CaseSen
 // 检查是否包含指定数据
 bool XString::contains(const XString& _String) const noexcept
 {
-	return this->contains(_String.data(), _String.size(), Xcc::CaseSensitive);
+	return this->contains(_String.data(), _String.size(), xcc::CaseSensitive);
 }
 
 // 检查是否包含指定数据
-bool XString::contains(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept
+bool XString::contains(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->contains(_String.data(), _String.size(), _XCS);
 }
@@ -908,11 +908,11 @@ bool XString::contains(const XString& _String, Xcc::CaseSensitivity _XCS) const 
 int XString::compare(elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->compare(vBytes, 1, Xcc::CaseSensitive);
+	return this->compare(vBytes, 1, xcc::CaseSensitive);
 }
 
 // 检查是否与指定数据相同
-int XString::compare(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept
+int XString::compare(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->compare(vBytes, 1, _XCS);
@@ -921,11 +921,11 @@ int XString::compare(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept
 // 检查是否与指定数据相同
 int XString::compare(const elem_type* _String) const noexcept
 {
-	return this->compare(_String, x_posix_strlen(_String), Xcc::CaseSensitive);
+	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive);
 }
 
 // 检查是否与指定数据相同
-int XString::compare(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept
+int XString::compare(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), _XCS);
 }
@@ -933,11 +933,11 @@ int XString::compare(const elem_type* _String, Xcc::CaseSensitivity _XCS) const 
 // 检查是否与指定数据相同
 int XString::compare(const elem_type* _String, size_type _Length) const noexcept
 {
-	return this->compare(_String, _Length, Xcc::CaseSensitive);
+	return this->compare(_String, _Length, xcc::CaseSensitive);
 }
 
 // 检查是否与指定数据相同
-int XString::compare(const elem_type* _String, size_type _Length, Xcc::CaseSensitivity _XCS) const noexcept
+int XString::compare(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept
 {
 	int		vCompare = 0;
 
@@ -949,7 +949,7 @@ int XString::compare(const elem_type* _String, size_type _Length, Xcc::CaseSensi
 	{
 		if(this->size() == _Length)
 		{
-			if(_XCS == Xcc::CaseInsensitive)
+			if(_XCS == xcc::CaseInsensitive)
 			{
 				vCompare = x_posix_strnicmp(this->data(), _String, _Length);
 			}
@@ -960,7 +960,7 @@ int XString::compare(const elem_type* _String, size_type _Length, Xcc::CaseSensi
 		}
 		else if(this->size() > _Length)
 		{
-			if(_XCS == Xcc::CaseInsensitive)
+			if(_XCS == xcc::CaseInsensitive)
 			{
 				vCompare = x_posix_strnicmp(this->data(), _String, _Length);
 			}
@@ -975,7 +975,7 @@ int XString::compare(const elem_type* _String, size_type _Length, Xcc::CaseSensi
 		}
 		else
 		{
-			if(_XCS == Xcc::CaseInsensitive)
+			if(_XCS == xcc::CaseInsensitive)
 			{
 				vCompare = x_posix_strnicmp(this->data(), _String, this->size());
 			}
@@ -1003,11 +1003,11 @@ int XString::compare(const elem_type* _String, size_type _Length, Xcc::CaseSensi
 // 检查是否与指定数据相同
 int XString::compare(const XString& _String) const noexcept
 {
-	return this->compare(_String.data(), _String.size(), Xcc::CaseSensitive);
+	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive);
 }
 
 // 检查是否与指定数据相同
-int XString::compare(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept
+int XString::compare(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), _XCS);
 }
@@ -1134,11 +1134,11 @@ XString& XString::remove(pos_type _Pos, size_type _Length) noexcept
 XString& XString::remove(elem_type _Char) noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
-	return this->remove(vBytes, 1, Xcc::CaseSensitive);
+	return this->remove(vBytes, 1, xcc::CaseSensitive);
 }
 
 // 删除与参数相同的数据
-XString& XString::remove(elem_type _Char, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::remove(elem_type _Char, xcc::CaseSensitivity _XCS) noexcept
 {
 	elem_type		vBytes[2] = { _Char, '\0' };
 	return this->remove(vBytes, 1, _XCS);
@@ -1147,11 +1147,11 @@ XString& XString::remove(elem_type _Char, Xcc::CaseSensitivity _XCS) noexcept
 // 删除与参数相同的数据
 XString& XString::remove(const elem_type* _String) noexcept
 {
-	return this->remove(_String, x_posix_strlen(_String), Xcc::CaseSensitive);
+	return this->remove(_String, x_posix_strlen(_String), xcc::CaseSensitive);
 }
 
 // 删除与参数相同的数据
-XString& XString::remove(const elem_type* _String, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::remove(const elem_type* _String, xcc::CaseSensitivity _XCS) noexcept
 {
 	return this->remove(_String, x_posix_strlen(_String), _XCS);
 }
@@ -1159,11 +1159,11 @@ XString& XString::remove(const elem_type* _String, Xcc::CaseSensitivity _XCS) no
 // 删除与参数相同的数据
 XString& XString::remove(const elem_type* _String, size_type _Length) noexcept
 {
-	return this->remove(_String, _Length, Xcc::CaseSensitive);
+	return this->remove(_String, _Length, xcc::CaseSensitive);
 }
 
 // 删除与参数相同的数据
-XString& XString::remove(const elem_type* _String, size_type _Length, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::remove(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) noexcept
 {
 	auto		vFind = this->find(_String, _Length, 0, _XCS);
 	if(vFind != XString::npos)
@@ -1176,11 +1176,11 @@ XString& XString::remove(const elem_type* _String, size_type _Length, Xcc::CaseS
 // 删除与参数相同的数据
 XString& XString::remove(const XString& _String) noexcept
 {
-	return this->remove(_String.data(), _String.size(), Xcc::CaseSensitive);
+	return this->remove(_String.data(), _String.size(), xcc::CaseSensitive);
 }
 
 // 删除与参数相同的数据
-XString& XString::remove(const XString& _String, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::remove(const XString& _String, xcc::CaseSensitivity _XCS) noexcept
 {
 	return this->remove(_String.data(), _String.size(), _XCS);
 }
@@ -1224,11 +1224,11 @@ XString& XString::replace(elem_type _Before, elem_type _After) noexcept
 {
 	elem_type		vBefore[2] = { _Before, '\0' };
 	elem_type		vAfter[2] = { _After, '\0' };
-	return this->replace(vBefore, 1, vAfter, 1, Xcc::CaseSensitive);
+	return this->replace(vBefore, 1, vAfter, 1, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(elem_type _Before, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(elem_type _Before, elem_type _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	elem_type		vBefore[2] = { _Before, '\0' };
 	elem_type		vAfter[2] = { _After, '\0' };
@@ -1239,11 +1239,11 @@ XString& XString::replace(elem_type _Before, elem_type _After, Xcc::CaseSensitiv
 XString& XString::replace(elem_type _Before, const elem_type* _After, size_type _LengthA) noexcept
 {
 	elem_type		vBefore[2] = { _Before, '\0' };
-	return this->replace(vBefore, 1, _After, _LengthA, Xcc::CaseSensitive);
+	return this->replace(vBefore, 1, _After, _LengthA, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(elem_type _Before, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(elem_type _Before, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept
 {
 	elem_type		vBefore[2] = { _Before, '\0' };
 	return this->replace(vBefore, 1, _After, _LengthA, _XCS);
@@ -1253,11 +1253,11 @@ XString& XString::replace(elem_type _Before, const elem_type* _After, size_type 
 XString& XString::replace(elem_type _Before, const XString& _After) noexcept
 {
 	elem_type		vBefore[2] = { _Before, '\0' };
-	return this->replace(vBefore, 1, _After.data(), _After.size(), Xcc::CaseSensitive);
+	return this->replace(vBefore, 1, _After.data(), _After.size(), xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(elem_type _Before, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(elem_type _Before, const XString& _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	elem_type		vBefore[2] = { _Before, '\0' };
 	return this->replace(vBefore, 1, _After.data(), _After.size(), _XCS);
@@ -1271,11 +1271,11 @@ XString& XString::replace(elem_type _Before, const XString& _After, Xcc::CaseSen
 XString& XString::replace(const elem_type* _Before, elem_type _After) noexcept
 {
 	elem_type		vAfter[2] = { _After, '\0' };
-	return this->replace(_Before, x_posix_strlen(_Before), vAfter, 1, Xcc::CaseSensitive);
+	return this->replace(_Before, x_posix_strlen(_Before), vAfter, 1, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const elem_type* _Before, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const elem_type* _Before, elem_type _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	elem_type		vAfter[2] = { _After, '\0' };
 	return this->replace(_Before, x_posix_strlen(_Before), vAfter, 1, _XCS);
@@ -1284,11 +1284,11 @@ XString& XString::replace(const elem_type* _Before, elem_type _After, Xcc::CaseS
 // 替换数据
 XString& XString::replace(const elem_type* _Before, const elem_type* _After, size_type _LengthA) noexcept
 {
-	return this->replace(_Before, x_posix_strlen(_Before), _After, _LengthA, Xcc::CaseSensitive);
+	return this->replace(_Before, x_posix_strlen(_Before), _After, _LengthA, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const elem_type* _Before, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const elem_type* _Before, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept
 {
 	return this->replace(_Before, x_posix_strlen(_Before), _After, _LengthA, _XCS);
 }
@@ -1296,11 +1296,11 @@ XString& XString::replace(const elem_type* _Before, const elem_type* _After, siz
 // 替换数据
 XString& XString::replace(const elem_type* _Before, const XString& _After) noexcept
 {
-	return this->replace(_Before, x_posix_strlen(_Before), _After.data(), _After.size(), Xcc::CaseSensitive);
+	return this->replace(_Before, x_posix_strlen(_Before), _After.data(), _After.size(), xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const elem_type* _Before, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const elem_type* _Before, const XString& _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	return this->replace(_Before, x_posix_strlen(_Before), _After.data(), _After.size(), _XCS);
 }
@@ -1313,11 +1313,11 @@ XString& XString::replace(const elem_type* _Before, const XString& _After, Xcc::
 XString& XString::replace(const elem_type* _Before, size_type _LengthB, elem_type _After) noexcept
 {
 	elem_type		vAfter[2] = { _After, '\0' };
-	return this->replace(_Before, _LengthB, vAfter, 1, Xcc::CaseSensitive);
+	return this->replace(_Before, _LengthB, vAfter, 1, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const elem_type* _Before, size_type _LengthB, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const elem_type* _Before, size_type _LengthB, elem_type _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	elem_type		vAfter[2] = { _After, '\0' };
 	return this->replace(_Before, _LengthB, vAfter, 1, _XCS);
@@ -1326,11 +1326,11 @@ XString& XString::replace(const elem_type* _Before, size_type _LengthB, elem_typ
 // 替换数据
 XString& XString::replace(const elem_type* _Before, size_type _LengthB, const elem_type* _After, size_type _LengthA) noexcept
 {
-	return this->replace(_Before, _LengthB, _After, _LengthA, Xcc::CaseSensitive);
+	return this->replace(_Before, _LengthB, _After, _LengthA, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const elem_type* _Before, size_type _LengthB, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const elem_type* _Before, size_type _LengthB, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept
 {
 	pos_type	vPos = 0;
 	do
@@ -1348,11 +1348,11 @@ XString& XString::replace(const elem_type* _Before, size_type _LengthB, const el
 // 替换数据
 XString& XString::replace(const elem_type* _Before, size_type _LengthB, const XString& _After) noexcept
 {
-	return this->replace(_Before, _LengthB, _After.data(), _After.size(), Xcc::CaseSensitive);
+	return this->replace(_Before, _LengthB, _After.data(), _After.size(), xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const elem_type* _Before, size_type _LengthB, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const elem_type* _Before, size_type _LengthB, const XString& _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	return this->replace(_Before, _LengthB, _After.data(), _After.size(), _XCS);
 }
@@ -1365,11 +1365,11 @@ XString& XString::replace(const elem_type* _Before, size_type _LengthB, const XS
 XString& XString::replace(const XString& _Before, elem_type _After) noexcept
 {
 	elem_type		vAfter[2] = { _After, '\0' };
-	return this->replace(_Before.data(), _Before.size(), vAfter, 1, Xcc::CaseSensitive);
+	return this->replace(_Before.data(), _Before.size(), vAfter, 1, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const XString& _Before, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const XString& _Before, elem_type _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	elem_type		vAfter[2] = { _After, '\0' };
 	return this->replace(_Before.data(), _Before.size(), vAfter, 1, _XCS);
@@ -1378,11 +1378,11 @@ XString& XString::replace(const XString& _Before, elem_type _After, Xcc::CaseSen
 // 替换数据
 XString& XString::replace(const XString& _Before, const elem_type* _After, size_type _LengthA) noexcept
 {
-	return this->replace(_Before.data(), _Before.size(), _After, _LengthA, Xcc::CaseSensitive);
+	return this->replace(_Before.data(), _Before.size(), _After, _LengthA, xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const XString& _Before, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const XString& _Before, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept
 {
 	return this->replace(_Before.data(), _Before.size(), _After, _LengthA, _XCS);
 }
@@ -1390,11 +1390,11 @@ XString& XString::replace(const XString& _Before, const elem_type* _After, size_
 // 替换数据
 XString& XString::replace(const XString& _Before, const XString& _After) noexcept
 {
-	return this->replace(_Before.data(), _Before.size(), _After.data(), _After.size(), Xcc::CaseSensitive);
+	return this->replace(_Before.data(), _Before.size(), _After.data(), _After.size(), xcc::CaseSensitive);
 }
 
 // 替换数据
-XString& XString::replace(const XString& _Before, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept
+XString& XString::replace(const XString& _Before, const XString& _After, xcc::CaseSensitivity _XCS) noexcept
 {
 	return this->replace(_Before.data(), _Before.size(), _After.data(), _After.size(), _XCS);
 }

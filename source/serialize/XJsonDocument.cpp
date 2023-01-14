@@ -25,36 +25,53 @@ XJsonDocument& XJsonDocument::operator = (XJsonDocument&& _Object) noexcept = de
 
 
 // [fmt] 转换为字节数组
-XByteArray XJsonDocument::toBytes(const XJsonValue& _JsonValue) noexcept
+XByteArray XJsonDocument::toBytes(const XJsonValue& _JsonValue, XJsonDocument::JsonFormat _JsonFormat) noexcept
 {
-	XCC_UNUSED(_JsonValue);
-
+	char*		vBytes = nullptr;
+	xcc::size_t 	vLength = 0;
+	auto		vStatus = XJsonPrivate::serialize(_JsonValue.memberData, _JsonFormat, &vBytes, &vLength);
+	if(vStatus)
+	{
+		auto		vByteArray = XByteArray(vBytes, vLength);
+		XJsonPrivate::free(vBytes);
+		return vByteArray;
+	}
 	return {};
 }
 
 // [fmt] 转换为字符串
-XString XJsonDocument::toString(const XJsonValue& _JsonValue) noexcept
+XString XJsonDocument::toString(const XJsonValue& _JsonValue, XJsonDocument::JsonFormat _JsonFormat) noexcept
 {
-	XCC_UNUSED(_JsonValue);
-
+	char*		vBytes = nullptr;
+	xcc::size_t 	vLength = 0;
+	auto		vStatus = XJsonPrivate::serialize(_JsonValue.memberData, _JsonFormat, &vBytes, &vLength);
+	if(vStatus)
+	{
+		auto		vString = XString(vBytes, vLength);
+		XJsonPrivate::free(vBytes);
+		return vString;
+	}
 	return {};
 }
 
 // [fmt] 保存为文件
-bool XJsonDocument::toFile(const XJsonValue& _JsonValue, const XString& _FilePath) noexcept
+bool XJsonDocument::toFile(const XJsonValue& _JsonValue, const XString& _FilePath, XJsonDocument::JsonFormat _JsonFormat) noexcept
 {
-	auto		vJsonBytes = XJsonDocument::toBytes(_JsonValue);
+	auto		vJsonBytes = XJsonDocument::toBytes(_JsonValue, _JsonFormat);
 	return XFileSystem::file::fromBytes(_FilePath, vJsonBytes);
 }
 
 
 
 // [fmt] 从字节数组格式化
-XJsonValue XJsonDocument::fromBytes(const char* _JsonBytes, Xcc::size_t _JsonLength) noexcept
+XJsonValue XJsonDocument::fromBytes(const char* _JsonBytes, xcc::size_t _JsonLength) noexcept
 {
-	XCC_UNUSED(_JsonBytes);
-	XCC_UNUSED(_JsonLength);
-
+	auto		vPrivate = static_cast<XJsonValuePrivate*>(nullptr);
+	auto		vStatus = XJsonPrivate::deserialize(_JsonBytes, _JsonLength, &vPrivate);
+	if(vStatus)
+	{
+		return XJsonValue(vPrivate);
+	}
 	return {};
 }
 

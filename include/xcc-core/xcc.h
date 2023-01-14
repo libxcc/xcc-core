@@ -10,11 +10,10 @@
 #include <xcc-core/XException.h>
 #include <xcc-core/XFileSystem.h>
 #include <xcc-core/XHash.h>
-// #include <xcc-core/XJsonArray.h>
-// #include <xcc-core/XJsonDocument.h>
-// #include <xcc-core/XJsonObject.h>
-#include <xcc-core/XJsonPosix.h>
-// #include <xcc-core/XJsonValue.h>
+#include <xcc-core/XJsonArray.h>
+#include <xcc-core/XJsonDocument.h>
+#include <xcc-core/XJsonObject.h>
+#include <xcc-core/XJsonValue.h>
 #include <xcc-core/XLibrary.h>
 #include <xcc-core/XMutex.h>
 #include <xcc-core/XNative.h>

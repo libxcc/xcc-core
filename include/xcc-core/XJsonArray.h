@@ -6,11 +6,21 @@
 
 // Json: 前置声明
 class XJsonValue;
+class XJsonPrivate;
 typedef struct XJsonArrayPrivate		XJsonArrayPrivate;
+typedef struct XJsonArrayIterPrivate		XJsonArrayIterPrivate;
 
 // Json: 数组
 class _XCOREAPI_ XJsonArray
 {
+private:
+	friend class XJsonPrivate;
+
+public:
+	// 前置声明
+	class iterator;
+	class const_iterator;
+
 private:
 	// 私有数据
 	XJsonArrayPrivate*			memberData;
@@ -40,14 +50,14 @@ public:
 
 public:
 	// operator overload []
-	XJsonValue& operator[](Xcc::size_t _Index);
+	XJsonValue& operator[](xcc::size_t _Index);
 
 	// operator overload []
-	const XJsonValue& operator[](Xcc::size_t _Index) const;
+	const XJsonValue& operator[](xcc::size_t _Index) const;
 
 public:
 	// 子项数量
-	virtual Xcc::size_t size() const noexcept final;
+	virtual xcc::size_t size() const noexcept final;
 
 	// 是否不存在子项
 	virtual bool empty() const noexcept final;
@@ -55,197 +65,227 @@ public:
 	// 是否存在子项
 	virtual bool exist() const noexcept final;
 
+	// 清空
+	virtual void clear() noexcept final;
+
 public:
-	// 插入至最前
-	virtual void prepend(bool _Status) noexcept final;
+	// 正向迭代器起点
+	virtual iterator begin() noexcept final;
 
-	// 插入至最前
-	virtual void prepend(Xcc::int8_t _Number) noexcept final;
+	// 正向迭代器终点
+	virtual iterator end() noexcept final;
 
-	// 插入至最前
-	virtual void prepend(Xcc::uint8_t _Number) noexcept final;
+	// 正向只读迭代器起点
+	virtual const_iterator begin() const noexcept final;
 
-	// 插入至最前
-	virtual void prepend(Xcc::int16_t _Number) noexcept final;
+	// 正向只读迭代器终点
+	virtual const_iterator end() const noexcept final;
 
-	// 插入至最前
-	virtual void prepend(Xcc::uint16_t _Number) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(Xcc::int32_t _Number) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(Xcc::uint32_t _Number) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(Xcc::int64_t _Number) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(Xcc::uint64_t _Number) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(float _Number) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(double _Number) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(const XString& _String) noexcept final;
-
+public:
 	// 插入至最前
 	virtual void prepend(const XJsonValue& _JsonValue) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(const XJsonArray& _JsonArray) noexcept final;
-
-	// 插入至最前
-	virtual void prepend(const XJsonObjectT& _JsonObject) noexcept final;
-
-public:
-	// 插入至末尾
-	virtual void append(bool _Status) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::int8_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::uint8_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::int16_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::uint16_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::int32_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::uint32_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::int64_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(Xcc::uint64_t _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(float _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(double _Number) noexcept final;
-
-	// 插入至末尾
-	virtual void append(const XString& _String) noexcept final;
 
 	// 插入至末尾
 	virtual void append(const XJsonValue& _JsonValue) noexcept final;
 
-	// 插入至末尾
-	virtual void append(const XJsonArray& _JsonArray) noexcept final;
-
-	// 插入至末尾
-	virtual void append(const XJsonObjectT& _JsonObject) noexcept final;
-
-public:
 	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, bool _Status) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::int8_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::uint8_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::int16_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::uint16_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::int32_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::uint32_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::int64_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, Xcc::uint64_t _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, float _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, double _Number) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, const XString& _String) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, const XJsonArray& _JsonArray) noexcept final;
-
-	// 插入至指定下标
-	virtual void insert(Xcc::size_t _Index, const XJsonObjectT& _JsonObject) noexcept final;
-
-public:
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, bool _Status) noexcept final;
+	virtual void insert(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept final;
 
 	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::int8_t _Number) noexcept final;
+	virtual void replace(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept final;
 
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::uint8_t _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::int16_t _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::uint16_t _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::int32_t _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::uint32_t _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::int64_t _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, Xcc::uint64_t _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, float _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, double _Number) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, const XString& _String) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, const XJsonArray& _JsonArray) noexcept final;
-
-	// 替换指定下标
-	virtual void replace(Xcc::size_t _Index, const XJsonObjectT& _JsonObject) noexcept final;
-
-public:
 	// 删除指定下标
-	virtual void remove(Xcc::size_t _Index) noexcept final;
+	virtual void remove(xcc::size_t _Index) noexcept final;
+
+	// 分离指定下标
+	virtual XJsonValue detach(xcc::size_t _Index) noexcept final;
 
 public:
-	// 分离指定下标
-	virtual XJsonValue detach(Xcc::size_t _Index) noexcept final;
+	// 查找迭代器
+	virtual iterator find(xcc::size_t _Index) noexcept final;
+
+	// 查找迭代器
+	virtual const_iterator find(xcc::size_t _Index) const noexcept final;
+
+	// 删除迭代器
+	virtual iterator remove(iterator _Iterator) noexcept final;
+
+	// 删除迭代器
+	virtual const_iterator remove(const_iterator _Iterator) noexcept final;
+
+	// 分离迭代器
+	virtual XJsonValue detach(iterator _Iterator) noexcept final;
+
+	// 分离迭代器
+	virtual XJsonValue detach(const_iterator _Iterator) noexcept final;
+
+public:
+	// 迭代器
+	class _XCOREAPI_ iterator
+	{
+	private:
+		friend class XJsonArray;
+
+	private:
+		// 私有数据
+		XJsonArrayIterPrivate*			memberData;
+
+	public:
+		// constructor
+		iterator() noexcept;
+
+		// constructor
+		explicit iterator(XJsonArrayIterPrivate* _PrivateData) noexcept;
+
+		// constructor
+		iterator(const iterator& _Object) noexcept;
+
+		// constructor
+		iterator(iterator&& _Object) noexcept;
+
+		// destructor
+		virtual ~iterator() noexcept;
+
+	public:
+		// operator overload =
+		iterator& operator =(const iterator& _Object) noexcept;
+
+		// operator overload =
+		iterator& operator =(iterator&& _Object) noexcept;
+
+	public:
+		// operator overload =
+		bool operator ==(const iterator& _Object) noexcept;
+
+		// operator overload =
+		bool operator !=(const iterator& _Object) noexcept;
+
+	public:
+		// operator overload ++
+		iterator& operator ++() noexcept;
+
+		// operator overload ++
+		iterator operator ++() const noexcept;
+
+		// operator overload --
+		iterator& operator --() noexcept;
+
+		// operator overload --
+		iterator operator --() const noexcept;
+
+		// operator overload +
+		iterator operator +(xcc::ssize_t _Size) const noexcept;
+
+		// operator overload -
+		iterator operator -(xcc::ssize_t _Size) const noexcept;
+
+		// operator overload +=
+		iterator& operator +=(xcc::ssize_t _Size) noexcept;
+
+		// operator overload -=
+		iterator& operator -=(xcc::ssize_t _Size) noexcept;
+
+	public:
+		// operator overload *
+		virtual XJsonValue& operator *() final;
+
+		// operator overload *
+		virtual const XJsonValue& operator *() const final;
+
+	public:
+		// 是否有效
+		virtual bool isValid() const noexcept final;
+
+		// 下标
+		virtual xcc::size_t index() const noexcept final;
+
+		// Value
+		virtual XJsonValue& value() final;
+
+		// Value
+		virtual const XJsonValue& value() const final;
+	};
+
+public:
+	// 只读迭代器
+	class _XCOREAPI_ const_iterator
+	{
+	private:
+		friend class XJsonArray;
+
+	private:
+		// 私有数据
+		XJsonArrayIterPrivate*			memberData;
+
+	public:
+		// constructor
+		const_iterator() noexcept;
+
+		// constructor
+		explicit const_iterator(XJsonArrayIterPrivate* _PrivateData) noexcept;
+
+		// constructor
+		const_iterator(const const_iterator& _Object) noexcept;
+
+		// constructor
+		const_iterator(const_iterator&& _Object) noexcept;
+
+		// destructor
+		virtual ~const_iterator() noexcept;
+
+	public:
+		// operator overload =
+		const_iterator& operator =(const const_iterator& _Object) noexcept;
+
+		// operator overload =
+		const_iterator& operator =(const_iterator&& _Object) noexcept;
+
+	public:
+		// operator overload =
+		bool operator ==(const const_iterator& _Object) noexcept;
+
+		// operator overload =
+		bool operator !=(const const_iterator& _Object) noexcept;
+
+	public:
+		// operator overload ++
+		const_iterator& operator ++() noexcept;
+
+		// operator overload ++
+		const_iterator operator ++() const noexcept;
+
+		// operator overload --
+		const_iterator& operator --() noexcept;
+
+		// operator overload --
+		const_iterator operator --() const noexcept;
+
+		// operator overload +
+		const_iterator operator +(xcc::ssize_t _Size) const noexcept;
+
+		// operator overload -
+		const_iterator operator -(xcc::ssize_t _Size) const noexcept;
+
+		// operator overload +=
+		const_iterator& operator +=(xcc::ssize_t _Size) noexcept;
+
+		// operator overload -=
+		const_iterator& operator -=(xcc::ssize_t _Size) noexcept;
+
+	public:
+		// operator overload *
+		virtual const XJsonValue& operator *() const final;
+
+	public:
+		// 是否有效
+		virtual bool isValid() const noexcept final;
+
+		// 下标
+		virtual xcc::size_t index() const noexcept final;
+
+		// Value
+		virtual const XJsonValue& value() const final;
+	};
 };
 
 #endif

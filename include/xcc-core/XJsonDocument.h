@@ -11,6 +11,14 @@
 class _XCOREAPI_ XJsonDocument
 {
 public:
+	// Json格式
+	typedef enum JsonFormat
+	{
+		Compact			= 0,
+		Indented		= 1
+	}JsonFormat;
+
+public:
 	// constructor
 	XJsonDocument() noexcept;
 
@@ -32,17 +40,17 @@ public:
 
 public:
 	// [fmt] 转换为字节数组
-	static XByteArray toBytes(const XJsonValue& _JsonValue) noexcept;
+	static XByteArray toBytes(const XJsonValue& _JsonValue, XJsonDocument::JsonFormat _JsonFormat = XJsonDocument::Compact) noexcept;
 
 	// [fmt] 转换为字符串
-	static XString toString(const XJsonValue& _JsonValue) noexcept;
+	static XString toString(const XJsonValue& _JsonValue, XJsonDocument::JsonFormat _JsonFormat = XJsonDocument::Compact) noexcept;
 
 	// [fmt] 保存为文件
-	static bool toFile(const XJsonValue& _JsonValue, const XString& _FilePath) noexcept;
+	static bool toFile(const XJsonValue& _JsonValue, const XString& _FilePath, XJsonDocument::JsonFormat _JsonFormat = XJsonDocument::Compact) noexcept;
 
 public:
 	// [fmt] 从字节数组格式化
-	static XJsonValue fromBytes(const char* _JsonBytes, Xcc::size_t _JsonLength) noexcept;
+	static XJsonValue fromBytes(const char* _JsonBytes, xcc::size_t _JsonLength) noexcept;
 
 	// [fmt] 从字节数组格式化
 	static XJsonValue fromBytes(const XByteArray& _JsonBytes) noexcept;

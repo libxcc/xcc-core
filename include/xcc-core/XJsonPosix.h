@@ -151,40 +151,40 @@ _XCOREAPI_ void __xcall__ XJson_ReplaceItemInObject(XCC_JSON_INFO* object, const
 
 
 // Xanadu Class Json
-class _XCOREAPI_ XJsonObject
+class _XCOREAPI_ XJsonPosix
 {
 private:
 	// constructor
-	XJsonObject(XCC_JSON_INFO* _JsonData) noexcept;
+	XJsonPosix(XCC_JSON_INFO* _JsonData) noexcept;
 
 public:
 	// constructor
-	XJsonObject() noexcept;
+	XJsonPosix() noexcept;
 
 	// constructor
-	XJsonObject(const UString& _JsonString) noexcept;
+	XJsonPosix(const UString& _JsonString) noexcept;
 
 	// constructor
-	XJsonObject(const XByteArray& _JsonBytes) noexcept;
+	XJsonPosix(const XByteArray& _JsonBytes) noexcept;
 
 	// constructor
-	XJsonObject(const XString& _JsonString) noexcept;
+	XJsonPosix(const XString& _JsonString) noexcept;
 
 	// constructor
-	XJsonObject(const XJsonObject* _JsonObject) noexcept;
+	XJsonPosix(const XJsonPosix* _JsonObject) noexcept;
 
 	// constructor
-	XJsonObject(const XJsonObject& _JsonObject) noexcept;
+	XJsonPosix(const XJsonPosix& _JsonObject) noexcept;
 
 	// destructor
-	virtual ~XJsonObject() noexcept;
+	virtual ~XJsonPosix() noexcept;
 
 public:
 	// [opt] operators overload =
-	XJsonObject& operator=(const XJsonObject& _Value) noexcept;
+	XJsonPosix& operator=(const XJsonPosix& _Value) noexcept;
 
 	// [opt] operators overload ==
-	virtual bool operator==(const XJsonObject& _Value) const noexcept;
+	virtual bool operator==(const XJsonPosix& _Value) const noexcept;
 
 public:
 	// [fmt] from string
@@ -221,7 +221,7 @@ public:
 
 	virtual bool appendEmptySubArray(const UString& _Key) noexcept;
 
-	virtual XJsonObject& operator[](const UString& _Key) noexcept;
+	virtual XJsonPosix& operator[](const UString& _Key) noexcept;
 
 	virtual UString operator()(const UString& _Key) const noexcept;
 
@@ -235,7 +235,7 @@ public:
 
 public:
 	// [get] 获取指定Key的值 Object
-	virtual bool get(const UString& _Key, XJsonObject& _Value) const noexcept;
+	virtual bool get(const UString& _Key, XJsonPosix& _Value) const noexcept;
 
 	// [get] 获取指定Key的值 String
 	virtual bool get(const UString& _Key, UString& _Value) const noexcept;
@@ -287,7 +287,7 @@ public:
 
 public:
 	// [set] 添加子项 Object
-	virtual bool append(const UString& _Key, const XJsonObject& _Value) noexcept;
+	virtual bool append(const UString& _Key, const XJsonPosix& _Value) noexcept;
 
 	// [set] 添加子项 String
 	virtual bool append(const UString& _Key, const UString& _Value) noexcept;
@@ -343,7 +343,7 @@ public:
 
 public:
 	// [set] 替换子项 Object
-	virtual bool replace(const UString& _Key, const XJsonObject& _Value) noexcept;
+	virtual bool replace(const UString& _Key, const XJsonPosix& _Value) noexcept;
 
 	// [set] 替换子项
 	virtual bool replace(const UString& _Key, const UString& _Value) noexcept;
@@ -395,7 +395,7 @@ public:
 
 public:
 	// [get] 获取子项 Object
-	virtual XJsonObject toObject(const UString& _Key) const noexcept;
+	virtual XJsonPosix toObject(const UString& _Key) const noexcept;
 
 	// [get] 获取子项 String
 	virtual UString toString(const UString& _Key) const noexcept;
@@ -450,7 +450,7 @@ public:
 	virtual int arraySize() const noexcept;
 
 	// [get] 根据下标获取子项
-	virtual XJsonObject& operator[](unsigned int _Index) noexcept;
+	virtual XJsonPosix& operator[](unsigned int _Index) noexcept;
 
 	// [get] 根据下标获取子项
 	virtual UString operator()(unsigned int _Index) const noexcept;
@@ -461,7 +461,7 @@ private:
 
 public:
 	// [get] 根据下标获取子项
-	virtual bool get(int _Index, XJsonObject& _Value) const noexcept;
+	virtual bool get(int _Index, XJsonPosix& _Value) const noexcept;
 
 	// [get] 根据下标获取子项
 	virtual bool get(int _Index, UString& _Value) const noexcept;
@@ -513,7 +513,7 @@ public:
 
 public:
 	// [set] 在数组开头添加子项
-	virtual bool prepend(const XJsonObject& _Value) noexcept;
+	virtual bool prepend(const XJsonPosix& _Value) noexcept;
 
 	// [set] 在数组开头添加子项
 	virtual bool prepend(const UString& _Value) noexcept;
@@ -565,7 +565,7 @@ public:
 
 public:
 	// [set] 在数组结尾添加子项
-	virtual bool append(const XJsonObject& _Value) noexcept;
+	virtual bool append(const XJsonPosix& _Value) noexcept;
 
 	// [set] 在数组结尾添加子项
 	virtual bool append(const UString& _Value) noexcept;
@@ -621,7 +621,7 @@ public:
 
 public:
 	// [set] 替换子项
-	virtual bool replace(int _Index, const XJsonObject& _Value) noexcept;
+	virtual bool replace(int _Index, const XJsonPosix& _Value) noexcept;
 
 	// [set] 替换子项
 	virtual bool replace(int _Index, const UString& _Value) noexcept;
@@ -678,9 +678,9 @@ private:
 
 	XString							_ThisErrorMessage;
 
-	std::map<unsigned int, XJsonObject*>*			_ThisJsonArrayRef;
+	std::map<unsigned int, XJsonPosix*>*			_ThisJsonArrayRef;
 
-	std::map<UString, XJsonObject*>*			_ThisJsonObjectRef;
+	std::map<UString, XJsonPosix*>*			_ThisJsonObjectRef;
 };
 
 #endif

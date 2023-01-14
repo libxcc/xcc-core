@@ -213,217 +213,217 @@ public:
 	virtual XString mid(const elem_type* _Left, const elem_type* _Right) const noexcept final;
 
 	// [mid] 从源中截取部分数据
-	virtual XString mid(const elem_type* _Left, const elem_type* _Right, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual XString mid(const elem_type* _Left, const elem_type* _Right, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// [mid] 从源中截取部分数据
 	virtual XString mid(const elem_type* _Left, size_type _LengthL, const elem_type* _Right, size_type _LengthR) const noexcept final;
 
 	// [mid] 从源中截取部分数据
-	virtual XString mid(const elem_type* _Left, size_type _LengthL, const elem_type* _Right, size_type _LengthR, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual XString mid(const elem_type* _Left, size_type _LengthL, const elem_type* _Right, size_type _LengthR, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// [mid] 从源中截取部分数据
 	virtual XString mid(const elem_type* _Left, const XString& _Right) const noexcept final;
 
 	// [mid] 从源中截取部分数据
-	virtual XString mid(const elem_type* _Left, const XString& _Right, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual XString mid(const elem_type* _Left, const XString& _Right, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// [mid] 从源中截取部分数据
 	virtual XString mid(const XString& _Left, const elem_type* _Right) const noexcept final;
 
 	// [mid] 从源中截取部分数据
-	virtual XString mid(const XString& _Left, const elem_type* _Right, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual XString mid(const XString& _Left, const elem_type* _Right, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// [mid] 从源中截取部分数据
 	virtual XString mid(const XString& _Left, const XString& _Right) const noexcept final;
 
 	// [mid] 从源中截取部分数据
-	virtual XString mid(const XString& _Left, const XString& _Right, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual XString mid(const XString& _Left, const XString& _Right, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 检测源数据是否存在指定的前缀
 	virtual bool startsWith(elem_type _Char) const noexcept final;
 
 	// 检测源数据是否存在指定的前缀
-	virtual bool startsWith(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool startsWith(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检测源数据是否存在指定的前缀
 	virtual bool startsWith(const elem_type* _Memory) const noexcept final;
 
 	// 检测源数据是否存在指定的前缀
-	virtual bool startsWith(const elem_type* _Memory, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool startsWith(const elem_type* _Memory, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检测源数据是否存在指定的前缀
 	virtual bool startsWith(const elem_type* _Memory, size_type _Length) const noexcept final;
 
 	// 检测源数据是否存在指定的前缀
-	virtual bool startsWith(const elem_type* _Memory, size_type _Length, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool startsWith(const elem_type* _Memory, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检测源数据是否存在指定的前缀
 	virtual bool startsWith(const XString& _String) const noexcept final;
 
 	// 检测源数据是否存在指定的前缀
-	virtual bool startsWith(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool startsWith(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 检测源数据是否存在指定的后缀
 	virtual bool endsWith(elem_type _Char) const noexcept final;
 
 	// 检测源数据是否存在指定的后缀
-	virtual bool endsWith(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool endsWith(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检测源数据是否存在指定的后缀
 	virtual bool endsWith(const elem_type* _Memory) const noexcept final;
 
 	// 检测源数据是否存在指定的后缀
-	virtual bool endsWith(const elem_type* _Memory, Xcc::CaseSensitivity) const noexcept final;
+	virtual bool endsWith(const elem_type* _Memory, xcc::CaseSensitivity) const noexcept final;
 
 	// 检测源数据是否存在指定的后缀
 	virtual bool endsWith(const elem_type* _Memory, size_type _Length) const noexcept final;
 
 	// 检测源数据是否存在指定的后缀
-	virtual bool endsWith(const elem_type* _Memory, size_type _Length, Xcc::CaseSensitivity) const noexcept final;
+	virtual bool endsWith(const elem_type* _Memory, size_type _Length, xcc::CaseSensitivity) const noexcept final;
 
 	// 检测源数据是否存在指定的后缀
 	virtual bool endsWith(const XString& _String) const noexcept final;
 
 	// 检测源数据是否存在指定的后缀
-	virtual bool endsWith(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool endsWith(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 从指定位置按正序查找数据
 	virtual pos_type find(elem_type _Char) const noexcept final;
 
 	// 从指定位置按正序查找数据
-	virtual pos_type find(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type find(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按正序查找数据
 	virtual pos_type find(elem_type _Char, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按正序查找数据
-	virtual pos_type find(elem_type _Char, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type find(elem_type _Char, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按正序查找数据
 	virtual pos_type find(const elem_type* _String) const noexcept final;
 
 	// 从指定位置按正序查找数据
-	virtual pos_type find(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type find(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按正序查找数据
 	virtual pos_type find(const elem_type* _String, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按正序查找数据
-	virtual pos_type find(const elem_type* _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type find(const elem_type* _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按正序查找数据
 	virtual pos_type find(const elem_type* _String, size_type _Length, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按正序查找数据
-	virtual pos_type find(const elem_type* _String, size_type _Length, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type find(const elem_type* _String, size_type _Length, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按正序查找数据
 	virtual pos_type find(const XString& _String) const noexcept final;
 
 	// 从指定位置按正序查找数据
-	virtual pos_type find(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type find(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按正序查找数据
 	virtual pos_type find(const XString& _String, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按正序查找数据
-	virtual pos_type find(const XString& _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type find(const XString& _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(elem_type _Char) const noexcept final;
 
 	// 从指定位置按倒序查找数据
-	virtual pos_type rfind(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type rfind(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(elem_type _Char, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按倒序查找数据
-	virtual pos_type rfind(elem_type _Char, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type rfind(elem_type _Char, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(const elem_type* _String) const noexcept final;
 
 	// 从指定位置按倒序查找数据
-	virtual pos_type rfind(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type rfind(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(const elem_type* _String, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按倒序查找数据
-	virtual pos_type rfind(const elem_type* _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type rfind(const elem_type* _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(const elem_type* _String, size_type _Length, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按倒序查找数据
-	virtual pos_type rfind(const elem_type* _String, size_type _Length, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type rfind(const elem_type* _String, size_type _Length, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(const XString& _String) const noexcept final;
 
 	// 从指定位置按倒序查找数据
-	virtual pos_type rfind(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type rfind(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(const XString& _String, pos_type _Pos) const noexcept final;
 
 	// 从指定位置按倒序查找数据
-	virtual pos_type rfind(const XString& _String, pos_type _Pos, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual pos_type rfind(const XString& _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 检查是否包含指定数据
 	virtual bool contains(elem_type _Char) const noexcept final;
 
 	// 检查是否包含指定数据
-	virtual bool contains(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool contains(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检查是否包含指定数据
 	virtual bool contains(const elem_type* _String) const noexcept final;
 
 	// 检查是否包含指定数据
-	virtual bool contains(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool contains(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检查是否包含指定数据
 	virtual bool contains(const elem_type* _String, size_type _Length) const noexcept final;
 
 	// 检查是否包含指定数据
-	virtual bool contains(const elem_type* _String, size_type _Length, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool contains(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检查是否包含指定数据
 	virtual bool contains(const XString& _String) const noexcept final;
 
 	// 检查是否包含指定数据
-	virtual bool contains(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual bool contains(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 检查是否与指定数据相同
 	virtual int compare(elem_type _Char) const noexcept final;
 
 	// 检查是否与指定数据相同
-	virtual int compare(elem_type _Char, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual int compare(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检查是否与指定数据相同
 	virtual int compare(const elem_type* _String) const noexcept final;
 
 	// 检查是否与指定数据相同
-	virtual int compare(const elem_type* _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual int compare(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检查是否与指定数据相同
 	virtual int compare(const elem_type* _String, size_type _Length) const noexcept final;
 
 	// 检查是否与指定数据相同
-	virtual int compare(const elem_type* _String, size_type _Length, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual int compare(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept final;
 
 	// 检查是否与指定数据相同
 	virtual int compare(const XString& _String) const noexcept final;
 
 	// 检查是否与指定数据相同
-	virtual int compare(const XString& _String, Xcc::CaseSensitivity _XCS) const noexcept final;
+	virtual int compare(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 在头部插入数据
@@ -481,25 +481,25 @@ public:
 	virtual XString& remove(elem_type _Char) noexcept final;
 
 	// 删除与参数相同的数据
-	virtual XString& remove(elem_type _Char, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& remove(elem_type _Char, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 删除与参数相同的数据
 	virtual XString& remove(const elem_type* _String) noexcept final;
 
 	// 删除与参数相同的数据
-	virtual XString& remove(const elem_type* _String, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& remove(const elem_type* _String, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 删除与参数相同的数据
 	virtual XString& remove(const elem_type* _String, size_type _Length) noexcept final;
 
 	// 删除与参数相同的数据
-	virtual XString& remove(const elem_type* _String, size_type _Length, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& remove(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 删除与参数相同的数据
 	virtual XString& remove(const XString& _String) noexcept final;
 
 	// 删除与参数相同的数据
-	virtual XString& remove(const XString& _String, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& remove(const XString& _String, xcc::CaseSensitivity _XCS) noexcept final;
 
 public:
 	// 替换数据
@@ -519,76 +519,76 @@ public:
 	virtual XString& replace(elem_type _Before, elem_type _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(elem_type _Before, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(elem_type _Before, elem_type _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(elem_type _Before, const elem_type* _After, size_type _LengthA) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(elem_type _Before, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(elem_type _Before, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(elem_type _Before, const XString& _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(elem_type _Before, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(elem_type _Before, const XString& _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 public:
 	// 替换数据
 	virtual XString& replace(const elem_type* _Before, elem_type _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const elem_type* _Before, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const elem_type* _Before, elem_type _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(const elem_type* _Before, const elem_type* _After, size_type _LengthA) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const elem_type* _Before, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const elem_type* _Before, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(const elem_type* _Before, const XString& _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const elem_type* _Before, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const elem_type* _Before, const XString& _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 public:
 	// 替换数据
 	virtual XString& replace(const elem_type* _Before, size_type _LengthB, elem_type _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const elem_type* _Before, size_type _LengthB, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const elem_type* _Before, size_type _LengthB, elem_type _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(const elem_type* _Before, size_type _LengthB, const elem_type* _After, size_type _LengthA) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const elem_type* _Before, size_type _LengthB, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const elem_type* _Before, size_type _LengthB, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(const elem_type* _Before, size_type _LengthB, const XString& _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const elem_type* _Before, size_type _LengthB, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const elem_type* _Before, size_type _LengthB, const XString& _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 public:
 	// 替换数据
 	virtual XString& replace(const XString& _Before, elem_type _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const XString& _Before, elem_type _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const XString& _Before, elem_type _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(const XString& _Before, const elem_type* _After, size_type _LengthA) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const XString& _Before, const elem_type* _After, size_type _LengthA, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const XString& _Before, const elem_type* _After, size_type _LengthA, xcc::CaseSensitivity _XCS) noexcept final;
 
 	// 替换数据
 	virtual XString& replace(const XString& _Before, const XString& _After) noexcept final;
 
 	// 替换数据
-	virtual XString& replace(const XString& _Before, const XString& _After, Xcc::CaseSensitivity _XCS) noexcept final;
+	virtual XString& replace(const XString& _Before, const XString& _After, xcc::CaseSensitivity _XCS) noexcept final;
 
 public:
 	// 按指定数据拆分字符串

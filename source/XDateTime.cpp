@@ -3,14 +3,14 @@
 
 
 // 毫秒转TM结构
-static struct tm* __xcall__ x_datetime_millisecond_to_tm(Xcc::time_type _Millisecond) noexcept
+static struct tm* __xcall__ x_datetime_millisecond_to_tm(xcc::time_type _Millisecond) noexcept
 {
 	time_t 		vObjectSec = _Millisecond / XDateTime::millisecond_second;
 	return gmtime(&vObjectSec);
 }
 
 // 当前毫秒数
-static Xcc::time_type __xcall__ x_datetime_current_millisecond_utc() noexcept
+static xcc::time_type __xcall__ x_datetime_current_millisecond_utc() noexcept
 {
 #if defined(XCC_SYSTEM_ANDROID)
 	/*
@@ -38,7 +38,7 @@ XDateTime::XDateTime() noexcept
 }
 
 // constructors Year[1970-9999] Month[1-12] Day[1-31]
-XDateTime::XDateTime(Xcc::int32_t _Year, Xcc::int32_t _Month, Xcc::int32_t _Day, Xcc::int32_t _Hour, Xcc::int32_t _Minute, Xcc::int32_t _Second, Xcc::int32_t _Millisecond) noexcept
+XDateTime::XDateTime(xcc::int32_t _Year, xcc::int32_t _Month, xcc::int32_t _Day, xcc::int32_t _Hour, xcc::int32_t _Minute, xcc::int32_t _Second, xcc::int32_t _Millisecond) noexcept
 {
 	struct tm	vTime{};
 	vTime.tm_year = _Year - XDateTime::tm_offset_year;
@@ -75,13 +75,13 @@ XDateTime XDateTime::currentDateTime(const XTimeZone& _TimeZone) noexcept
 }
 
 // 当前毫秒数
-Xcc::time_type XDateTime::currentMillisecond(const XTimeZone& _TimeZone) noexcept
+xcc::time_type XDateTime::currentMillisecond(const XTimeZone& _TimeZone) noexcept
 {
 	return XDateTime::currentDateTime(_TimeZone).toMillisecond();
 }
 
 // 当前秒数
-Xcc::time_type XDateTime::currentSecond(const XTimeZone& _TimeZone) noexcept
+xcc::time_type XDateTime::currentSecond(const XTimeZone& _TimeZone) noexcept
 {
 	return XDateTime::currentDateTime(_TimeZone).toSecond();
 }
@@ -90,7 +90,7 @@ Xcc::time_type XDateTime::currentSecond(const XTimeZone& _TimeZone) noexcept
 
 
 // 从毫秒数格式化
-XDateTime XDateTime::fromMillisecond(Xcc::time_type _Millisecond, const XTimeZone& _TimeZone) noexcept
+XDateTime XDateTime::fromMillisecond(xcc::time_type _Millisecond, const XTimeZone& _TimeZone) noexcept
 {
 	XDateTime	vDateTime;
 	vDateTime.memberMillisecond = _Millisecond + _TimeZone.toMillisecond();
@@ -98,7 +98,7 @@ XDateTime XDateTime::fromMillisecond(Xcc::time_type _Millisecond, const XTimeZon
 }
 
 // 从秒数格式化
-XDateTime XDateTime::fromSecond(Xcc::time_type _Second, const XTimeZone& _TimeZone) noexcept
+XDateTime XDateTime::fromSecond(xcc::time_type _Second, const XTimeZone& _TimeZone) noexcept
 {
 	return XDateTime::fromMillisecond(_Second * XDateTime::millisecond_second, _TimeZone);
 }
@@ -106,23 +106,23 @@ XDateTime XDateTime::fromSecond(Xcc::time_type _Second, const XTimeZone& _TimeZo
 
 
 // 是否为闰年
-bool XDateTime::yearIsLeap(Xcc::time_type _Year) noexcept
+bool XDateTime::yearIsLeap(xcc::time_type _Year) noexcept
 {
 	return (_Year % 4 == 0 && _Year % 100 != 0) || (_Year % 400 == 0);
 }
 
 // 周数开始偏移
-Xcc::time_type XDateTime::weekStartOffset(Xcc::time_type _Year) noexcept
+xcc::time_type XDateTime::weekStartOffset(xcc::time_type _Year) noexcept
 {
 	// 一周起始定为周一
-	static const Xcc::time_type 	week_offset_1901 = -6;
+	static const xcc::time_type 	week_offset_1901 = -6;
 	if(_Year < 1901)
 	{
 		return 0;
 	}
 
-	Xcc::time_type			vDays = week_offset_1901;
-	for(Xcc::time_type _Index = 1901; _Index < _Year; ++_Index)
+	xcc::time_type			vDays = week_offset_1901;
+	for(xcc::time_type _Index = 1901; _Index < _Year; ++_Index)
 	{
 		vDays += XDateTime::days_in_year;
 		vDays += XDateTime::yearIsLeap(_Index) ? 1 : 0;
@@ -134,13 +134,13 @@ Xcc::time_type XDateTime::weekStartOffset(Xcc::time_type _Year) noexcept
 
 
 // [cnv] 转换为毫秒
-Xcc::time_type XDateTime::toMillisecond() const noexcept
+xcc::time_type XDateTime::toMillisecond() const noexcept
 {
 	return memberMillisecond;
 }
 
 // [cnv] 转换为秒
-Xcc::time_type XDateTime::toSecond() const noexcept
+xcc::time_type XDateTime::toSecond() const noexcept
 {
 	return memberMillisecond / XDateTime::millisecond_second;
 }
@@ -161,21 +161,21 @@ XString XDateTime::toString(const XString& _Format) const noexcept
 }
 
 // [cnv] 转换到年份
-Xcc::time_type XDateTime::convertToYear() const noexcept
+xcc::time_type XDateTime::convertToYear() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
 	return vTM->tm_year + XDateTime::tm_offset_year;
 }
 
 // [cnv] 转换到月份
-Xcc::time_type XDateTime::convertToMonth() const noexcept
+xcc::time_type XDateTime::convertToMonth() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
 	return vTM->tm_mon + XDateTime::tm_offset_month;
 }
 
 // [cnv] 转换到天数
-Xcc::time_type XDateTime::convertToDay() const noexcept
+xcc::time_type XDateTime::convertToDay() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
 	return vTM->tm_yday + XDateTime::tm_offset_day;
@@ -230,12 +230,12 @@ XDateTime& XDateTime::truncateToSecond() noexcept
 
 
 // [set] 增加年份
-XDateTime& XDateTime::addYear(Xcc::int32_t _Year) noexcept
+XDateTime& XDateTime::addYear(xcc::int32_t _Year) noexcept
 {
 	auto		vCurrentYear = XDateTime::convertToYear();
 	if(_Year > 0)
 	{
-		for(Xcc::int32_t vIndex = 1; vIndex <= _Year; ++vIndex)
+		for(xcc::int32_t vIndex = 1; vIndex <= _Year; ++vIndex)
 		{
 			memberMillisecond += XDateTime::millisecond_year;
 			memberMillisecond += XDateTime::yearIsLeap(vCurrentYear + vIndex) ? XDateTime::millisecond_day : 0;
@@ -243,7 +243,7 @@ XDateTime& XDateTime::addYear(Xcc::int32_t _Year) noexcept
 	}
 	else if(_Year < 0)
 	{
-		for(Xcc::int32_t vIndex = -1; vIndex >= _Year; --vIndex)
+		for(xcc::int32_t vIndex = -1; vIndex >= _Year; --vIndex)
 		{
 			memberMillisecond -= XDateTime::millisecond_year;
 			memberMillisecond -= XDateTime::yearIsLeap(vCurrentYear + vIndex) ? XDateTime::millisecond_day : 0;
@@ -253,35 +253,35 @@ XDateTime& XDateTime::addYear(Xcc::int32_t _Year) noexcept
 }
 
 // [set] 增加天
-XDateTime& XDateTime::addDay(Xcc::int32_t _Day) noexcept
+XDateTime& XDateTime::addDay(xcc::int32_t _Day) noexcept
 {
 	memberMillisecond += (_Day * XDateTime::millisecond_day);
 	return *this;
 }
 
 // [set] 增加小时
-XDateTime& XDateTime::addHour(Xcc::int32_t _Hour) noexcept
+XDateTime& XDateTime::addHour(xcc::int32_t _Hour) noexcept
 {
 	memberMillisecond += (_Hour * XDateTime::millisecond_hour);
 	return *this;
 }
 
 // [set] 增加分
-XDateTime& XDateTime::addMinute(Xcc::int32_t _Minute) noexcept
+XDateTime& XDateTime::addMinute(xcc::int32_t _Minute) noexcept
 {
 	memberMillisecond += (_Minute * XDateTime::millisecond_minute);
 	return *this;
 }
 
 // [set] 增加秒
-XDateTime& XDateTime::addSecond(Xcc::int32_t _Second) noexcept
+XDateTime& XDateTime::addSecond(xcc::int32_t _Second) noexcept
 {
 	memberMillisecond += (_Second * XDateTime::millisecond_second);
 	return *this;
 }
 
 // [set] 增加毫秒
-XDateTime& XDateTime::addMillisecond(Xcc::int32_t _Millisecond) noexcept
+XDateTime& XDateTime::addMillisecond(xcc::int32_t _Millisecond) noexcept
 {
 	memberMillisecond += _Millisecond;
 	return *this;

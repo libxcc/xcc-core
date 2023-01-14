@@ -7,12 +7,18 @@
 
 // Json: 前置声明
 class XJsonArray;
-class XJsonObjectT;
+class XJsonObject;
+class XJsonDocument;
+class XJsonPrivate;
 typedef struct XJsonValuePrivate		XJsonValuePrivate;
 
 // Json: 值
 class _XCOREAPI_ XJsonValue
 {
+private:
+	friend class XJsonPrivate;
+	friend class XJsonDocument;
+
 public:
 	// 值类型枚举
 	typedef enum Type
@@ -46,6 +52,52 @@ public:
 	virtual ~XJsonValue() noexcept;
 
 public:
+	// constructor
+	XJsonValue(bool _Status) noexcept;
+
+	// constructor
+	XJsonValue(xcc::int8_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(xcc::uint8_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(xcc::int16_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(xcc::uint16_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(xcc::int32_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(xcc::uint32_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(xcc::int64_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(xcc::uint64_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(float _Number) noexcept;
+
+	// constructor
+	XJsonValue(double _Number) noexcept;
+
+	// constructor
+	XJsonValue(const char* _String) noexcept;
+
+	// constructor
+	XJsonValue(const XString& _String) noexcept;
+
+	// constructor
+	XJsonValue(const XJsonArray& _JsonArray) noexcept;
+
+	// constructor
+	XJsonValue(const XJsonObject& _JsonObject) noexcept;
+
+public:
 	// operator overload =
 	XJsonValue& operator = (const XJsonValue& _Object) noexcept;
 
@@ -53,50 +105,57 @@ public:
 	XJsonValue& operator = (XJsonValue&& _Object) noexcept;
 
 public:
-	// [fmt] 创建一个空值
+	// 设置为空值
+	virtual void clear() noexcept;
+
+public:
+	// 创建一个空值
 	static XJsonValue null() noexcept;
 
-	// [fmt] 创建一个布尔值
+	// 创建一个布尔值
 	static XJsonValue boolean(bool _Status) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::int8_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::int8_t _Number) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::uint8_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::uint8_t _Number) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::int16_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::int16_t _Number) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::uint16_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::uint16_t _Number) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::int32_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::int32_t _Number) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::uint32_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::uint32_t _Number) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::int64_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::int64_t _Number) noexcept;
 
-	// [fmt] 创建一个整型
-	static XJsonValue number(Xcc::uint64_t _Number) noexcept;
+	// 创建一个整型
+	static XJsonValue number(xcc::uint64_t _Number) noexcept;
 
-	// [fmt] 创建一个单精度浮点数
+	// 创建一个单精度浮点数
 	static XJsonValue number(float _Number) noexcept;
 
-	// [fmt] 创建一个双精度浮点数
+	// 创建一个双精度浮点数
 	static XJsonValue number(double _Number) noexcept;
 
-	// [fmt] 创建一个字符串
+	// 创建一个字符串
+	static XJsonValue string(const char* _String) noexcept;
+
+	// 创建一个字符串
 	static XJsonValue string(const XString& _String) noexcept;
 
-	// [fmt] 创建一个数组
+	// 创建一个数组
 	static XJsonValue array(const XJsonArray& _JsonArray) noexcept;
 
-	// [fmt] 创建一个对象
-	static XJsonValue object(const XJsonObjectT& _JsonObject) noexcept;
+	// 创建一个对象
+	static XJsonValue object(const XJsonObject& _JsonObject) noexcept;
 
 public:
 	// 当前值类型
@@ -132,10 +191,10 @@ public:
 	virtual bool toBoolean() const noexcept final;
 
 	// 转换为有符号整型
-	virtual Xcc::int64_t toLLong() const noexcept final;
+	virtual xcc::int64_t toLLong() const noexcept final;
 
 	// 转换为无符号整型
-	virtual Xcc::uint64_t toULLong() const noexcept final;
+	virtual xcc::uint64_t toULLong() const noexcept final;
 
 	// 转换为单精度浮点数
 	virtual float toFloat() const noexcept final;
@@ -150,7 +209,7 @@ public:
 	virtual XJsonArray toArray() const noexcept final;
 
 	// 转换为对象
-	virtual XJsonObjectT toObject() const noexcept final;
+	virtual XJsonObject toObject() const noexcept final;
 };
 
 #endif
