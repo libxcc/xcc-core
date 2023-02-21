@@ -18,6 +18,7 @@
 #include <xcc-core/XMutex.h>
 #include <xcc-core/XNative.h>
 #include <xcc-core/XProcess.h>
+#include <xcc-core/XRegistry.h>
 #include <xcc-core/XSetting.h>
 #include <xcc-core/XShell.h>
 #include <xcc-core/XString.h>

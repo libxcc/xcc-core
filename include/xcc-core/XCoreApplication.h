@@ -1,37 +1,55 @@
-#ifndef			_XCC_CORE_CORE_APPLICATION_H_
+﻿#ifndef			_XCC_CORE_CORE_APPLICATION_H_
 #define			_XCC_CORE_CORE_APPLICATION_H_
 
 #include <xcc-core/header.h>
 #include <xcc-core/XString.h>
 
 
-///  <summary>
-///  Some common operations of application program
-///  </summary>
+// 核心应用程序的私有数据
+struct XCoreApplicationPrivate;
+typedef struct XCoreApplicationPrivate		XCoreApplicationPrivate;
+
+// 核心应用程序的基础功能
 class _XCOREAPI_ XCoreApplication
 {
+private:
+	static XCoreApplication*		d_self;			// 实例指针
+	XCoreApplicationPrivate*		d_ptr;			// 私有数据
+
+private:
+	XCC_DISABLE_COPY(XCoreApplication);
+	XCC_DISABLE_MOVE(XCoreApplication);
+
 public:
 	// constructor
-	XCoreApplication() noexcept;
+	XCoreApplication(int _Argc, char** _Argv) noexcept;
 
 	// destructor
 	virtual ~XCoreApplication() noexcept;
 
 public:
-	// Gets the path of the current application
-	static XString applicationPath() noexcept;
+	// [get] 当前实例指针
+	static XCoreApplication* example() noexcept;
 
-	// Gets the directory of the current application
-	static XString applicationDirectory() noexcept;
+	// [get] 当前应用程序参数列表
+	static std::vector<XString> arguments() noexcept;
 
-	// Gets the name of the current application
-	static XString applicationName() noexcept;
+public:
+	// [get] 应用程序文件路径
+	static XString applicationFilePath() noexcept;
 
-	// Gets the running directory of the current application
-	static XString currentDirectory() noexcept;
+	// [get] 应用程序目录路径
+	static XString applicationDirPath() noexcept;
 
-	// sets the running directory of the current application
+	// [get] 应用程序文件名称
+	static XString applicationFileName() noexcept;
+
+public:
+	// [set] 应用程序运行目录
 	static XString setCurrentDirectory(const XString& _Directory) noexcept;
+
+	// [get] 应用程序运行目录
+	static XString currentDirectory() noexcept;
 
 public:
 	// Gets the cache directory currently in use

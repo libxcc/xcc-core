@@ -1,4 +1,4 @@
-# Xanadu.Core
+# Xcc.Core
 
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
@@ -81,4 +81,4 @@ sudo make install
 This library is licensed under the [GNU Lesser General Public License v2.1](https://www.gnu.org/licenses/lgpl-2.1.en.html),
 also included in the repository in the `LICENSE` file.
 
-README Updated on: 2021-09-09
+README Updated on: 2023-02-04

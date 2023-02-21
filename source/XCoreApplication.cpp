@@ -1,4 +1,4 @@
-#include <xcc-core/XCoreApplication.h>
+﻿#include <xcc-core/XCoreApplication.h>
 #include <xcc-core/XFileSystem.h>
 #include <xcc-core/XSystem.h>
 #if defined(XCC_SYSTEM_DARWIN)
@@ -6,26 +6,81 @@
 #endif
 
 
+
+// 实例指针
+XCoreApplication*		XCoreApplication::d_self = nullptr;
+
+
+
+// 核心应用程序的私有数据
+struct XCoreApplicationPrivate
+{
+	std::vector<XString>			arguments;		// 参数列表
+};
+
+
 // constructor
-XCoreApplication::XCoreApplication() noexcept = default;
+XCoreApplication::XCoreApplication(int _Argc, char** _Argv) noexcept
+{
+	XCoreApplication::d_self = this;
+
+	d_ptr = new(std::nothrow) XCoreApplicationPrivate();
+	if(d_ptr == nullptr)
+	{
+		return;
+	}
+
+	// 构建参数列表
+	if(_Argc > 0 && _Argv)
+	{
+		d_ptr->arguments.resize(_Argc);
+		for(auto vIndex = 0; vIndex < _Argc; ++vIndex)
+		{
+			d_ptr->arguments[vIndex] = _Argv[vIndex];
+		}
+	}
+}
 
 // destructor
-XCoreApplication::~XCoreApplication() noexcept = default;
-
-
-
-// Gets the path of the current application
-XString XCoreApplication::applicationPath() noexcept
+XCoreApplication::~XCoreApplication() noexcept
 {
-	static auto		vApplicationPath = XString();
-	if(vApplicationPath.empty())
+	delete d_ptr;
+
+	XCoreApplication::d_self = nullptr;
+}
+
+
+
+// [get] 当前实例指针
+XCoreApplication* XCoreApplication::example() noexcept
+{
+	return XCoreApplication::d_self;
+}
+
+// [get] 当前应用程序参数列表
+std::vector<XString> XCoreApplication::arguments() noexcept
+{
+	if(XCoreApplication::d_self && XCoreApplication::d_self->d_ptr)
+	{
+		return XCoreApplication::d_self->d_ptr->arguments;
+	}
+	return {};
+}
+
+
+
+// [get] 应用程序文件路径
+XString XCoreApplication::applicationFilePath() noexcept
+{
+	static XString		static_object_example = nullptr;
+	if(static_object_example.empty())
 	{
 #if defined(XCC_SYSTEM_WINDOWS)
 		wchar_t		vDirectory[XCC_PATH_MAX] = { 0 };
 		::GetModuleFileNameW(::GetModuleHandleW(nullptr), vDirectory, XCC_PATH_MAX);
-		vApplicationPath = XFileSystem::path::format(XString::fromWString(vDirectory)).filePath();
+		static_object_example = XFileSystem::path::format(XString::fromWString(vDirectory)).filePath();
 #else
-#if defined(XCC_SYSTEM_DARWIN)
+		#if defined(XCC_SYSTEM_DARWIN)
 		char		vDirectory[XCC_PATH_MAX];
 		uint32_t	vLength = XCC_PATH_MAX;
 		if(_NSGetExecutablePath(vDirectory, &vLength) != 0)
@@ -41,60 +96,70 @@ XString XCoreApplication::applicationPath() noexcept
 				free(vAbsolutePath);
 			}
 		}
-		vApplicationPath = XString::fromUString(vDirectory);
+		static_object_example = XString::fromUString(vDirectory);
 #else
 		char		vDirectory[XCC_PATH_MAX] = { 0 };
 		auto		vCount = readlink("/proc/self/exe", vDirectory, XCC_PATH_MAX);
 		if(0 <= vCount || vCount <= XCC_PATH_MAX)
 		{
-			vApplicationPath = XString::fromUString(vDirectory);
+			static_object_example = XString::fromUString(vDirectory);
 		}
 #endif
 #endif
 	}
-	return vApplicationPath;
+	return static_object_example;
 }
 
-// Gets the directory of the current application
-XString XCoreApplication::applicationDirectory() noexcept
+// [get] 应用程序目录路径
+XString XCoreApplication::applicationDirPath() noexcept
 {
-	auto		vApplicationPath = XCoreApplication::applicationPath();
-	auto		vFind = vApplicationPath.rfind('/');
-	if(vFind != XString::npos)
+	static XString		static_object_example = nullptr;
+	if(static_object_example.empty())
 	{
-		return vApplicationPath.left(vFind);
+		const auto&	vAppFilePath = XCoreApplication::applicationFilePath();
+		auto		vFind = vAppFilePath.rfind('/');
+		if(vFind != XString::npos)
+		{
+			static_object_example = vAppFilePath.left(vFind);
+		}
 	}
-	return "";
+	return static_object_example;
 }
 
-// Gets the name of the current application
-XString XCoreApplication::applicationName() noexcept
+// [get] 应用程序文件名称
+XString XCoreApplication::applicationFileName() noexcept
 {
-	auto		vApplicationPath = XCoreApplication::applicationPath();
-	auto		vFind = vApplicationPath.rfind('/');
-	if(vFind != XString::npos)
+	static XString		static_object_example = nullptr;
+	if(static_object_example.empty())
 	{
-		return vApplicationPath.substr(vFind + 1);
+		const auto&	vAppFilePath = XCoreApplication::applicationFilePath();
+		auto		vFind = vAppFilePath.rfind('/');
+		if(vFind != XString::npos)
+		{
+			static_object_example = vAppFilePath.substr(vFind + 1);
+		}
 	}
-	return "";
+	return static_object_example;
 }
 
-// Gets the running directory of the current application
-XString XCoreApplication::currentDirectory() noexcept
-{
-	char		vDirectory[XCC_PATH_MAX] = { 0 };
-	x_posix_getcwd(vDirectory, XCC_PATH_MAX);
-	auto		vDirectoryPath = XFileSystem::path::format(XString::fromUString(vDirectory));
-	return vDirectoryPath.filePath();
-}
 
-// sets the running directory of the current application
+
+// [set] 应用程序运行目录
 XString XCoreApplication::setCurrentDirectory(const XString& _Directory) noexcept
 {
 	auto		vDirectory = XCoreApplication::currentDirectory();
 	auto		vNewDirectory = XFileSystem::path::format(_Directory).filePath();
 	x_posix_chdir(vNewDirectory.toUString().data());
 	return vDirectory;
+}
+
+// [get] 应用程序运行目录
+XString XCoreApplication::currentDirectory() noexcept
+{
+	char		vDirectory[XCC_PATH_MAX] = { 0 };
+	x_posix_getcwd(vDirectory, XCC_PATH_MAX);
+	auto		vDirectoryPath = XFileSystem::path::format(XString::fromUString(vDirectory));
+	return vDirectoryPath.filePath();
 }
 
 

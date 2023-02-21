@@ -3,7 +3,7 @@
 
 #include <xcc-posix/xcc.h>
 
-// Include some C runtime library header files based on the operating system version
+// 根据操作系统版本包含一些C运行时库头文件
 #if defined(XCC_SYSTEM_ANDROID)
 #include <sys/time.h>
 #else
@@ -86,9 +86,7 @@
 
 
 
-
-
-// Export definition of X-Series core library
+// X系列核心 - 导出宏
 #if defined(XCC_CORE_BUILD_STATIC)
 #define			_XCOREAPI_
 #else
@@ -101,23 +99,20 @@
 
 
 
-
-
-// Macro definition of X-Series
+// X系列核心 - 宏定义
 #define			XCC_CORE_LOG_TAG				u8"xcc-core"
 #define			XCC_CHECK_RETURN(_Value, ...)			if(!(_Value)){	return __VA_ARGS__;	}
 #define			XCC_DELETE_ARR(_Value)				if(_Value){ delete[] _Value;_Value = nullptr;}
 #define			XCC_DELETE_PTR(_Value)				if(_Value){ delete _Value;	_Value = nullptr;}
 #define			XCC_ASSERT(_Condition)				assert(_Condition)
+#define			XCC_DISABLE_COPY(Class)				Class(const Class &) = delete;			Class &operator=(const Class &) = delete
+#define			XCC_DISABLE_MOVE(Class)				Class(Class &&) = delete;			Class &operator=(Class &&) = delete
 
 
 
-
-
-/// XCC命名空间
+// X系列核心 - 类型定义
 namespace xcc
 {
-	// 类型定义
 	typedef 	x_size_t					size_t;
 	typedef 	x_ssize_t					ssize_t;
 
@@ -136,20 +131,31 @@ namespace xcc
 }
 
 
-/// namespace X-Series
+
+// X系列核心 - 类型定义
 namespace xcc
 {
-	// Case Sensitivity enum
+	// 枚举 - 区分大小写
 	typedef enum CaseSensitivity
 	{
-		// NO
-		CaseInsensitive			= 0,
-
-		// YES
-		CaseSensitive
+		CaseInsensitive			= 0,			// 不区分
+		CaseSensitive			= 1			// 区分
 	}CaseSensitivity;
-}
 
+	// 枚举 - 打开模式
+	typedef enum OpenMode
+	{
+		ReadOnly			= 0x0001,		// 只读
+		WriteOnly			= 0x0002,		// 只写
+		ReadWrite			= ReadOnly | WriteOnly,	// 读写
+		Append				= 0x0004,
+		Truncate			= 0x0008,
+		Text				= 0x0010,
+		Unbuffered			= 0x0020,
+		NewOnly				= 0x0040,
+		ExistingOnly			= 0x0080
+	}OpenMode;
+}
 
 
 #endif
