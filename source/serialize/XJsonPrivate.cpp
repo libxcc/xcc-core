@@ -116,9 +116,9 @@ void XJsonPrivate::free(XJsonValuePrivate* _Object) noexcept
 }
 
 // 释放数据
-void XJsonPrivate::free(char* _Object) noexcept
+void XJsonPrivate::free(const char* _Object) noexcept
 {
-	delete _Object;
+	delete[] _Object;
 }
 
 

@@ -9,7 +9,7 @@
 
 
 // 私有数据: 数组
-struct XJsonArrayPrivate
+typedef struct XJsonArrayPrivate
 {
 	std::vector<XJsonValue>				data;
 
@@ -18,10 +18,13 @@ struct XJsonArrayPrivate
 	{
 		this->data.clear();
 	}
-};
+
+	// destructor
+	virtual ~XJsonArrayPrivate() noexcept = default;
+}XJsonArrayPrivate;
 
 // 私有数据: 数组迭代器
-struct XJsonArrayIterPrivate
+typedef struct XJsonArrayIterPrivate
 {
 	XJsonArrayPrivate*				array;
 	std::vector<XJsonValue>::iterator		iter;
@@ -31,7 +34,10 @@ struct XJsonArrayIterPrivate
 	{
 		this->array = nullptr;
 	}
-};
+
+	// destructor
+	virtual ~XJsonArrayIterPrivate() noexcept = default;
+}XJsonArrayIterPrivate;
 
 // 哈希表排序结构
 typedef struct XJsonKeySort
@@ -65,7 +71,7 @@ typedef struct XJsonKeySort
 typedef std::vector<std::pair<XString, XJsonValue>>	XJsonMapType;
 
 // 私有数据: 对象
-struct XJsonObjectPrivate
+typedef struct XJsonObjectPrivate
 {
 	XJsonMapType					data;
 
@@ -74,6 +80,9 @@ struct XJsonObjectPrivate
 	{
 		this->data.clear();
 	}
+
+	// destructor
+	virtual ~XJsonObjectPrivate() noexcept = default;
 
 public:
 	// 大小
@@ -154,10 +163,10 @@ public:
 		}
 		return true;
 	}
-};
+}XJsonObjectPrivate;
 
 // 私有数据: 对象迭代器
-struct XJsonObjectIterPrivate
+typedef struct XJsonObjectIterPrivate
 {
 	XJsonObjectPrivate*				object;
 	XJsonMapType::iterator				iter;
@@ -167,10 +176,13 @@ struct XJsonObjectIterPrivate
 	{
 		this->object = nullptr;
 	}
-};
+
+	// destructor
+	virtual ~XJsonObjectIterPrivate() noexcept = default;
+}XJsonObjectIterPrivate;
 
 // 私有数据: 值
-struct XJsonValuePrivate
+typedef struct XJsonValuePrivate
 {
 	XJsonValue::Type				type;
 
@@ -207,7 +219,10 @@ struct XJsonValuePrivate
 		this->value.v_array = nullptr;
 		this->value.v_object = nullptr;
 	}
-};
+
+	// destructor
+	virtual ~XJsonValuePrivate() noexcept = default;
+}XJsonValuePrivate;
 
 // 私有数据: 序列化
 typedef struct XJsonSerializePrivate
@@ -225,6 +240,9 @@ typedef struct XJsonSerializePrivate
 		this->size = 0;
 		this->format = XJsonDocument::Indented;
 	}
+
+	// destructor
+	virtual ~XJsonSerializePrivate() noexcept = default;
 }XJsonSerializePrivate;
 
 // 私有数据: 反序列化
@@ -241,6 +259,9 @@ typedef struct XJsonDeserializePrivate
 		this->pos = 0;
 		this->size = 0;
 	}
+
+	// destructor
+	virtual ~XJsonDeserializePrivate() noexcept = default;
 }XJsonDeserializePrivate;
 
 
@@ -280,7 +301,7 @@ public:
 	static void free(XJsonValuePrivate* _Object) noexcept;
 
 	// 释放数据
-	static void free(char* _Object) noexcept;
+	static void free(const char* _Object) noexcept;
 
 public:
 	// 复制数据

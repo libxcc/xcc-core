@@ -74,6 +74,12 @@ public:
 	XJsonValue(xcc::uint32_t _Number) noexcept;
 
 	// constructor
+	XJsonValue(x_long_t _Number) noexcept;
+
+	// constructor
+	XJsonValue(x_ulong_t _Number) noexcept;
+
+	// constructor
 	XJsonValue(xcc::int64_t _Number) noexcept;
 
 	// constructor
@@ -132,6 +138,12 @@ public:
 
 	// 创建一个整型
 	static XJsonValue number(xcc::uint32_t _Number) noexcept;
+
+	// 创建一个整型
+	static XJsonValue number(x_long_t _Number) noexcept;
+
+	// 创建一个整型
+	static XJsonValue number(x_ulong_t _Number) noexcept;
 
 	// 创建一个整型
 	static XJsonValue number(xcc::int64_t _Number) noexcept;
