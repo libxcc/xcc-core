@@ -1044,10 +1044,12 @@ bool XFileSystem::file::fromBase64(const XFileSystem::path& _Path, const XByteAr
 
 
 
-
+// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+// XFileSystem::path
+// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
 // 获取路径大小
-_XCOREAPI_ x_ullong_t XFileSystem::path_size(const XFileSystem::path& _Path) noexcept
+_XCOREAPI_ x_uint64_t XFileSystem::path_size(const XFileSystem::path& _Path) noexcept
 {
 	if(XFileSystem::path::isDirectory(_Path))
 	{
@@ -1061,16 +1063,16 @@ _XCOREAPI_ x_ullong_t XFileSystem::path_size(const XFileSystem::path& _Path) noe
 
 
 
-
+// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+// XFileSystem::file
+// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
 // 获取文件大小
-_XCOREAPI_ x_ullong_t XFileSystem::file_size(const XFileSystem::path& _Path) noexcept
+_XCOREAPI_ x_uint64_t XFileSystem::file_size(const XFileSystem::path& _Path) noexcept
 {
 	auto		vFilePath = _Path.filePath();
 	return x_posix_fsize(vFilePath.data());
 }
-
-
 
 
 
@@ -1079,9 +1081,9 @@ _XCOREAPI_ x_ullong_t XFileSystem::file_size(const XFileSystem::path& _Path) noe
 // ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
 // DIR: recursively compute size
-_XCOREAPI_ x_ullong_t XFileSystem::directory_size(const XFileSystem::path& _Path) noexcept
+_XCOREAPI_ x_uint64_t XFileSystem::directory_size(const XFileSystem::path& _Path) noexcept
 {
-	x_ullong_t		vDirectorySize = 0;
+	x_uint64_t		vDirectorySize = 0;
 #if defined(XCC_SYSTEM_WINDOWS)
 	auto			vDirectoryPath = _Path.filePath();
 	auto			vDirectory = vDirectoryPath.toWString() + L"/*.*";
@@ -1147,9 +1149,9 @@ _XCOREAPI_ x_ullong_t XFileSystem::directory_size(const XFileSystem::path& _Path
 }
 
 // DIR: Recursively count the number of files
-_XCOREAPI_ x_ullong_t XFileSystem::directory_count(const XFileSystem::path& _Path) noexcept
+_XCOREAPI_ x_uint64_t XFileSystem::directory_count(const XFileSystem::path& _Path) noexcept
 {
-	x_ullong_t	vCount = 0;
+	x_uint64_t	vCount = 0;
 	XFileSystem::directory_traverse(_Path, [&](const XFileSystem::path& _PathSub)->bool
 	{
 		if(_PathSub.isDirectory())

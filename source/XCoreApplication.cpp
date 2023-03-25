@@ -142,6 +142,26 @@ XString XCoreApplication::applicationFileName() noexcept
 	return static_object_example;
 }
 
+// [get] 应用程序文件除去后缀的名称
+XString XCoreApplication::applicationFileStem() noexcept
+{
+	static XString		static_object_example = nullptr;
+	if(static_object_example.empty())
+	{
+		const auto&	vAppFileName = XCoreApplication::applicationFileName();
+		auto		vPos = vAppFileName.rfind(".");
+		if(vPos == XString::npos)
+		{
+			static_object_example = vAppFileName;
+		}
+		else
+		{
+			static_object_example = vAppFileName.left(vPos);
+		}
+	}
+	return static_object_example;
+}
+
 
 
 // [set] 应用程序运行目录
@@ -160,6 +180,22 @@ XString XCoreApplication::currentDirectory() noexcept
 	x_posix_getcwd(vDirectory, XCC_PATH_MAX);
 	auto		vDirectoryPath = XFileSystem::path::format(XString::fromUString(vDirectory));
 	return vDirectoryPath.filePath();
+}
+
+
+
+// [get] 运行环境目录
+XString XCoreApplication::environmentDirPath() noexcept
+{
+	static auto	vEnvironmentDirPath = XString();
+	if(vEnvironmentDirPath.empty())
+	{
+		auto		vApplicationName = applicationFileStem().toLower();
+		auto		vDirectory = XCoreApplication::configDirectory() + "/com.xanadu." + vApplicationName;
+		XFileSystem::directory_create(vDirectory);
+		vEnvironmentDirPath = vDirectory;
+	}
+	return vEnvironmentDirPath;
 }
 
 

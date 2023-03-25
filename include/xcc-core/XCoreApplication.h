@@ -44,12 +44,19 @@ public:
 	// [get] 应用程序文件名称
 	static XString applicationFileName() noexcept;
 
+	// [get] 应用程序文件除去后缀的名称
+	static XString applicationFileStem() noexcept;
+
 public:
 	// [set] 应用程序运行目录
 	static XString setCurrentDirectory(const XString& _Directory) noexcept;
 
 	// [get] 应用程序运行目录
 	static XString currentDirectory() noexcept;
+
+public:
+	// [get] 运行环境目录	***/com.xanadu.exe
+	static XString environmentDirPath() noexcept;
 
 public:
 	// Gets the cache directory currently in use

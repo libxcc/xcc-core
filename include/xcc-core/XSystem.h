@@ -80,14 +80,15 @@ public:
 	// Native Build Version
 	static XString buildVersion() noexcept;
 
-	// The CPUID of the current computer
-	static XString cpuID() noexcept;
+public:
+	// [get] 系统唯一ID
+	static XString machineId() noexcept;
 
-	// The hard disk ID of the current computer
+	// [get] 硬盘ID
 	static XString diskID() noexcept;
 
-	// A string unique to the current computer
-	static XString onlyString() noexcept;
+	// [get] 当前计算机唯一的字符串
+	static XString uniqueId() noexcept;
 };
 
 #endif

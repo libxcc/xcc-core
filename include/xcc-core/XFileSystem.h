@@ -338,17 +338,24 @@ namespace XFileSystem
 		static bool fromBase64(const XFileSystem::path& _Path, const XByteArray& _Base64) noexcept;
 	};
 
+
+
+
+	// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+	// XFileSystem::path
+	// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+
 	// 获取路径大小
-	_XCOREAPI_ x_ullong_t path_size(const XFileSystem::path& _Path) noexcept;
+	_XCOREAPI_ x_uint64_t path_size(const XFileSystem::path& _Path) noexcept;
 
 
 
-
+	// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+	// XFileSystem::file
+	// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
 	// 获取文件大小
-	_XCOREAPI_ x_ullong_t file_size(const XFileSystem::path& _Path) noexcept;
-
-
+	_XCOREAPI_ x_uint64_t file_size(const XFileSystem::path& _Path) noexcept;
 
 
 
@@ -357,10 +364,10 @@ namespace XFileSystem
 	// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
 	// DIR: recursively compute size
-	_XCOREAPI_ x_ullong_t directory_size(const XFileSystem::path& _Path) noexcept;
+	_XCOREAPI_ x_uint64_t directory_size(const XFileSystem::path& _Path) noexcept;
 
 	// DIR: Recursively count the number of files
-	_XCOREAPI_ x_ullong_t directory_count(const XFileSystem::path& _Path) noexcept;
+	_XCOREAPI_ x_uint64_t directory_count(const XFileSystem::path& _Path) noexcept;
 
 	// DIR: check if directory exists
 	_XCOREAPI_ bool directory_is_exist(const XFileSystem::path& _Path) noexcept;

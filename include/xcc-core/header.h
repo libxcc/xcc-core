@@ -105,8 +105,8 @@
 #define			XCC_DELETE_ARR(_Value)				if(_Value){ delete[] _Value;_Value = nullptr;}
 #define			XCC_DELETE_PTR(_Value)				if(_Value){ delete _Value;	_Value = nullptr;}
 #define			XCC_ASSERT(_Condition)				assert(_Condition)
-#define			XCC_DISABLE_COPY(Class)				Class(const Class &) = delete;			Class &operator=(const Class &) = delete
-#define			XCC_DISABLE_MOVE(Class)				Class(Class &&) = delete;			Class &operator=(Class &&) = delete
+#define			XCC_DISABLE_COPY(_Class)			_Class(const _Class &) = delete;	_Class &operator=(const _Class &) = delete
+#define			XCC_DISABLE_MOVE(_Class)			_Class(_Class &&) = delete;		_Class &operator=(_Class &&) = delete
 
 
 
