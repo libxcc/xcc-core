@@ -28,7 +28,7 @@ XJsonDocument& XJsonDocument::operator = (XJsonDocument&& _Object) noexcept = de
 XByteArray XJsonDocument::toBytes(const XJsonValue& _JsonValue, XJsonDocument::JsonFormat _JsonFormat) noexcept
 {
 	char*		vBytes = nullptr;
-	xcc::size_t 	vLength = 0;
+	x_size_t 	vLength = 0;
 	auto		vStatus = XJsonPrivate::serialize(_JsonValue.memberData, _JsonFormat, &vBytes, &vLength);
 	if(vStatus)
 	{
@@ -43,7 +43,7 @@ XByteArray XJsonDocument::toBytes(const XJsonValue& _JsonValue, XJsonDocument::J
 XString XJsonDocument::toString(const XJsonValue& _JsonValue, XJsonDocument::JsonFormat _JsonFormat) noexcept
 {
 	char*		vBytes = nullptr;
-	xcc::size_t 	vLength = 0;
+	x_size_t 	vLength = 0;
 	auto		vStatus = XJsonPrivate::serialize(_JsonValue.memberData, _JsonFormat, &vBytes, &vLength);
 	if(vStatus)
 	{
@@ -64,7 +64,7 @@ bool XJsonDocument::toFile(const XJsonValue& _JsonValue, const XString& _FilePat
 
 
 // [fmt] 从字节数组格式化
-XJsonValue XJsonDocument::fromBytes(const char* _JsonBytes, xcc::size_t _JsonLength) noexcept
+XJsonValue XJsonDocument::fromBytes(const char* _JsonBytes, x_size_t _JsonLength) noexcept
 {
 	auto		vPrivate = static_cast<XJsonValuePrivate*>(nullptr);
 	auto		vStatus = XJsonPrivate::deserialize(_JsonBytes, _JsonLength, &vPrivate);

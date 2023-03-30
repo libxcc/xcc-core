@@ -51,7 +51,7 @@ public:
 
 public:
 	// The current version of the operating system
-	static std::int64_t SystemVersion() noexcept;
+	static x_int64_t SystemVersion() noexcept;
 
 	// The name of the user who is now logged in
 	static XString currentUser() noexcept;

@@ -17,7 +17,7 @@ XUuid::XUuid() noexcept
 }
 
 // constructor
-XUuid::XUuid(uint32_t _D1, uint16_t _D2, uint16_t _D3, uint8_t _D41, uint8_t _D42, uint8_t _D43, uint8_t _D44, uint8_t _D45, uint8_t _D46, uint8_t _D47, uint8_t _D48) noexcept
+XUuid::XUuid(x_uint32_t _D1, x_uint16_t _D2, x_uint16_t _D3, x_uint8_t _D41, x_uint8_t _D42, x_uint8_t _D43, x_uint8_t _D44, x_uint8_t _D45, x_uint8_t _D46, x_uint8_t _D47, x_uint8_t _D48) noexcept
 {
 	this->_uuid_data_1 = _D1;
 	this->_uuid_data_2 = _D2;
@@ -81,7 +81,7 @@ XUuid& XUuid::operator = (const XUuid& _Object) noexcept
 		this->_uuid_data_1 = _Object._uuid_data_1;
 		this->_uuid_data_2 = _Object._uuid_data_2;
 		this->_uuid_data_3 = _Object._uuid_data_3;
-		std::memcpy(this->_uuid_data_4, _Object._uuid_data_4, 8);
+		x_posix_memcpy(this->_uuid_data_4, _Object._uuid_data_4, 8);
 	}
 	return *this;
 }
@@ -94,7 +94,7 @@ XUuid& XUuid::operator = (XUuid&& _Object) noexcept
 		this->_uuid_data_1 = _Object._uuid_data_1;
 		this->_uuid_data_2 = _Object._uuid_data_2;
 		this->_uuid_data_3 = _Object._uuid_data_3;
-		std::memcpy(this->_uuid_data_4, _Object._uuid_data_4, 8);
+		x_posix_memcpy(this->_uuid_data_4, _Object._uuid_data_4, 8);
 	}
 	return *this;
 }
@@ -159,19 +159,19 @@ void XUuid::update() noexcept
 	this->_uuid_data_1 = vUuid.Data1;
 	this->_uuid_data_2 = vUuid.Data2;
 	this->_uuid_data_3 = vUuid.Data3;
-	std::memcpy(this->_uuid_data_4, vUuid.Data4, 8);
+	x_posix_memcpy(this->_uuid_data_4, vUuid.Data4, 8);
 #else
 	std::mt19937	vRandom(std::random_device{}());
 	std::uniform_int_distribution<uint16_t>		dist2(0U, 0xFFFFU);
 	std::uniform_int_distribution<uint32_t>		dist4(0U, 0xFFFFFFFFU);
 	std::uniform_int_distribution<uint64_t>		dist8(0ULL, 0xFFFFFFFFFFFFFFFFULL);
 
-	uint64_t	vData4 = dist8(vRandom);
+	x_uint64_t	vData4 = dist8(vRandom);
 
 	this->_uuid_data_1 = dist4(vRandom);
 	this->_uuid_data_2 = dist2(vRandom);
 	this->_uuid_data_3 = dist2(vRandom);
-	std::memcpy(this->_uuid_data_4, &vData4, 8);
+	x_posix_memcpy(this->_uuid_data_4, &vData4, 8);
 #endif
 }
 

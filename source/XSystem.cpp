@@ -13,7 +13,7 @@
 
 
 //static system version value
-static std::int64_t					_StaticSystemVersion = 0;
+static x_int64_t					_StaticSystemVersion = 0;
 
 
 //initialize
@@ -25,7 +25,7 @@ XSystem::~XSystem() noexcept = default;
 
 
 // The current version of the operating system
-std::int64_t XSystem::SystemVersion() noexcept
+x_int64_t XSystem::SystemVersion() noexcept
 {
 	if(!_StaticSystemVersion)
 	{
@@ -585,6 +585,24 @@ XString XSystem::uniqueId() noexcept
 		vTempOnlyString += XString::format(" DISK[%s]", XSystem::diskID().data());
 		vTempOnlyString += XString::format(" HOST-ID[%016lld]", (x_int64_t)x_posix_gethostid());
 		vTempOnlyString += XString::format(" MACHINE-ID[%s]", XSystem::machineId().data());
+
+#if defined(XCC_SYSTEM_DARWIN)
+		// 获取macOS计算机序列号
+		XShell::run("ioreg -rd1 -c IOPlatformExpertDevice | awk \'/IOPlatformSerialNumber/ { print $3; }\'", [&](const XString& _Output)->bool
+		{
+			auto		vIOPlatformSerialNumber = _Output;
+			vIOPlatformSerialNumber.remove("\"");
+			vIOPlatformSerialNumber = vIOPlatformSerialNumber.simplified();
+			vTempOnlyString += XString::format(" SERIAL-NUMBER[%s]", vIOPlatformSerialNumber.data());
+			return true;
+		});
+		// Get Hardware UUID in Mac OS X
+		XShell::run("system_profiler SPHardwareDataType | awk \'/UUID/ { print $3; }\'", [&](const XString& _Output)->bool
+		{
+			vTempOnlyString += XString::format(" HARDWARE-UUID[%s]", _Output.data());
+			return true;
+		});
+#endif
 
 		static_object_example = XString::fromBytes(XHash::hash(vTempOnlyString.toBytes(), XHash::MD5).toHex().toUpper());
 	}

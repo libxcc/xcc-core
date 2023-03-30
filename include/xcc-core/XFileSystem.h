@@ -17,7 +17,7 @@ namespace XFileSystem
 
 	private:
 		static constexpr wchar_t	preferred_separator = '/';
-		XString			_filesystem_path;
+		XString				_filesystem_path;
 
 	public:
 		// constructor
@@ -248,7 +248,7 @@ namespace XFileSystem
 	};
 
 	// typedef
-	typedef const std::function<bool(uint64_t _Progress, uint64_t _Total)>&						_FunctionProgress;
+	typedef const std::function<bool(x_uint64_t _Progress, x_uint64_t _Total)>&					_FunctionProgress;
 	typedef const std::function<bool(const XFileSystem::path& _Path)>&						_Function1;
 	typedef const std::function<bool(const XFileSystem::path& _Source, const XFileSystem::path& _Target)>&		_Function2;
 
@@ -323,7 +323,7 @@ namespace XFileSystem
 		static XByteArray toBytes(const XFileSystem::path& _Path) noexcept;
 
 		// [opt] from bytes
-		static bool fromBytes(const XFileSystem::path& _Path, const void* _Bytes, std::size_t _Length) noexcept;
+		static bool fromBytes(const XFileSystem::path& _Path, const void* _Bytes, x_size_t _Length) noexcept;
 
 		// [opt] from bytes
 		static bool fromBytes(const XFileSystem::path& _Path, const XByteArray& _Bytes) noexcept;
@@ -332,7 +332,7 @@ namespace XFileSystem
 		static XByteArray toBase64(const XFileSystem::path& _Path) noexcept;
 
 		// [opt] from base64
-		static bool fromBase64(const XFileSystem::path& _Path, const void* _Base64, std::size_t _Length) noexcept;
+		static bool fromBase64(const XFileSystem::path& _Path, const void* _Base64, x_size_t _Length) noexcept;
 
 		// [opt] from base64
 		static bool fromBase64(const XFileSystem::path& _Path, const XByteArray& _Base64) noexcept;

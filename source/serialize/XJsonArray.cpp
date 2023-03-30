@@ -60,13 +60,13 @@ XJsonArray& XJsonArray::operator = (XJsonArray&& _Object) noexcept
 
 
 // operator overload []
-XJsonValue& XJsonArray::operator[](xcc::size_t _Index)
+XJsonValue& XJsonArray::operator[](x_size_t _Index)
 {
 	return memberData->data[_Index];
 }
 
 // operator overload []
-const XJsonValue& XJsonArray::operator[](xcc::size_t _Index) const
+const XJsonValue& XJsonArray::operator[](x_size_t _Index) const
 {
 	return memberData->data[_Index];
 }
@@ -74,7 +74,7 @@ const XJsonValue& XJsonArray::operator[](xcc::size_t _Index) const
 
 
 // 子项数量
-xcc::size_t XJsonArray::size() const noexcept
+x_size_t XJsonArray::size() const noexcept
 {
 	return memberData->data.size();
 }
@@ -138,7 +138,7 @@ void XJsonArray::append(const XJsonValue& _JsonValue) noexcept
 }
 
 // 插入至指定下标
-void XJsonArray::insert(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept
+void XJsonArray::insert(x_size_t _Index, const XJsonValue& _JsonValue) noexcept
 {
 	if(_Index >= memberData->data.size())
 	{
@@ -146,36 +146,36 @@ void XJsonArray::insert(xcc::size_t _Index, const XJsonValue& _JsonValue) noexce
 	}
 	else
 	{
-		memberData->data.insert(memberData->data.begin() + (xcc::ssize_t)_Index, _JsonValue);
+		memberData->data.insert(memberData->data.begin() + (x_ssize_t)_Index, _JsonValue);
 	}
 }
 
 // 替换指定下标
-void XJsonArray::replace(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept
+void XJsonArray::replace(x_size_t _Index, const XJsonValue& _JsonValue) noexcept
 {
 	this->insert(_Index, _JsonValue);
 	this->remove(_Index + 1);
 }
 
 // 删除指定下标
-void XJsonArray::remove(xcc::size_t _Index) noexcept
+void XJsonArray::remove(x_size_t _Index) noexcept
 {
 	if(_Index >= memberData->data.size())
 	{
 		return;
 	}
-	auto		vIterator = memberData->data.begin() + (xcc::ssize_t)_Index;
+	auto		vIterator = memberData->data.begin() + (x_ssize_t)_Index;
 	memberData->data.erase(vIterator);
 }
 
 // 分离指定下标
-XJsonValue XJsonArray::detach(xcc::size_t _Index) noexcept
+XJsonValue XJsonArray::detach(x_size_t _Index) noexcept
 {
 	if(_Index >= memberData->data.size())
 	{
 		return {};
 	}
-	auto		vIterator = memberData->data.begin() + (xcc::ssize_t)_Index;
+	auto		vIterator = memberData->data.begin() + (x_ssize_t)_Index;
 	auto		vJsonValue = *vIterator;
 	memberData->data.erase(vIterator);
 	return vJsonValue;
@@ -184,13 +184,13 @@ XJsonValue XJsonArray::detach(xcc::size_t _Index) noexcept
 
 
 // 查找迭代器
-XJsonArray::iterator XJsonArray::find(xcc::size_t _Index) noexcept
+XJsonArray::iterator XJsonArray::find(x_size_t _Index) noexcept
 {
 	return iterator(XJsonPrivate::newArrayIter(memberData, _Index));
 }
 
 // 查找迭代器
-XJsonArray::const_iterator XJsonArray::find(xcc::size_t _Index) const noexcept
+XJsonArray::const_iterator XJsonArray::find(x_size_t _Index) const noexcept
 {
 	return const_iterator(XJsonPrivate::newArrayIter(memberData, _Index));
 }
@@ -364,7 +364,7 @@ XJsonArray::iterator XJsonArray::iterator::operator --() const noexcept
 }
 
 // operator overload +
-XJsonArray::iterator XJsonArray::iterator::operator +(xcc::ssize_t _Size) const noexcept
+XJsonArray::iterator XJsonArray::iterator::operator +(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
 	vIterator += _Size;
@@ -372,7 +372,7 @@ XJsonArray::iterator XJsonArray::iterator::operator +(xcc::ssize_t _Size) const 
 }
 
 // operator overload -
-XJsonArray::iterator XJsonArray::iterator::operator -(xcc::ssize_t _Size) const noexcept
+XJsonArray::iterator XJsonArray::iterator::operator -(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
 	vIterator -= _Size;
@@ -380,7 +380,7 @@ XJsonArray::iterator XJsonArray::iterator::operator -(xcc::ssize_t _Size) const 
 }
 
 // operator overload +=
-XJsonArray::iterator& XJsonArray::iterator::operator +=(xcc::ssize_t _Size) noexcept
+XJsonArray::iterator& XJsonArray::iterator::operator +=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
 	{
@@ -390,7 +390,7 @@ XJsonArray::iterator& XJsonArray::iterator::operator +=(xcc::ssize_t _Size) noex
 }
 
 // operator overload -=
-XJsonArray::iterator& XJsonArray::iterator::operator -=(xcc::ssize_t _Size) noexcept
+XJsonArray::iterator& XJsonArray::iterator::operator -=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
 	{
@@ -426,7 +426,7 @@ bool XJsonArray::iterator::isValid() const noexcept
 }
 
 // 下标
-xcc::size_t XJsonArray::iterator::index() const noexcept
+x_size_t XJsonArray::iterator::index() const noexcept
 {
 	if(this->isValid())
 	{
@@ -562,7 +562,7 @@ XJsonArray::const_iterator XJsonArray::const_iterator::operator --() const noexc
 }
 
 // operator overload +
-XJsonArray::const_iterator XJsonArray::const_iterator::operator +(xcc::ssize_t _Size) const noexcept
+XJsonArray::const_iterator XJsonArray::const_iterator::operator +(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
 	vIterator += _Size;
@@ -570,7 +570,7 @@ XJsonArray::const_iterator XJsonArray::const_iterator::operator +(xcc::ssize_t _
 }
 
 // operator overload -
-XJsonArray::const_iterator XJsonArray::const_iterator::operator -(xcc::ssize_t _Size) const noexcept
+XJsonArray::const_iterator XJsonArray::const_iterator::operator -(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
 	vIterator -= _Size;
@@ -578,7 +578,7 @@ XJsonArray::const_iterator XJsonArray::const_iterator::operator -(xcc::ssize_t _
 }
 
 // operator overload +=
-XJsonArray::const_iterator& XJsonArray::const_iterator::operator +=(xcc::ssize_t _Size) noexcept
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator +=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
 	{
@@ -588,7 +588,7 @@ XJsonArray::const_iterator& XJsonArray::const_iterator::operator +=(xcc::ssize_t
 }
 
 // operator overload -=
-XJsonArray::const_iterator& XJsonArray::const_iterator::operator -=(xcc::ssize_t _Size) noexcept
+XJsonArray::const_iterator& XJsonArray::const_iterator::operator -=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
 	{
@@ -618,7 +618,7 @@ bool XJsonArray::const_iterator::isValid() const noexcept
 }
 
 // 下标
-xcc::size_t XJsonArray::const_iterator::index() const noexcept
+x_size_t XJsonArray::const_iterator::index() const noexcept
 {
 	if(this->isValid())
 	{

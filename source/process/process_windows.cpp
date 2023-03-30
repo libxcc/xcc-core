@@ -7,7 +7,7 @@
 namespace pe
 {
 	// 格式化DOS头
-	bool format_dos_header(const unsigned char* _Memory, uint64_t _Length, IMAGE_DOS_HEADER** _DosHeader) noexcept
+	bool format_dos_header(const unsigned char* _Memory, x_uint64_t _Length, IMAGE_DOS_HEADER** _DosHeader) noexcept
 	{
 		if(_DosHeader == nullptr || _Length < sizeof(IMAGE_DOS_HEADER))
 		{
@@ -24,7 +24,7 @@ namespace pe
 	}
 
 	// 格式化NT头
-	bool format_nt_header(const unsigned char* _Memory, uint64_t _Length, const IMAGE_DOS_HEADER* _DosHeader, IMAGE_NT_HEADERS** _NtHeader) noexcept
+	bool format_nt_header(const unsigned char* _Memory, x_uint64_t _Length, const IMAGE_DOS_HEADER* _DosHeader, IMAGE_NT_HEADERS** _NtHeader) noexcept
 	{
 		if(_DosHeader == nullptr || _NtHeader == nullptr || _Length < (_DosHeader->e_lfanew + sizeof(IMAGE_NT_HEADERS)))
 		{

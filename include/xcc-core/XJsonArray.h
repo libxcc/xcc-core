@@ -50,14 +50,14 @@ public:
 
 public:
 	// operator overload []
-	XJsonValue& operator[](xcc::size_t _Index);
+	XJsonValue& operator[](x_size_t _Index);
 
 	// operator overload []
-	const XJsonValue& operator[](xcc::size_t _Index) const;
+	const XJsonValue& operator[](x_size_t _Index) const;
 
 public:
 	// 子项数量
-	virtual xcc::size_t size() const noexcept final;
+	virtual x_size_t size() const noexcept final;
 
 	// 是否不存在子项
 	virtual bool empty() const noexcept final;
@@ -89,23 +89,23 @@ public:
 	virtual void append(const XJsonValue& _JsonValue) noexcept final;
 
 	// 插入至指定下标
-	virtual void insert(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept final;
+	virtual void insert(x_size_t _Index, const XJsonValue& _JsonValue) noexcept final;
 
 	// 替换指定下标
-	virtual void replace(xcc::size_t _Index, const XJsonValue& _JsonValue) noexcept final;
+	virtual void replace(x_size_t _Index, const XJsonValue& _JsonValue) noexcept final;
 
 	// 删除指定下标
-	virtual void remove(xcc::size_t _Index) noexcept final;
+	virtual void remove(x_size_t _Index) noexcept final;
 
 	// 分离指定下标
-	virtual XJsonValue detach(xcc::size_t _Index) noexcept final;
+	virtual XJsonValue detach(x_size_t _Index) noexcept final;
 
 public:
 	// 查找迭代器
-	virtual iterator find(xcc::size_t _Index) noexcept final;
+	virtual iterator find(x_size_t _Index) noexcept final;
 
 	// 查找迭代器
-	virtual const_iterator find(xcc::size_t _Index) const noexcept final;
+	virtual const_iterator find(x_size_t _Index) const noexcept final;
 
 	// 删除迭代器
 	virtual iterator remove(iterator _Iterator) noexcept final;
@@ -174,16 +174,16 @@ public:
 		iterator operator --() const noexcept;
 
 		// operator overload +
-		iterator operator +(xcc::ssize_t _Size) const noexcept;
+		iterator operator +(x_ssize_t _Size) const noexcept;
 
 		// operator overload -
-		iterator operator -(xcc::ssize_t _Size) const noexcept;
+		iterator operator -(x_ssize_t _Size) const noexcept;
 
 		// operator overload +=
-		iterator& operator +=(xcc::ssize_t _Size) noexcept;
+		iterator& operator +=(x_ssize_t _Size) noexcept;
 
 		// operator overload -=
-		iterator& operator -=(xcc::ssize_t _Size) noexcept;
+		iterator& operator -=(x_ssize_t _Size) noexcept;
 
 	public:
 		// operator overload *
@@ -197,7 +197,7 @@ public:
 		virtual bool isValid() const noexcept final;
 
 		// 下标
-		virtual xcc::size_t index() const noexcept final;
+		virtual x_size_t index() const noexcept final;
 
 		// Value
 		virtual XJsonValue& value() final;
@@ -261,16 +261,16 @@ public:
 		const_iterator operator --() const noexcept;
 
 		// operator overload +
-		const_iterator operator +(xcc::ssize_t _Size) const noexcept;
+		const_iterator operator +(x_ssize_t _Size) const noexcept;
 
 		// operator overload -
-		const_iterator operator -(xcc::ssize_t _Size) const noexcept;
+		const_iterator operator -(x_ssize_t _Size) const noexcept;
 
 		// operator overload +=
-		const_iterator& operator +=(xcc::ssize_t _Size) noexcept;
+		const_iterator& operator +=(x_ssize_t _Size) noexcept;
 
 		// operator overload -=
-		const_iterator& operator -=(xcc::ssize_t _Size) noexcept;
+		const_iterator& operator -=(x_ssize_t _Size) noexcept;
 
 	public:
 		// operator overload *
@@ -281,7 +281,7 @@ public:
 		virtual bool isValid() const noexcept final;
 
 		// 下标
-		virtual xcc::size_t index() const noexcept final;
+		virtual x_size_t index() const noexcept final;
 
 		// Value
 		virtual const XJsonValue& value() const final;

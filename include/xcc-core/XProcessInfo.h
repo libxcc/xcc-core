@@ -16,9 +16,9 @@ private:
 public:
 	XProcessInfo() noexcept;
 
-	XProcessInfo(std::uint64_t _ProcessID) noexcept;
+	explicit XProcessInfo(x_uint64_t _ProcessID) noexcept;
 
-	XProcessInfo(std::uint64_t _ProcessID, const XString& _ProcessName) noexcept;
+	XProcessInfo(x_uint64_t _ProcessID, const XString& _ProcessName) noexcept;
 
 	XProcessInfo(const XProcessInfo& _Other) noexcept;
 
@@ -29,7 +29,7 @@ public:
 
 public:
 	// 获取进程ID
-	virtual std::uint64_t getProcessID() const noexcept;
+	virtual x_uint64_t getProcessID() const noexcept;
 
 	// 获取进程名称
 	virtual XString getProcessName() const noexcept;

@@ -38,7 +38,7 @@ public:
 	virtual void reset() noexcept;
 
 	// Add Data
-	virtual void append(const void* _Data, std::uint64_t _Length) noexcept;
+	virtual void append(const void* _Data, x_uint64_t _Length) noexcept;
 
 	// Add Data
 	virtual void append(const XByteArray& _Bytes) noexcept;
@@ -48,7 +48,7 @@ public:
 
 public:
 	// Static method: Calculates the hash value
-	static XByteArray hash(const void* _Buffer, std::uint64_t _Length, Algorithm _Algorithm) noexcept;
+	static XByteArray hash(const void* _Buffer, x_uint64_t _Length, Algorithm _Algorithm) noexcept;
 
 	// Static method: Calculates the hash value
 	static XByteArray hash(const XByteArray& _Bytes, Algorithm _Algorithm) noexcept;
@@ -57,7 +57,7 @@ public:
 	static XByteArray hash(const XString& _File, Algorithm _Algorithm) noexcept;
 
 	// Static method: Gets the result length of the specified algorithm
-	static std::size_t hashLength(Algorithm _Algorithm) noexcept;
+	static x_size_t hashLength(Algorithm _Algorithm) noexcept;
 };
 
 #endif

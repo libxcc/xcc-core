@@ -988,7 +988,7 @@ bool XFileSystem::file::move(const XFileSystem::path& _Source, const XFileSystem
 XByteArray XFileSystem::file::toBytes(const XFileSystem::path& _Path) noexcept
 {
 	auto		vSize = XFileSystem::file::size(_Path);
-	auto		vBytes = XByteArray(static_cast<std::size_t>(vSize), '\0');
+	auto		vBytes = XByteArray(static_cast<x_size_t>(vSize), '\0');
 	auto		vHandle = XFileSystem::file::open(_Path, "rb");
 	if(vHandle && vSize > 0 && vBytes.size() == vSize)
 	{
@@ -999,7 +999,7 @@ XByteArray XFileSystem::file::toBytes(const XFileSystem::path& _Path) noexcept
 }
 
 // [opt] from bytes
-bool XFileSystem::file::fromBytes(const XFileSystem::path& _Path, const void* _Bytes, std::size_t _Length) noexcept
+bool XFileSystem::file::fromBytes(const XFileSystem::path& _Path, const void* _Bytes, x_size_t _Length) noexcept
 {
 	auto		vSync = false;
 	auto		vHandle = XFileSystem::file::open(_Path, "wb");
@@ -1031,7 +1031,7 @@ XByteArray XFileSystem::file::toBase64(const XFileSystem::path& _Path) noexcept
 }
 
 // [opt] from base64
-bool XFileSystem::file::fromBase64(const XFileSystem::path& _Path, const void* _Base64, std::size_t _Length) noexcept
+bool XFileSystem::file::fromBase64(const XFileSystem::path& _Path, const void* _Base64, x_size_t _Length) noexcept
 {
 	return XFileSystem::file::fromBytes(_Path, XBase64::decode(_Base64, _Length));
 }
@@ -1130,7 +1130,7 @@ _XCOREAPI_ x_uint64_t XFileSystem::directory_size(const XFileSystem::path& _Path
 			{
 				auto		vFullPath = vDirectory + '/' + vDirEntry->d_name;
 				x_file_stat_t	vStat;
-				x_filesystem_stat(vFullPath.data(), &vStat);
+				x_fs_path_stat(vFullPath.data(), &vStat);
 				if(S_ISDIR(vStat.st_mode))
 				{
 					vDirectorySize += XFileSystem::directory_size(vFullPath);
@@ -1179,7 +1179,7 @@ _XCOREAPI_ bool XFileSystem::directory_is_exist(const XFileSystem::path& _Path) 
 	}
 #else
 	x_file_stat_t	vFileStatus{};
-	if(0 == x_filesystem_stat(vFilePath.data(), &vFileStatus))
+	if(0 == x_fs_path_stat(vFilePath.data(), &vFileStatus))
 	{
 		return S_ISDIR(vFileStatus.st_mode);
 	}

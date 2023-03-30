@@ -23,84 +23,84 @@ XVariant::XVariant(bool _Value) noexcept
 }
 
 // constructor
-XVariant::XVariant(x_char_t _Value) noexcept
+XVariant::XVariant(x_int8_t _Value) noexcept
 {
 	this->_variant_type = VariantChar;
 	this->_variant_data._VInt64S = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_uchar_t _Value) noexcept
+XVariant::XVariant(x_uint8_t _Value) noexcept
 {
 	this->_variant_type = VariantUChar;
 	this->_variant_data._VInt64U = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_short_t _Value) noexcept
+XVariant::XVariant(x_int16_t _Value) noexcept
 {
 	this->_variant_type = VariantShort;
 	this->_variant_data._VInt64S = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_ushort_t _Value) noexcept
+XVariant::XVariant(x_uint16_t _Value) noexcept
 {
 	this->_variant_type = VariantUShort;
 	this->_variant_data._VInt64U = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_int_t _Value) noexcept
+XVariant::XVariant(x_int32_t _Value) noexcept
 {
 	this->_variant_type = VariantInteger;
 	this->_variant_data._VInt64S = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_uint_t _Value) noexcept
+XVariant::XVariant(x_uint32_t _Value) noexcept
 {
 	this->_variant_type = VariantUInteger;
 	this->_variant_data._VInt64U = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_long_t _Value) noexcept
+XVariant::XVariant(long _Value) noexcept
 {
 	this->_variant_type = VariantLong;
 	this->_variant_data._VInt64S = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_ulong_t _Value) noexcept
+XVariant::XVariant(unsigned long _Value) noexcept
 {
 	this->_variant_type = VariantULong;
 	this->_variant_data._VInt64U = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_llong_t _Value) noexcept
+XVariant::XVariant(x_int64_t _Value) noexcept
 {
 	this->_variant_type = VariantLLong;
 	this->_variant_data._VInt64S = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_ullong_t _Value) noexcept
+XVariant::XVariant(x_uint64_t _Value) noexcept
 {
 	this->_variant_type = VariantULLong;
 	this->_variant_data._VInt64U = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_float_t _Value) noexcept
+XVariant::XVariant(float _Value) noexcept
 {
 	this->_variant_type = VariantFloat;
 	this->_variant_data._VDouble = _Value;
 }
 
 // constructor
-XVariant::XVariant(x_double_t _Value) noexcept
+XVariant::XVariant(double _Value) noexcept
 {
 	this->_variant_type = VariantDouble;
 	this->_variant_data._VDouble = _Value;
@@ -171,7 +171,7 @@ XVariant& XVariant::operator = (bool _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_char_t _Value) noexcept
+XVariant& XVariant::operator = (x_int8_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantChar;
@@ -180,7 +180,7 @@ XVariant& XVariant::operator = (x_char_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_uchar_t _Value) noexcept
+XVariant& XVariant::operator = (x_uint8_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantUChar;
@@ -189,7 +189,7 @@ XVariant& XVariant::operator = (x_uchar_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_short_t _Value) noexcept
+XVariant& XVariant::operator = (x_int16_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantShort;
@@ -198,7 +198,7 @@ XVariant& XVariant::operator = (x_short_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_ushort_t _Value) noexcept
+XVariant& XVariant::operator = (x_uint16_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantUShort;
@@ -207,7 +207,7 @@ XVariant& XVariant::operator = (x_ushort_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_int_t _Value) noexcept
+XVariant& XVariant::operator = (x_int32_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantInteger;
@@ -216,7 +216,7 @@ XVariant& XVariant::operator = (x_int_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_uint_t _Value) noexcept
+XVariant& XVariant::operator = (x_uint32_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantUInteger;
@@ -225,7 +225,7 @@ XVariant& XVariant::operator = (x_uint_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_long_t _Value) noexcept
+XVariant& XVariant::operator = (long _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantLong;
@@ -234,7 +234,7 @@ XVariant& XVariant::operator = (x_long_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_ulong_t _Value) noexcept
+XVariant& XVariant::operator = (unsigned long _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantULong;
@@ -243,7 +243,7 @@ XVariant& XVariant::operator = (x_ulong_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_llong_t _Value) noexcept
+XVariant& XVariant::operator = (x_int64_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantLLong;
@@ -252,7 +252,7 @@ XVariant& XVariant::operator = (x_llong_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_ullong_t _Value) noexcept
+XVariant& XVariant::operator = (x_uint64_t _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantULLong;
@@ -261,7 +261,7 @@ XVariant& XVariant::operator = (x_ullong_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_float_t _Value) noexcept
+XVariant& XVariant::operator = (float _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantFloat;
@@ -270,7 +270,7 @@ XVariant& XVariant::operator = (x_float_t _Value) noexcept
 }
 
 // operator overload =
-XVariant& XVariant::operator = (x_double_t _Value) noexcept
+XVariant& XVariant::operator = (double _Value) noexcept
 {
 	this->clear();
 	this->_variant_type = VariantDouble;
@@ -455,55 +455,55 @@ bool XVariant::toBool() const noexcept
 }
 
 // Convert to char
-x_char_t XVariant::toChar() const noexcept
+x_int8_t XVariant::toChar() const noexcept
 {
-	return static_cast<x_char_t>(this->toLLong());
+	return static_cast<x_int8_t>(this->toLLong());
 }
 
-// Convert to x_uchar_t
-x_uchar_t XVariant::toUChar() const noexcept
+// Convert to x_uint8_t
+x_uint8_t XVariant::toUChar() const noexcept
 {
-	return static_cast<x_uchar_t>(this->toULLong());
+	return static_cast<x_uint8_t>(this->toULLong());
 }
 
 // Convert to short
-x_short_t XVariant::toShort() const noexcept
+x_int16_t XVariant::toShort() const noexcept
 {
-	return static_cast<x_short_t>(this->toLLong());
+	return static_cast<x_int16_t>(this->toLLong());
 }
 
-// Convert to x_ushort_t
-x_ushort_t XVariant::toUShort() const noexcept
+// Convert to x_uint16_t
+x_uint16_t XVariant::toUShort() const noexcept
 {
-	return static_cast<x_ushort_t>(this->toULLong());
+	return static_cast<x_uint16_t>(this->toULLong());
 }
 
 // Convert to int
-x_int_t XVariant::toInt() const noexcept
+x_int32_t XVariant::toInt() const noexcept
 {
-	return static_cast<x_int_t>(this->toLLong());
+	return static_cast<x_int32_t>(this->toLLong());
 }
 
-// Convert to x_uint_t
-x_uint_t XVariant::toUInt() const noexcept
+// Convert to x_uint32_t
+x_uint32_t XVariant::toUInt() const noexcept
 {
-	return static_cast<x_uint_t>(this->toULLong());
+	return static_cast<x_uint32_t>(this->toULLong());
 }
 
 // Convert to long
-x_long_t XVariant::toLong() const noexcept
+long XVariant::toLong() const noexcept
 {
-	return static_cast<x_long_t>(this->toLLong());
+	return static_cast<long>(this->toLLong());
 }
 
-// Convert to x_ulong_t
-x_ulong_t XVariant::toULong() const noexcept
+// Convert to unsigned long
+unsigned long XVariant::toULong() const noexcept
 {
-	return static_cast<x_ulong_t>(this->toULLong());
+	return static_cast<unsigned long>(this->toULLong());
 }
 
-// Convert to x_llong_t
-x_llong_t XVariant::toLLong() const noexcept
+// Convert to x_int64_t
+x_int64_t XVariant::toLLong() const noexcept
 {
 	switch (this->_variant_type)
 	{
@@ -520,10 +520,10 @@ x_llong_t XVariant::toLLong() const noexcept
 		case VariantUInteger:
 		case VariantULong:
 		case VariantULLong:
-			return static_cast<x_llong_t>(this->_variant_data._VInt64U);
+			return static_cast<x_int64_t>(this->_variant_data._VInt64U);
 		case VariantFloat:
 		case VariantDouble:
-			return static_cast<x_llong_t>(this->_variant_data._VDouble);
+			return static_cast<x_int64_t>(this->_variant_data._VDouble);
 		case VariantString:
 			return x_posix_atoll(this->toString().data());
 		case VariantByteArray:
@@ -533,8 +533,8 @@ x_llong_t XVariant::toLLong() const noexcept
 	};
 }
 
-// Convert to x_ullong_t
-x_ullong_t XVariant::toULLong() const noexcept
+// Convert to x_uint64_t
+x_uint64_t XVariant::toULLong() const noexcept
 {
 	switch (this->_variant_type)
 	{
@@ -545,7 +545,7 @@ x_ullong_t XVariant::toULLong() const noexcept
 		case VariantInteger:
 		case VariantLong:
 		case VariantLLong:
-			return static_cast<x_ullong_t>(this->_variant_data._VInt64S);
+			return static_cast<x_uint64_t>(this->_variant_data._VInt64S);
 		case VariantUChar:
 		case VariantUShort:
 		case VariantUInteger:
@@ -554,7 +554,7 @@ x_ullong_t XVariant::toULLong() const noexcept
 			return this->_variant_data._VInt64U;
 		case VariantFloat:
 		case VariantDouble:
-			return static_cast<x_ullong_t>(this->_variant_data._VDouble);
+			return static_cast<x_uint64_t>(this->_variant_data._VDouble);
 		case VariantString:
 			return x_posix_atoll(this->toString().data());
 		case VariantByteArray:
@@ -565,13 +565,13 @@ x_ullong_t XVariant::toULLong() const noexcept
 }
 
 // Convert to float
-x_float_t XVariant::toFloat() const noexcept
+float XVariant::toFloat() const noexcept
 {
-	return static_cast<x_float_t>(this->toDouble());
+	return static_cast<float>(this->toDouble());
 }
 
 // Convert to double
-x_double_t XVariant::toDouble() const noexcept
+double XVariant::toDouble() const noexcept
 {
 	switch (this->_variant_type)
 	{
@@ -582,13 +582,13 @@ x_double_t XVariant::toDouble() const noexcept
 		case VariantInteger:
 		case VariantLong:
 		case VariantLLong:
-			return static_cast<x_double_t>(this->_variant_data._VInt64S);
+			return static_cast<double>(this->_variant_data._VInt64S);
 		case VariantUChar:
 		case VariantUShort:
 		case VariantUInteger:
 		case VariantULong:
 		case VariantULLong:
-			return static_cast<x_double_t>(this->_variant_data._VInt64U);
+			return static_cast<double>(this->_variant_data._VInt64U);
 		case VariantFloat:
 		case VariantDouble:
 			return this->_variant_data._VDouble;

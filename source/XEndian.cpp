@@ -51,13 +51,13 @@ bool XEndian::is_pdp() noexcept
 
 
 // reverse : memory
-void XEndian::reverse(void* _Memory, std::size_t _Size) noexcept
+void XEndian::reverse(void* _Memory, x_size_t _Size) noexcept
 {
 	if(_Memory != nullptr && _Size > 0)
 	{
 		auto		vBuffer = (char*)_Memory;
 		char		vTemp = 0;
-		for(std::size_t vIndex = 0; vIndex < _Size / 2; ++vIndex)
+		for(x_size_t vIndex = 0; vIndex < _Size / 2; ++vIndex)
 		{
 			vTemp = vBuffer[vIndex];
 			vBuffer[vIndex] = vBuffer[_Size - vIndex - 1];

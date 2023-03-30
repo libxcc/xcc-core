@@ -23,17 +23,17 @@ public:
 	}STRING_FORMAT;
 
 private:
-	uint32_t			_uuid_data_1;
-	uint16_t			_uuid_data_2;
-	uint16_t			_uuid_data_3;
-	uint8_t				_uuid_data_4[8];
+	x_uint32_t			_uuid_data_1;
+	x_uint16_t			_uuid_data_2;
+	x_uint16_t			_uuid_data_3;
+	x_uint8_t			_uuid_data_4[8];
 
 public:
 	// constructor
 	XUuid() noexcept;
 
 	// constructor
-	XUuid(uint32_t _D1, uint16_t _D2, uint16_t _D3, uint8_t _D41, uint8_t _D42, uint8_t _D43, uint8_t _D44, uint8_t _D45, uint8_t _D46, uint8_t _D47, uint8_t _D48) noexcept;
+	XUuid(x_uint32_t _D1, x_uint16_t _D2, x_uint16_t _D3, x_uint8_t _D41, x_uint8_t _D42, x_uint8_t _D43, x_uint8_t _D44, x_uint8_t _D45, x_uint8_t _D46, x_uint8_t _D47, x_uint8_t _D48) noexcept;
 
 	// constructor
 	explicit XUuid(const char* _UUID) noexcept;

@@ -53,7 +53,7 @@ void XHash::reset() noexcept
 }
 
 // Add Data
-void XHash::append(const void* _Data, std::uint64_t _Length) noexcept
+void XHash::append(const void* _Data, x_uint64_t _Length) noexcept
 {
 	switch (this->_Info->_Algorithm)
 	{
@@ -104,7 +104,7 @@ XByteArray XHash::result() const noexcept
 
 
 // Static method: Calculates the hash value
-XByteArray XHash::hash(const void* _Buffer, std::uint64_t _Length, Algorithm _Algorithm) noexcept
+XByteArray XHash::hash(const void* _Buffer, x_uint64_t _Length, Algorithm _Algorithm) noexcept
 {
 	auto		vClass = XHash(_Algorithm);
 	vClass.reset();
@@ -152,7 +152,7 @@ XByteArray XHash::hash(const XString& _File, Algorithm _Algorithm) noexcept
 }
 
 // Static method: Gets the result length of the specified algorithm
-std::size_t XHash::hashLength(Algorithm _Algorithm) noexcept
+x_size_t XHash::hashLength(Algorithm _Algorithm) noexcept
 {
 	switch (_Algorithm)
 	{

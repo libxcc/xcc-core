@@ -8,7 +8,7 @@
 typedef struct X_PROCESS_RUN_MEMORY_APPLICATION
 {
 	const unsigned char*		AppMemory;
-	uint64_t			AppLength;
+	x_uint64_t			AppLength;
 	const char*			RunParameter;
 	const char*			RunDirectory;
 	const char*			HostApp;

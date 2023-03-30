@@ -86,7 +86,7 @@ typedef struct XJsonObjectPrivate
 
 public:
 	// 大小
-	virtual xcc::size_t size() const noexcept final
+	virtual x_size_t size() const noexcept final
 	{
 		return this->data.size();
 	}
@@ -195,8 +195,8 @@ typedef struct XJsonValuePrivate
 	union Value
 	{
 		bool					v_boolean;
-		xcc::int64_t 				v_int64;
-		xcc::uint64_t 				v_uint64;
+		x_int64_t 				v_int64;
+		x_uint64_t 				v_uint64;
 		double 					v_double;
 		XString*				v_string;
 		XJsonArray*				v_array;
@@ -228,8 +228,8 @@ typedef struct XJsonValuePrivate
 typedef struct XJsonSerializePrivate
 {
 	char*						data;
-	xcc::size_t					pos;
-	xcc::size_t					size;
+	x_size_t					pos;
+	x_size_t					size;
 	XJsonDocument::JsonFormat			format;
 
 	// constructor
@@ -249,8 +249,8 @@ typedef struct XJsonSerializePrivate
 typedef struct XJsonDeserializePrivate
 {
 	const char*					data;
-	xcc::size_t					pos;
-	xcc::size_t					size;
+	x_size_t					pos;
+	x_size_t					size;
 
 	// constructor
 	XJsonDeserializePrivate() noexcept
@@ -273,7 +273,7 @@ public:
 	static XJsonArrayPrivate* newArray() noexcept;
 
 	// 创建数组迭代器
-	static XJsonArrayIterPrivate* newArrayIter(XJsonArrayPrivate* _Array, xcc::size_t _Index) noexcept;
+	static XJsonArrayIterPrivate* newArrayIter(XJsonArrayPrivate* _Array, x_size_t _Index) noexcept;
 
 	// 创建对象
 	static XJsonObjectPrivate* newObject() noexcept;
@@ -321,35 +321,35 @@ public:
 
 public:
 	// 预计长度 - 新行
-	static xcc::size_t calc_length_new_line(XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept;
+	static x_size_t calc_length_new_line(XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept;
 
 	// 预计长度
-	static xcc::size_t calc_length(xcc::int64_t _Number) noexcept;
+	static x_size_t calc_length(x_int64_t _Number) noexcept;
 
 	// 预计长度
-	static xcc::size_t calc_length(xcc::uint64_t _Number) noexcept;
+	static x_size_t calc_length(x_uint64_t _Number) noexcept;
 
 	// 预计长度
-	static xcc::size_t calc_length(double _Number) noexcept;
+	static x_size_t calc_length(double _Number) noexcept;
 
 	// 预计长度
-	static xcc::size_t calc_length(XJsonArrayPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept;
+	static x_size_t calc_length(XJsonArrayPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept;
 
 	// 预计长度
-	static xcc::size_t calc_length(XJsonObjectPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept;
+	static x_size_t calc_length(XJsonObjectPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept;
 
 	// 预计长度
-	static xcc::size_t calc_length(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept;
+	static x_size_t calc_length(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept;
 
 public:
 	// 序列化
-	static bool serialize(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, char** _Bytes, xcc::size_t* _Size) noexcept;
+	static bool serialize(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, char** _Bytes, x_size_t* _Size) noexcept;
 
 	// 序列化 - 字符
 	static bool serialize_char(XJsonSerializePrivate* _Context, char _Char) noexcept;
 
 	// 序列化 - 新行
-	static bool serialize_new_line(XJsonSerializePrivate* _Context, xcc::size_t _Layer) noexcept;
+	static bool serialize_new_line(XJsonSerializePrivate* _Context, x_size_t _Layer) noexcept;
 
 	// 序列化 - 空值
 	static bool serialize_null(XJsonSerializePrivate* _Context) noexcept;
@@ -367,17 +367,17 @@ public:
 	static bool serialize_string(XJsonSerializePrivate* _Context, const XString& _String) noexcept;
 
 	// 序列化 - 值
-	static bool serialize_value(XJsonSerializePrivate* _Context, XJsonValuePrivate* _Private, xcc::size_t _Layer) noexcept;
+	static bool serialize_value(XJsonSerializePrivate* _Context, XJsonValuePrivate* _Private, x_size_t _Layer) noexcept;
 
 	// 序列化 - 数组
-	static bool serialize_array(XJsonSerializePrivate* _Context, XJsonArrayPrivate* _Private, xcc::size_t _Layer) noexcept;
+	static bool serialize_array(XJsonSerializePrivate* _Context, XJsonArrayPrivate* _Private, x_size_t _Layer) noexcept;
 
 	// 序列化 - 对象
-	static bool serialize_object(XJsonSerializePrivate* _Context, XJsonObjectPrivate* _Private, xcc::size_t _Layer) noexcept;
+	static bool serialize_object(XJsonSerializePrivate* _Context, XJsonObjectPrivate* _Private, x_size_t _Layer) noexcept;
 
 public:
 	// 反序列化
-	static bool deserialize(const char* _Bytes, xcc::size_t _Size, XJsonValuePrivate** _Src) noexcept;
+	static bool deserialize(const char* _Bytes, x_size_t _Size, XJsonValuePrivate** _Src) noexcept;
 
 	// 反序列化 - 跳过
 	static bool deserialize_skip(XJsonDeserializePrivate* _Context) noexcept;

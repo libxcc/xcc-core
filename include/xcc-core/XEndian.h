@@ -61,7 +61,7 @@ public:
 
 public:
 	// reverse : memory
-	static void reverse(void* _Memory, std::size_t _Size) noexcept;
+	static void reverse(void* _Memory, x_size_t _Size) noexcept;
 
 public:
 	// reverse : short

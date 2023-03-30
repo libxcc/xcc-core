@@ -57,7 +57,7 @@ public:
 
 public:
 	// 子项数量
-	virtual xcc::size_t size() const noexcept final;
+	virtual x_size_t size() const noexcept final;
 
 	// 是否不存在子项
 	virtual bool empty() const noexcept final;
@@ -168,16 +168,16 @@ public:
 		iterator operator --() const noexcept;
 
 		// operator overload +
-		iterator operator +(xcc::ssize_t _Size) const noexcept;
+		iterator operator +(x_ssize_t _Size) const noexcept;
 
 		// operator overload -
-		iterator operator -(xcc::ssize_t _Size) const noexcept;
+		iterator operator -(x_ssize_t _Size) const noexcept;
 
 		// operator overload +=
-		iterator& operator +=(xcc::ssize_t _Size) noexcept;
+		iterator& operator +=(x_ssize_t _Size) noexcept;
 
 		// operator overload -=
-		iterator& operator -=(xcc::ssize_t _Size) noexcept;
+		iterator& operator -=(x_ssize_t _Size) noexcept;
 
 	public:
 		// operator overload *
@@ -255,16 +255,16 @@ public:
 		const_iterator operator --() const noexcept;
 
 		// operator overload +
-		const_iterator operator +(xcc::ssize_t _Size) const noexcept;
+		const_iterator operator +(x_ssize_t _Size) const noexcept;
 
 		// operator overload -
-		const_iterator operator -(xcc::ssize_t _Size) const noexcept;
+		const_iterator operator -(x_ssize_t _Size) const noexcept;
 
 		// operator overload +=
-		const_iterator& operator +=(xcc::ssize_t _Size) noexcept;
+		const_iterator& operator +=(x_ssize_t _Size) noexcept;
 
 		// operator overload -=
-		const_iterator& operator -=(xcc::ssize_t _Size) noexcept;
+		const_iterator& operator -=(x_ssize_t _Size) noexcept;
 
 	public:
 		// operator overload *

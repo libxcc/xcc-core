@@ -40,11 +40,11 @@ public:
 	static bool kill(const XString& _ProcessName) noexcept;
 
 	// Kill the process with the specified process ID
-	static bool kill(unsigned long long _ProcessID) noexcept;
+	static bool kill(x_uint64_t _ProcessID) noexcept;
 
 public:
 	// Gets the current process ID
-	static std::uint64_t currentProcessID() noexcept;
+	static x_uint64_t currentProcessID() noexcept;
 
 public:
 	// Traverses the list of currently running processes
@@ -55,11 +55,11 @@ public:
 	static bool isExist(const XString& _ProcessName) noexcept;
 
 	// How many instances of the specified process name
-	static std::uint64_t number(const XString& _ProcessName) noexcept;
+	static x_uint64_t number(const XString& _ProcessName) noexcept;
 
 public:
 	// 运行并等待进程
-	static std::uint64_t execute(const XString& _Application, const XString& _Param = XString(), const XString& _Directory = XString(), bool _Wait = true, bool _UI = false) noexcept;
+	static x_int64_t execute(const XString& _Application, const XString& _Param = XString(), const XString& _Directory = XString(), bool _Wait = true, bool _UI = false) noexcept;
 
 	// Loads and executes new child processes.
 	static int execds(const char* _Application, const char* _Directory, const char* _Param) noexcept;
@@ -69,7 +69,7 @@ public:
 
 public:
 	// 枚举卸载列表
-	static bool program(std::function<void(const XCC_CORE_PROCESS_UNINSTALL* _Info)> _Lambda) noexcept;
+	static bool program(const std::function<void(const XCC_CORE_PROCESS_UNINSTALL* _Info)>& _Lambda) noexcept;
 };
 
 #endif

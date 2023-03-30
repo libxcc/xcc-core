@@ -82,7 +82,7 @@ XString XCoreApplication::applicationFilePath() noexcept
 #else
 		#if defined(XCC_SYSTEM_DARWIN)
 		char		vDirectory[XCC_PATH_MAX];
-		uint32_t	vLength = XCC_PATH_MAX;
+		x_uint32_t	vLength = XCC_PATH_MAX;
 		if(_NSGetExecutablePath(vDirectory, &vLength) != 0)
 		{
 			vDirectory[0] = '\0';

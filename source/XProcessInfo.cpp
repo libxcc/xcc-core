@@ -5,8 +5,8 @@
 class XProcessInfoPrivate
 {
 public:
-	std::uint64_t				_ProcessID;
-	XString				_ProcessName;
+	x_uint64_t				_ProcessID;
+	XString					_ProcessName;
 
 public:
 	XProcessInfoPrivate()
@@ -26,13 +26,13 @@ XProcessInfo::XProcessInfo() noexcept
 	this->_private_info = new(std::nothrow) XProcessInfoPrivate();
 }
 
-XProcessInfo::XProcessInfo(std::uint64_t _ProcessID) noexcept
+XProcessInfo::XProcessInfo(x_uint64_t _ProcessID) noexcept
 {
 	this->_private_info = new(std::nothrow) XProcessInfoPrivate();
 	this->_private_info->_ProcessID = _ProcessID;
 }
 
-XProcessInfo::XProcessInfo(std::uint64_t _ProcessID, const XString& _ProcessName) noexcept
+XProcessInfo::XProcessInfo(x_uint64_t _ProcessID, const XString& _ProcessName) noexcept
 {
 	this->_private_info = new(std::nothrow) XProcessInfoPrivate();
 	this->_private_info->_ProcessID = _ProcessID;
@@ -62,7 +62,7 @@ XProcessInfo& XProcessInfo::operator = (const XProcessInfo& _Other) noexcept
 
 
 // 获取进程ID
-std::uint64_t XProcessInfo::getProcessID() const noexcept
+x_uint64_t XProcessInfo::getProcessID() const noexcept
 {
 	return this->_private_info->_ProcessID;
 }

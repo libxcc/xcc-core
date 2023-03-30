@@ -50,7 +50,7 @@ public:
 
 public:
 	// [fmt] 从字节数组格式化
-	static XJsonValue fromBytes(const char* _JsonBytes, xcc::size_t _JsonLength) noexcept;
+	static XJsonValue fromBytes(const char* _JsonBytes, x_size_t _JsonLength) noexcept;
 
 	// [fmt] 从字节数组格式化
 	static XJsonValue fromBytes(const XByteArray& _JsonBytes) noexcept;

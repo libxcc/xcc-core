@@ -4,18 +4,18 @@
 
 
 // Core分配器: 申请内存
-static XAllocator::elem_type* x_core_allocator_malloc(XAllocator::size_type _Size)
+static XAllocator::elem_type* __xcall__ x_core_allocator_malloc(XAllocator::size_type _Size) noexcept
 {
 	auto		vMemory = new(std::nothrow) XAllocator::elem_type [_Size];
 	if(vMemory == nullptr)
 	{
-		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory new error size = %llu", __XFUNCTION__, __XLINE__, (x_ullong_t)_Size);
+		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory new error size = %llu", __XFUNCTION__, __XLINE__, (x_uint64_t)_Size);
 	}
 	return vMemory;
 }
 
 // Core分配器: 释放内存
-static void x_core_allocator_free(XAllocator::elem_type* _Address)
+static void __xcall__ x_core_allocator_free(XAllocator::elem_type* _Address) noexcept
 {
 	try
 	{
@@ -23,7 +23,7 @@ static void x_core_allocator_free(XAllocator::elem_type* _Address)
 	}
 	catch(...)
 	{
-		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory address : %llu", __XFUNCTION__, __XLINE__, (x_ullong_t)_Address);
+		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory address : %llu", __XFUNCTION__, __XLINE__, (x_uint64_t)_Address);
 		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory content : %s", __XFUNCTION__, __XLINE__, _Address ? (const char*)_Address : "null");
 	}
 }

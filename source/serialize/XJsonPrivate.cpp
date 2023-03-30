@@ -8,7 +8,7 @@ XJsonArrayPrivate* XJsonPrivate::newArray() noexcept
 }
 
 // 创建数组迭代器
-XJsonArrayIterPrivate* XJsonPrivate::newArrayIter(XJsonArrayPrivate* _Array, xcc::size_t _Index) noexcept
+XJsonArrayIterPrivate* XJsonPrivate::newArrayIter(XJsonArrayPrivate* _Array, x_size_t _Index) noexcept
 {
 	auto		vPrivate = new(std::nothrow) XJsonArrayIterPrivate();
 	if(vPrivate)
@@ -22,7 +22,7 @@ XJsonArrayIterPrivate* XJsonPrivate::newArrayIter(XJsonArrayPrivate* _Array, xcc
 			}
 			else
 			{
-				vPrivate->iter = vPrivate->array->data.begin() + (xcc::ssize_t)_Index;
+				vPrivate->iter = vPrivate->array->data.begin() + (x_ssize_t)_Index;
 			}
 		}
 
@@ -211,7 +211,7 @@ XJsonValuePrivate* XJsonPrivate::clone(XJsonValuePrivate* _Src) noexcept
 
 
 // 预计长度 - 新行
-xcc::size_t XJsonPrivate::calc_length_new_line(XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept
+x_size_t XJsonPrivate::calc_length_new_line(XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept
 {
 	if(_JsonFormat == XJsonDocument::Indented)
 	{
@@ -222,21 +222,21 @@ xcc::size_t XJsonPrivate::calc_length_new_line(XJsonDocument::JsonFormat _JsonFo
 }
 
 // 预计长度
-xcc::size_t XJsonPrivate::calc_length(xcc::int64_t _Number) noexcept
+x_size_t XJsonPrivate::calc_length(x_int64_t _Number) noexcept
 {
 	auto		vFormat = XString::format("%llu", _Number);
 	return vFormat.size();
 }
 
 // 预计长度
-xcc::size_t XJsonPrivate::calc_length(xcc::uint64_t _Number) noexcept
+x_size_t XJsonPrivate::calc_length(x_uint64_t _Number) noexcept
 {
 	auto		vFormat = XString::format("%llu", _Number);
 	return vFormat.size();
 }
 
 // 预计长度
-xcc::size_t XJsonPrivate::calc_length(double _Number) noexcept
+x_size_t XJsonPrivate::calc_length(double _Number) noexcept
 {
 	XString		vFormat;
 
@@ -256,10 +256,10 @@ xcc::size_t XJsonPrivate::calc_length(double _Number) noexcept
 }
 
 // 预计长度
-xcc::size_t XJsonPrivate::calc_length(XJsonArrayPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept
+x_size_t XJsonPrivate::calc_length(XJsonArrayPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept
 {
 	// [
-	xcc::size_t		vLength = 1;
+	x_size_t		vLength = 1;
 
 	for(const auto & vIterator : _Src->data)
 	{
@@ -289,10 +289,10 @@ xcc::size_t XJsonPrivate::calc_length(XJsonArrayPrivate* _Src, XJsonDocument::Js
 }
 
 // 预计长度
-xcc::size_t XJsonPrivate::calc_length(XJsonObjectPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept
+x_size_t XJsonPrivate::calc_length(XJsonObjectPrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept
 {
 	// [
-	xcc::size_t		vLength = 1;
+	x_size_t		vLength = 1;
 
 	for(const auto & vIterator : _Src->data)
 	{
@@ -328,7 +328,7 @@ xcc::size_t XJsonPrivate::calc_length(XJsonObjectPrivate* _Src, XJsonDocument::J
 }
 
 // 预计长度
-xcc::size_t XJsonPrivate::calc_length(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, xcc::size_t _Layer) noexcept
+x_size_t XJsonPrivate::calc_length(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, x_size_t _Layer) noexcept
 {
 	switch (_Src->type)
 	{
@@ -373,7 +373,7 @@ xcc::size_t XJsonPrivate::calc_length(XJsonValuePrivate* _Src, XJsonDocument::Js
 
 
 // 序列化
-bool XJsonPrivate::serialize(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, char** _Bytes, xcc::size_t* _Size) noexcept
+bool XJsonPrivate::serialize(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, char** _Bytes, x_size_t* _Size) noexcept
 {
 	if(_Src == nullptr || _Bytes == nullptr || _Size == nullptr)
 	{
@@ -429,7 +429,7 @@ bool XJsonPrivate::serialize_char(XJsonSerializePrivate* _Context, char _Char) n
 }
 
 // 序列化 - 新行
-bool XJsonPrivate::serialize_new_line(XJsonSerializePrivate* _Context, xcc::size_t _Layer) noexcept
+bool XJsonPrivate::serialize_new_line(XJsonSerializePrivate* _Context, x_size_t _Layer) noexcept
 {
 	if(_Context->format == XJsonDocument::Indented)
 	{
@@ -568,7 +568,7 @@ bool XJsonPrivate::serialize_string(XJsonSerializePrivate* _Context, const XStri
 }
 
 // 序列化 - 值
-bool XJsonPrivate::serialize_value(XJsonSerializePrivate* _Context, XJsonValuePrivate* _Private, xcc::size_t _Layer) noexcept
+bool XJsonPrivate::serialize_value(XJsonSerializePrivate* _Context, XJsonValuePrivate* _Private, x_size_t _Layer) noexcept
 {
 	switch (_Private->type)
 	{
@@ -590,7 +590,7 @@ bool XJsonPrivate::serialize_value(XJsonSerializePrivate* _Context, XJsonValuePr
 }
 
 // 序列化 - 数组
-bool XJsonPrivate::serialize_array(XJsonSerializePrivate* _Context, XJsonArrayPrivate* _Private, xcc::size_t _Layer) noexcept
+bool XJsonPrivate::serialize_array(XJsonSerializePrivate* _Context, XJsonArrayPrivate* _Private, x_size_t _Layer) noexcept
 {
 	// [
 	if(!XJsonPrivate::serialize_char(_Context, '['))
@@ -645,7 +645,7 @@ bool XJsonPrivate::serialize_array(XJsonSerializePrivate* _Context, XJsonArrayPr
 }
 
 // 序列化 - 对象
-bool XJsonPrivate::serialize_object(XJsonSerializePrivate* _Context, XJsonObjectPrivate* _Private, xcc::size_t _Layer) noexcept
+bool XJsonPrivate::serialize_object(XJsonSerializePrivate* _Context, XJsonObjectPrivate* _Private, x_size_t _Layer) noexcept
 {
 	// {
 	if(!XJsonPrivate::serialize_char(_Context, '{'))
@@ -714,7 +714,7 @@ bool XJsonPrivate::serialize_object(XJsonSerializePrivate* _Context, XJsonObject
 
 
 // 反序列化
-bool XJsonPrivate::deserialize(const char* _Bytes, xcc::size_t _Size, XJsonValuePrivate** _Src) noexcept
+bool XJsonPrivate::deserialize(const char* _Bytes, x_size_t _Size, XJsonValuePrivate** _Src) noexcept
 {
 	if(_Src == nullptr || _Bytes == nullptr)
 	{
@@ -763,7 +763,7 @@ bool XJsonPrivate::deserialize_skip(XJsonDeserializePrivate* _Context) noexcept
 bool XJsonPrivate::deserialize_number(XJsonDeserializePrivate* _Context, XJsonValuePrivate* _Private) noexcept
 {
 	auto		vData = _Context->data + _Context->pos;
-	xcc::uint64_t 	vValueULLong = 0;
+	x_uint64_t 	vValueULLong = 0;
 	long double	vValueDouble = 0;
 	long double	vScale = 0;
 	int		vSubScale = 0;
@@ -832,7 +832,7 @@ bool XJsonPrivate::deserialize_number(XJsonDeserializePrivate* _Context, XJsonVa
 	{
 		if(_Private->sign.s_signed)
 		{
-			_Private->value.v_int64 = -(xcc::int64_t)vValueULLong;
+			_Private->value.v_int64 = -(x_int64_t)vValueULLong;
 		}
 		else
 		{
@@ -871,7 +871,7 @@ bool XJsonPrivate::deserialize_string(XJsonDeserializePrivate* _Context, XJsonVa
 	}
 
 	// 查找结尾引号
-	xcc::size_t 	vStrLength = 0;
+	x_size_t 	vStrLength = 0;
 	while(true)
 	{
 		++vByteCheck;

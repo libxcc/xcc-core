@@ -56,34 +56,34 @@ public:
 	XJsonValue(bool _Status) noexcept;
 
 	// constructor
-	XJsonValue(xcc::int8_t _Number) noexcept;
+	XJsonValue(x_int8_t _Number) noexcept;
 
 	// constructor
-	XJsonValue(xcc::uint8_t _Number) noexcept;
+	XJsonValue(x_uint8_t _Number) noexcept;
 
 	// constructor
-	XJsonValue(xcc::int16_t _Number) noexcept;
+	XJsonValue(x_int16_t _Number) noexcept;
 
 	// constructor
-	XJsonValue(xcc::uint16_t _Number) noexcept;
+	XJsonValue(x_uint16_t _Number) noexcept;
 
 	// constructor
-	XJsonValue(xcc::int32_t _Number) noexcept;
+	XJsonValue(x_int32_t _Number) noexcept;
 
 	// constructor
-	XJsonValue(xcc::uint32_t _Number) noexcept;
+	XJsonValue(x_uint32_t _Number) noexcept;
 
 	// constructor
-	XJsonValue(x_long_t _Number) noexcept;
+	XJsonValue(long _Number) noexcept;
 
 	// constructor
-	XJsonValue(x_ulong_t _Number) noexcept;
+	XJsonValue(unsigned long _Number) noexcept;
 
 	// constructor
-	XJsonValue(xcc::int64_t _Number) noexcept;
+	XJsonValue(x_int64_t _Number) noexcept;
 
 	// constructor
-	XJsonValue(xcc::uint64_t _Number) noexcept;
+	XJsonValue(x_uint64_t _Number) noexcept;
 
 	// constructor
 	XJsonValue(float _Number) noexcept;
@@ -122,34 +122,34 @@ public:
 	static XJsonValue boolean(bool _Status) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::int8_t _Number) noexcept;
+	static XJsonValue number(x_int8_t _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::uint8_t _Number) noexcept;
+	static XJsonValue number(x_uint8_t _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::int16_t _Number) noexcept;
+	static XJsonValue number(x_int16_t _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::uint16_t _Number) noexcept;
+	static XJsonValue number(x_uint16_t _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::int32_t _Number) noexcept;
+	static XJsonValue number(x_int32_t _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::uint32_t _Number) noexcept;
+	static XJsonValue number(x_uint32_t _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(x_long_t _Number) noexcept;
+	static XJsonValue number(long _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(x_ulong_t _Number) noexcept;
+	static XJsonValue number(unsigned long _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::int64_t _Number) noexcept;
+	static XJsonValue number(x_int64_t _Number) noexcept;
 
 	// 创建一个整型
-	static XJsonValue number(xcc::uint64_t _Number) noexcept;
+	static XJsonValue number(x_uint64_t _Number) noexcept;
 
 	// 创建一个单精度浮点数
 	static XJsonValue number(float _Number) noexcept;
@@ -203,10 +203,10 @@ public:
 	virtual bool toBoolean() const noexcept final;
 
 	// 转换为有符号整型
-	virtual xcc::int64_t toLLong() const noexcept final;
+	virtual x_int64_t toLLong() const noexcept final;
 
 	// 转换为无符号整型
-	virtual xcc::uint64_t toULLong() const noexcept final;
+	virtual x_uint64_t toULLong() const noexcept final;
 
 	// 转换为单精度浮点数
 	virtual float toFloat() const noexcept final;

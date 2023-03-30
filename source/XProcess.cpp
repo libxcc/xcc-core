@@ -63,7 +63,7 @@ bool XProcess::kill(const XString& _ProcessName) noexcept
 }
 
 // Kill the process with the specified process ID
-bool XProcess::kill(unsigned long long _ProcessID) noexcept
+bool XProcess::kill(x_uint64_t _ProcessID) noexcept
 {
 	auto		vSync = true;
 #if defined(XCC_SYSTEM_WINDOWS)
@@ -82,9 +82,9 @@ bool XProcess::kill(unsigned long long _ProcessID) noexcept
 
 
 // Gets the current process ID
-std::uint64_t XProcess::currentProcessID() noexcept
+x_uint64_t XProcess::currentProcessID() noexcept
 {
-	return static_cast<std::uint64_t>(x_posix_getpid());
+	return static_cast<x_uint64_t>(x_posix_getpid());
 }
 
 
@@ -106,7 +106,7 @@ bool XProcess::traverse(const std::function<bool(const XProcessInfo& _Info)>& _L
 		auto		vMore = ::Process32FirstW(vSnapshotHandle, &vProcessEntry32);
 		while(vMore)
 		{
-			if(!_Lambda(XProcessInfo(static_cast<std::uint64_t>(vProcessEntry32.th32ProcessID), XString::fromWString(vProcessEntry32.szExeFile))))
+			if(!_Lambda(XProcessInfo(static_cast<x_uint64_t>(vProcessEntry32.th32ProcessID), XString::fromWString(vProcessEntry32.szExeFile))))
 			{
 				// If the caller cancels the operation, then we should jump out of the loop
 				break;
@@ -132,7 +132,7 @@ bool XProcess::traverse(const std::function<bool(const XProcessInfo& _Info)>& _L
 					auto		vName = x_posix_strrchr(vDirectory, '/') + 1;
 					if(vName && x_posix_strlen(vName))
 					{
-						if(false == _Lambda(XProcessInfo(static_cast<std::uint64_t>(_Path.fileName().toLLong()), XString::fromUString(vName))))
+						if(false == _Lambda(XProcessInfo(static_cast<x_uint64_t>(_Path.fileName().toLLong()), XString::fromUString(vName))))
 						{
 							// If the caller cancels the operation, then we should jump out of the loop
 							return false;
@@ -168,7 +168,7 @@ bool XProcess::traverse(const std::function<bool(const XProcessInfo& _Info)>& _L
 					proc_name(vProcessID, vProcessNAME, 1024);
 					//proc_pidpath(vProcessID, vProcessPATH, 2048);
 					//proc_pidinfo(vProcessID, PROC_PIDTBSDINFO, 0, &vProcessINFO, PROC_PIDTBSDINFO_SIZE);
-					if(false == _Lambda(XProcessInfo(static_cast<std::uint64_t>(vProcessID), XString::fromUString(vProcessNAME))))
+					if(false == _Lambda(XProcessInfo(static_cast<x_uint64_t>(vProcessID), XString::fromUString(vProcessNAME))))
 					{
 						// If the caller cancels the operation, then we should jump out of the loop
 						break;
@@ -200,7 +200,7 @@ bool XProcess::isExist(const XString& _ProcessName) noexcept
 }
 
 // How many instances of the specified process name
-std::uint64_t XProcess::number(const XString& _ProcessName) noexcept
+x_uint64_t XProcess::number(const XString& _ProcessName) noexcept
 {
 	if(_ProcessName.empty())
 	{
@@ -220,10 +220,10 @@ std::uint64_t XProcess::number(const XString& _ProcessName) noexcept
 }
 
 // 运行并等待进程
-std::uint64_t XProcess::execute(const XString& _Application, const XString& _Param, const XString& _Directory, bool _Wait, bool _UI) noexcept
+x_int64_t XProcess::execute(const XString& _Application, const XString& _Param, const XString& _Directory, bool _Wait, bool _UI) noexcept
 {
 #if defined(XCC_SYSTEM_WINDOWS)
-	DWORD			vExitCode = STATUS_INVALID_HANDLE;
+	x_int64_t		vSync = STATUS_INVALID_HANDLE;
 	SHELLEXECUTEINFOW	vInfoShell = {sizeof(SHELLEXECUTEINFOW) };
 	if (_UI)
 	{
@@ -248,22 +248,24 @@ std::uint64_t XProcess::execute(const XString& _Application, const XString& _Par
 			if(_Wait)
 			{
 				WaitForSingleObject(vHandle, INFINITE);
-				vExitCode = STILL_ACTIVE;
+				DWORD		vExitCode = STILL_ACTIVE;
 				GetExitCodeProcess(vHandle, &vExitCode);
 				CloseHandle(vHandle);
+
+				vSync = (int)vExitCode;
 			}
 			else
 			{
-				vExitCode = 0;
+				vSync = 0;
 			}
 		}
 	}
 	else
 	{
 		// STATUS_INVALID_HANDLE
-		vExitCode = GetLastError();
+		vSync = GetLastError();
 	}
-	return vExitCode;
+	return vSync;
 #else
 	auto		vSync = fork();
 	if(vSync > 0)
@@ -345,7 +347,7 @@ int XProcess::run_memory_app(const XProcessRunMemoryInfo& _MemoryInfo, const std
 
 
 // 枚举卸载列表
-bool XProcess::program(std::function<void(const XCC_CORE_PROCESS_UNINSTALL* _Info)> _Lambda) noexcept
+bool XProcess::program(const std::function<void(const XCC_CORE_PROCESS_UNINSTALL* _Info)>& _Lambda) noexcept
 {
 	auto		vResult = false;
 #if defined(XCC_SYSTEM_WINDOWS)

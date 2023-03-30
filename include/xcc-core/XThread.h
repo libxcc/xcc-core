@@ -8,7 +8,7 @@
 class _XCOREAPI_ XThread
 {
 public:
-	using id_type			= x_ullong_t;
+	using id_type			= x_uint64_t;
 
 public:
 	// constructor

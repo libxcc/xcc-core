@@ -33,11 +33,11 @@ private:
 	typedef union data_type
 	{
 		bool					_VBool;
-		x_llong_t				_VInt64S;
-		x_ullong_t				_VInt64U;
-		x_double_t 				_VDouble;
+		x_int64_t				_VInt64S;
+		x_uint64_t				_VInt64U;
+		double 				_VDouble;
 		void*					_VObject;
-		x_llong_t				_VNull;
+		x_int64_t				_VNull;
 	}data_type;
 
 	data_type					_variant_data;
@@ -54,40 +54,40 @@ public:
 	XVariant(bool _Value) noexcept;
 
 	// constructor
-	XVariant(x_char_t _Value) noexcept;
+	XVariant(x_int8_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_uchar_t _Value) noexcept;
+	XVariant(x_uint8_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_short_t _Value) noexcept;
+	XVariant(x_int16_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_ushort_t _Value) noexcept;
+	XVariant(x_uint16_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_int_t _Value) noexcept;
+	XVariant(x_int32_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_uint_t _Value) noexcept;
+	XVariant(x_uint32_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_long_t _Value) noexcept;
+	XVariant(long _Value) noexcept;
 
 	// constructor
-	XVariant(x_ulong_t _Value) noexcept;
+	XVariant(unsigned long _Value) noexcept;
 
 	// constructor
-	XVariant(x_llong_t _Value) noexcept;
+	XVariant(x_int64_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_ullong_t _Value) noexcept;
+	XVariant(x_uint64_t _Value) noexcept;
 
 	// constructor
-	XVariant(x_float_t _Value) noexcept;
+	XVariant(float _Value) noexcept;
 
 	// constructor
-	XVariant(x_double_t _Value) noexcept;
+	XVariant(double _Value) noexcept;
 
 	// constructor
 	XVariant(const char* _Value) noexcept;
@@ -112,40 +112,40 @@ public:
 	XVariant& operator = (bool _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_char_t _Value) noexcept;
+	XVariant& operator = (x_int8_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_uchar_t _Value) noexcept;
+	XVariant& operator = (x_uint8_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_short_t _Value) noexcept;
+	XVariant& operator = (x_int16_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_ushort_t _Value) noexcept;
+	XVariant& operator = (x_uint16_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_int_t _Value) noexcept;
+	XVariant& operator = (x_int32_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_uint_t _Value) noexcept;
+	XVariant& operator = (x_uint32_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_long_t _Value) noexcept;
+	XVariant& operator = (long _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_ulong_t _Value) noexcept;
+	XVariant& operator = (unsigned long _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_llong_t _Value) noexcept;
+	XVariant& operator = (x_int64_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_ullong_t _Value) noexcept;
+	XVariant& operator = (x_uint64_t _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_float_t _Value) noexcept;
+	XVariant& operator = (float _Value) noexcept;
 
 	// operator overload =
-	XVariant& operator = (x_double_t _Value) noexcept;
+	XVariant& operator = (double _Value) noexcept;
 
 	// operator overload =
 	XVariant& operator = (const char* _Value) noexcept;
@@ -177,41 +177,41 @@ public:
 	// Convert to bool
 	virtual bool toBool() const noexcept final;
 
-	// Convert to x_char_t
-	virtual x_char_t toChar() const noexcept final;
+	// Convert to x_int8_t
+	virtual x_int8_t toChar() const noexcept final;
 
-	// Convert to x_uchar_t
-	virtual x_uchar_t toUChar() const noexcept final;
+	// Convert to x_uint8_t
+	virtual x_uint8_t toUChar() const noexcept final;
 
-	// Convert to x_short_t
-	virtual x_short_t toShort() const noexcept final;
+	// Convert to x_int16_t
+	virtual x_int16_t toShort() const noexcept final;
 
-	// Convert to x_ushort_t
-	virtual x_ushort_t toUShort() const noexcept final;
+	// Convert to x_uint16_t
+	virtual x_uint16_t toUShort() const noexcept final;
 
-	// Convert to x_int_t
-	virtual x_int_t toInt() const noexcept final;
+	// Convert to x_int32_t
+	virtual x_int32_t toInt() const noexcept final;
 
-	// Convert to x_uint_t
-	virtual x_uint_t toUInt() const noexcept final;
+	// Convert to x_uint32_t
+	virtual x_uint32_t toUInt() const noexcept final;
 
-	// Convert to x_long_t
-	virtual x_long_t toLong() const noexcept final;
+	// Convert to long
+	virtual long toLong() const noexcept final;
 
-	// Convert to x_ulong_t
-	virtual x_ulong_t toULong() const noexcept final;
+	// Convert to unsigned long
+	virtual unsigned long toULong() const noexcept final;
 
-	// Convert to x_llong_t
-	virtual x_llong_t toLLong() const noexcept final;
+	// Convert to x_int64_t
+	virtual x_int64_t toLLong() const noexcept final;
 
-	// Convert to x_ullong_t
-	virtual x_ullong_t toULLong() const noexcept final;
+	// Convert to x_uint64_t
+	virtual x_uint64_t toULLong() const noexcept final;
 
-	// Convert to x_float_t
-	virtual x_float_t toFloat() const noexcept final;
+	// Convert to float
+	virtual float toFloat() const noexcept final;
 
-	// Convert to x_double_t
-	virtual x_double_t toDouble() const noexcept final;
+	// Convert to double
+	virtual double toDouble() const noexcept final;
 
 	// Convert to XString
 	virtual XString toString() const noexcept final;
