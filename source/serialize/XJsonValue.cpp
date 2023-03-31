@@ -204,7 +204,7 @@ XJsonValue::XJsonValue(const XJsonObject& _JsonObject) noexcept
 
 
 
-// operator overload =
+// operator =
 XJsonValue& XJsonValue::operator = (const XJsonValue& _Object) noexcept
 {
 	if(this != &_Object)
@@ -215,7 +215,7 @@ XJsonValue& XJsonValue::operator = (const XJsonValue& _Object) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XJsonValue& XJsonValue::operator = (XJsonValue&& _Object) noexcept
 {
 	if(this != &_Object)

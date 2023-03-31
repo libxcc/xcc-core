@@ -18,10 +18,10 @@ XThread::~XThread() noexcept = default;
 
 
 
-// operator overload =
+// operator =
 XThread& XThread::operator = (const XThread& _Other) noexcept = default;
 
-// operator overload =
+// operator =
 XThread& XThread::operator = (XThread&& _Other) noexcept = default;
 
 

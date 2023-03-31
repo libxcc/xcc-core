@@ -74,135 +74,135 @@ public:
 	virtual ~XTernary() noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XTernary& operator = (value_type _Type) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (bool _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (char _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (unsigned char _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (short _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (unsigned short _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (int _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (unsigned int _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (long _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (unsigned long _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (long long _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (unsigned long long _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (const void* _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (const XTernary& _Other) noexcept;
 
-	// operator overload =
+	// operator =
 	XTernary& operator = (XTernary&& _Other) noexcept;
 
 public:
-	// operator overload ==
+	// operator ==
 	bool operator == (value_type _Type) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (bool _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (char _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (unsigned char _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (short _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (unsigned short _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (int _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (unsigned int _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (long _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (unsigned long _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (long long _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (unsigned long long _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (const void* _Value) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (const XTernary& _Other) const noexcept;
 
 public:
-	// operator overload !=
+	// operator !=
 	bool operator != (value_type _Type) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (bool _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (char _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (unsigned char _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (short _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (unsigned short _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (int _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (unsigned int _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (long _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (unsigned long _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (long long _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (unsigned long long _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (const void* _Value) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (const XTernary& _Other) const noexcept;
 
 public:

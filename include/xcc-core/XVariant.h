@@ -108,58 +108,58 @@ public:
 	virtual ~XVariant() noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XVariant& operator = (bool _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_int8_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_uint8_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_int16_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_uint16_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_int32_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_uint32_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (long _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (unsigned long _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_int64_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (x_uint64_t _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (float _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (double _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (const char* _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (const XString& _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (const XByteArray& _Value) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (const XVariant& _Other) noexcept;
 
-	// operator overload =
+	// operator =
 	XVariant& operator = (XVariant&& _Other) noexcept;
 
 private:

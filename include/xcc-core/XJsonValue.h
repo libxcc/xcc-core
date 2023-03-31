@@ -104,10 +104,10 @@ public:
 	XJsonValue(const XJsonObject& _JsonObject) noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XJsonValue& operator = (const XJsonValue& _Object) noexcept;
 
-	// operator overload =
+	// operator =
 	XJsonValue& operator = (XJsonValue&& _Object) noexcept;
 
 public:

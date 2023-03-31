@@ -32,10 +32,10 @@ public:
 	virtual ~XJsonDocument() noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XJsonDocument& operator = (const XJsonDocument& _Object) noexcept;
 
-	// operator overload =
+	// operator =
 	XJsonDocument& operator = (XJsonDocument&& _Object) noexcept;
 
 public:

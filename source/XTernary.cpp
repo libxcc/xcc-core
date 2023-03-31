@@ -105,98 +105,98 @@ XTernary::~XTernary() noexcept = default;
 
 
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (value_type _Type) noexcept
 {
 	this->_ternary_value = _Type;
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (bool _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (char _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (unsigned char _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (short _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (unsigned short _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (int _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (unsigned int _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (long _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (unsigned long _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (long long _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (unsigned long long _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (const void* _Value) noexcept
 {
 	this->_ternary_value = XTernary::convert(_Value);
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (const XTernary& _Other) noexcept
 {
 	if(this != &_Other)
@@ -206,7 +206,7 @@ XTernary& XTernary::operator = (const XTernary& _Other) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XTernary& XTernary::operator = (XTernary&& _Other) noexcept
 {
 	if(this != &_Other)
@@ -219,85 +219,85 @@ XTernary& XTernary::operator = (XTernary&& _Other) noexcept
 
 
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (value_type _Type) const noexcept
 {
 	return this->_ternary_value == _Type;
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (bool _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (char _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (unsigned char _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (short _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (unsigned short _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (int _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (unsigned int _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (long _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (unsigned long _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (long long _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (unsigned long long _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (const void* _Value) const noexcept
 {
 	return this->_ternary_value == XTernary::convert(_Value);
 }
 
-// operator overload ==
+// operator ==
 bool XTernary::operator == (const XTernary& _Other) const noexcept
 {
 	return this->_ternary_value == _Other._ternary_value;
@@ -307,85 +307,85 @@ bool XTernary::operator == (const XTernary& _Other) const noexcept
 
 
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (value_type _Type) const noexcept
 {
 	return this->_ternary_value != _Type;
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (bool _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (char _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (unsigned char _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (short _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (unsigned short _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (int _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (unsigned int _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (long _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (unsigned long _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (long long _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (unsigned long long _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (const void* _Value) const noexcept
 {
 	return this->_ternary_value != XTernary::convert(_Value);
 }
 
-// operator overload !=
+// operator !=
 bool XTernary::operator != (const XTernary& _Other) const noexcept
 {
 	return this->_ternary_value != _Other._ternary_value;

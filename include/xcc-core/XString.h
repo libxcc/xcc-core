@@ -56,95 +56,95 @@ public:
 	virtual ~XString() noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XString& operator = (const elem_type* _Memory) noexcept;
 
-	// operator overload =
+	// operator =
 	XString& operator = (const XString& _String) noexcept;
 
-	// operator overload =
+	// operator =
 	XString& operator = (XString&& _String) noexcept;
 
 public:
-	// operator overload +=
+	// operator +=
 	XString& operator += (elem_type _Char) noexcept;
 
-	// operator overload +=
+	// operator +=
 	XString& operator += (const elem_type* _String) noexcept;
 
-	// operator overload +=
+	// operator +=
 	XString& operator += (const XString& _String) noexcept;
 
 public:
-	// operator overload +
+	// operator +
 	XString operator + (elem_type _Char) const noexcept;
 
-	// operator overload +
+	// operator +
 	XString operator + (const elem_type* _String) const noexcept;
 
-	// operator overload +
+	// operator +
 	XString operator + (const XString& _String) const noexcept;
 
 public:
-	// operator overload ==
+	// operator ==
 	bool operator == (elem_type _Char) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (const elem_type* _String) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (const XString& _String) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (elem_type _Char) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (const elem_type* _String) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (const XString& _String) const noexcept;
 
-	// operator overload <
+	// operator <
 	bool operator < (elem_type _Char) const noexcept;
 
-	// operator overload <
+	// operator <
 	bool operator < (const elem_type* _String) const noexcept;
 
-	// operator overload <
+	// operator <
 	bool operator < (const XString& _String) const noexcept;
 
-	// operator overload >
+	// operator >
 	bool operator > (elem_type _Char) const noexcept;
 
-	// operator overload >
+	// operator >
 	bool operator > (const elem_type* _String) const noexcept;
 
-	// operator overload >
+	// operator >
 	bool operator > (const XString& _String) const noexcept;
 
-	// operator overload <=
+	// operator <=
 	bool operator <= (elem_type _Char) const noexcept;
 
-	// operator overload <=
+	// operator <=
 	bool operator <= (const elem_type* _String) const noexcept;
 
-	// operator overload <=
+	// operator <=
 	bool operator <= (const XString& _String) const noexcept;
 
-	// operator overload >=
+	// operator >=
 	bool operator >= (elem_type _Char) const noexcept;
 
-	// operator overload >=
+	// operator >=
 	bool operator >= (const elem_type* _String) const noexcept;
 
-	// operator overload >=
+	// operator >=
 	bool operator >= (const XString& _String) const noexcept;
 
 public:
-	// operator overload []
+	// operator []
 	elem_type& operator [] (pos_type _Index);
 
-	// operator overload []
+	// operator []
 	elem_type operator [] (pos_type _Index) const;
 
 public:
@@ -374,6 +374,34 @@ public:
 
 	// 从指定位置按倒序查找数据
 	virtual pos_type rfind(const XString& _String, pos_type _Pos, xcc::CaseSensitivity _XCS) const noexcept final;
+
+public:
+	// 返回字符串长度
+	virtual size_type count() const noexcept final;
+
+	// 返回字符 _Char 在此字符串中出现的次数
+	virtual size_type count(elem_type _Char) const noexcept final;
+
+	// 返回字符 _Char 在此字符串中出现的次数
+	virtual size_type count(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept final;
+
+	// 返回字符串 _String 在此字符串中出现的次数
+	virtual size_type count(const elem_type* _String) const noexcept final;
+
+	// 返回字符串 _String 在此字符串中出现的次数
+	virtual size_type count(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept final;
+
+	// 返回字符串 _String 在此字符串中出现的次数
+	virtual size_type count(const elem_type* _String, size_type _Length) const noexcept final;
+
+	// 返回字符串 _String 在此字符串中出现的次数
+	virtual size_type count(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept final;
+
+	// 返回字符串 _String 在此字符串中出现的次数
+	virtual size_type count(const XString& _String) const noexcept final;
+
+	// 返回字符串 _String 在此字符串中出现的次数
+	virtual size_type count(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept final;
 
 public:
 	// 检查是否包含指定数据
@@ -810,16 +838,67 @@ public:
 };
 
 
-// Standard enhancement function : stream <<
-_XCOREAPI_ std::ostream& operator << (std::ostream& _OStream, const XString& _String) noexcept;
 
-// Standard enhancement function : stream >>
-_XCOREAPI_ std::istream& operator >> (std::istream& _IStream, XString& _String) noexcept;
+// Syntax sugar: operator +
+_XCOREAPI_ XString __xcall__ operator + (XString::elem_type _Char, const XString& _Object) noexcept;
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XString& _String, char _Delim) noexcept;
+// Syntax sugar: operator +
+_XCOREAPI_ XString __xcall__ operator + (const XString::elem_type* _String, const XString& _Object) noexcept;
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XString& _String) noexcept;
+
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (XString::elem_type _Char, const XString& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (const XString::elem_type* _String, const XString& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (XString::elem_type _Char, const XString& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (const XString::elem_type* _String, const XString& _Object) noexcept;
+
+// Syntax sugar: operator <
+_XCOREAPI_ bool __xcall__ operator < (XString::elem_type _Char, const XString& _Object) noexcept;
+
+// Syntax sugar: operator <
+_XCOREAPI_ bool __xcall__ operator < (const XString::elem_type* _String, const XString& _Object) noexcept;
+
+// Syntax sugar: operator >
+_XCOREAPI_ bool __xcall__ operator > (XString::elem_type _Char, const XString& _Object) noexcept;
+
+// Syntax sugar: operator >
+_XCOREAPI_ bool __xcall__ operator > (const XString::elem_type* _String, const XString& _Object) noexcept;
+
+// Syntax sugar: operator <=
+_XCOREAPI_ bool __xcall__ operator <= (XString::elem_type _Char, const XString& _Object) noexcept;
+
+// Syntax sugar: operator <=
+_XCOREAPI_ bool __xcall__ operator <= (const XString::elem_type* _String, const XString& _Object) noexcept;
+
+// Syntax sugar: operator >=
+_XCOREAPI_ bool __xcall__ operator >= (XString::elem_type _Char, const XString& _Object) noexcept;
+
+// Syntax sugar: operator >=
+_XCOREAPI_ bool __xcall__ operator >= (const XString::elem_type* _String, const XString& _Object) noexcept;
+
+
+
+// Syntax sugar: operator <<
+_XCOREAPI_ std::ostream& __xcall__ operator << (std::ostream& _OStream, const XString& _String) noexcept;
+
+// Syntax sugar: operator >>
+_XCOREAPI_ std::istream& __xcall__ operator >> (std::istream& _IStream, XString& _String) noexcept;
+
+
+
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XString& _String, char _Delim) noexcept;
+
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XString& _String) noexcept;
+
+
 
 #endif

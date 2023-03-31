@@ -16,10 +16,10 @@ XJsonDocument::~XJsonDocument() noexcept = default;
 
 
 
-// operator overload =
+// operator =
 XJsonDocument& XJsonDocument::operator = (const XJsonDocument& _Object) noexcept = default;
 
-// operator overload =
+// operator =
 XJsonDocument& XJsonDocument::operator = (XJsonDocument&& _Object) noexcept = default;
 
 

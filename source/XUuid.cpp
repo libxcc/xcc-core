@@ -73,7 +73,7 @@ XUuid::~XUuid() noexcept = default;
 
 
 
-// operator overload =
+// operator =
 XUuid& XUuid::operator = (const XUuid& _Object) noexcept
 {
 	if(this != &_Object)
@@ -86,7 +86,7 @@ XUuid& XUuid::operator = (const XUuid& _Object) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XUuid& XUuid::operator = (XUuid&& _Object) noexcept
 {
 	if(this != &_Object)

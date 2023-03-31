@@ -32,9 +32,7 @@ XString::~XString() noexcept = default;
 
 
 
-
-
-// operator overload =
+// operator =
 XString& XString::operator = (const elem_type* _Memory) noexcept
 {
 	if(this->resize(x_posix_strlen(_Memory)))
@@ -44,7 +42,7 @@ XString& XString::operator = (const elem_type* _Memory) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XString& XString::operator = (const XString& _String) noexcept
 {
 	if(this != &_String)
@@ -54,7 +52,7 @@ XString& XString::operator = (const XString& _String) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XString& XString::operator = (XString&& _String) noexcept
 {
 	if(this != &_String)
@@ -66,22 +64,20 @@ XString& XString::operator = (XString&& _String) noexcept
 
 
 
-
-
-// operator overload +=
+// operator +=
 XString& XString::operator += (elem_type _Char) noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->append(vBytes, 1);
 }
 
-// operator overload +=
+// operator +=
 XString& XString::operator += (const elem_type* _String) noexcept
 {
 	return this->append(_String, x_posix_strlen(_String));
 }
 
-// operator overload +=
+// operator +=
 XString& XString::operator += (const XString& _String) noexcept
 {
 	return this->append(_String.data(), _String.size());
@@ -89,9 +85,7 @@ XString& XString::operator += (const XString& _String) noexcept
 
 
 
-
-
-// operator overload +
+// operator +
 XString XString::operator + (elem_type _Char) const noexcept
 {
 	auto		vTemp = *this;
@@ -99,7 +93,7 @@ XString XString::operator + (elem_type _Char) const noexcept
 	return vTemp;
 }
 
-// operator overload +
+// operator +
 XString XString::operator + (const elem_type* _String) const noexcept
 {
 	auto		vTemp = *this;
@@ -107,7 +101,7 @@ XString XString::operator + (const elem_type* _String) const noexcept
 	return vTemp;
 }
 
-// operator overload +
+// operator +
 XString XString::operator + (const XString& _String) const noexcept
 {
 	auto		vTemp = *this;
@@ -117,117 +111,115 @@ XString XString::operator + (const XString& _String) const noexcept
 
 
 
-
-
-// operator overload ==
+// operator ==
 bool XString::operator == (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) == 0;
 }
 
-// operator overload ==
+// operator ==
 bool XString::operator == (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) == 0;
 }
 
-// operator overload ==
+// operator ==
 bool XString::operator == (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) == 0;
 }
 
-// operator overload !=
+// operator !=
 bool XString::operator != (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) != 0;
 }
 
-// operator overload !=
+// operator !=
 bool XString::operator != (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) != 0;
 }
 
-// operator overload !=
+// operator !=
 bool XString::operator != (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) != 0;
 }
 
-// operator overload <
+// operator <
 bool XString::operator < (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) < 0;
 }
 
-// operator overload <
+// operator <
 bool XString::operator < (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) < 0;
 }
 
-// operator overload <
+// operator <
 bool XString::operator < (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) < 0;
 }
 
-// operator overload >
+// operator >
 bool XString::operator > (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) > 0;
 }
 
-// operator overload >
+// operator >
 bool XString::operator > (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) > 0;
 }
 
-// operator overload >
+// operator >
 bool XString::operator > (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) > 0;
 }
 
-// operator overload <=
+// operator <=
 bool XString::operator <= (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) <= 0;
 }
 
-// operator overload <=
+// operator <=
 bool XString::operator <= (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) <= 0;
 }
 
-// operator overload <=
+// operator <=
 bool XString::operator <= (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) <= 0;
 }
 
-// operator overload >=
+// operator >=
 bool XString::operator >= (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) >= 0;
 }
 
-// operator overload >=
+// operator >=
 bool XString::operator >= (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) >= 0;
 }
 
-// operator overload >=
+// operator >=
 bool XString::operator >= (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) >= 0;
@@ -235,21 +227,17 @@ bool XString::operator >= (const XString& _String) const noexcept
 
 
 
-
-
-// operator overload []
+// operator []
 XString::elem_type& XString::operator [] (pos_type _Index)
 {
 	return this->_Allocator[_Index];
 }
 
-// operator overload []
+// operator []
 XString::elem_type XString::operator [] (pos_type _Index) const
 {
 	return this->_Allocator[_Index];
 }
-
-
 
 
 
@@ -270,8 +258,6 @@ bool XString::reverse(size_type _Length) noexcept
 {
 	return this->_Allocator.reverse(_Length);
 }
-
-
 
 
 
@@ -325,9 +311,6 @@ XString::size_type XString::max_size() const noexcept
 
 
 
-
-
-
 // Truncates the subscript POS of the byte array. If POS goes beyond the end of the array, nothing happens.
 void XString::truncate(size_type _Index) noexcept
 {
@@ -369,8 +352,6 @@ XString XString::simplified() const noexcept
 
 
 
-
-
 // 从源中截取部分数据
 XString XString::substr(pos_type _Pos) const noexcept
 {
@@ -408,8 +389,6 @@ XString XString::right(pos_type _Pos) const noexcept
 {
 	return this->substr(this->size() - _Pos, XString::npos);
 }
-
-
 
 
 
@@ -563,8 +542,6 @@ bool XString::startsWith(const XString& _String, xcc::CaseSensitivity _XCS) cons
 
 
 
-
-
 // 检测源数据是否存在指定的后缀
 bool XString::endsWith(elem_type _Char) const noexcept
 {
@@ -618,8 +595,6 @@ bool XString::endsWith(const XString& _String, xcc::CaseSensitivity _XCS) const 
 {
 	return this->endsWith(_String.data(), _String.size(), _XCS);
 }
-
-
 
 
 
@@ -730,8 +705,6 @@ XString::pos_type XString::find(const XString& _String, pos_type _Pos, xcc::Case
 {
 	return this->find(_String.data(), _String.size(), _Pos, _XCS);
 }
-
-
 
 
 
@@ -847,8 +820,6 @@ XString::pos_type XString::rfind(const XString& _String, pos_type _Pos, xcc::Cas
 
 
 
-
-
 // 检查是否包含指定数据
 bool XString::contains(elem_type _Char) const noexcept
 {
@@ -901,6 +872,77 @@ bool XString::contains(const XString& _String, xcc::CaseSensitivity _XCS) const 
 }
 
 
+
+// 返回字符串长度
+XString::size_type XString::count() const noexcept
+{
+	return this->size();
+}
+
+// 返回字符 _Char 在此字符串中出现的次数
+XString::size_type XString::count(elem_type _Char) const noexcept
+{
+	elem_type		vBytes[2] = { _Char, '\0' };
+	return this->count(vBytes, 1, xcc::CaseSensitive);
+}
+
+// 返回字符 _Char 在此字符串中出现的次数
+XString::size_type XString::count(elem_type _Char, xcc::CaseSensitivity _XCS) const noexcept
+{
+	elem_type		vBytes[2] = { _Char, '\0' };
+	return this->count(vBytes, 1, _XCS);
+}
+
+// 返回字符串 _String 在此字符串中出现的次数
+XString::size_type XString::count(const elem_type* _String) const noexcept
+{
+	return this->count(_String, x_posix_strlen(_String), xcc::CaseSensitive);
+}
+
+// 返回字符串 _String 在此字符串中出现的次数
+XString::size_type XString::count(const elem_type* _String, xcc::CaseSensitivity _XCS) const noexcept
+{
+	return this->count(_String, x_posix_strlen(_String), _XCS);
+}
+
+// 返回字符串 _String 在此字符串中出现的次数
+XString::size_type XString::count(const elem_type* _String, size_type _Length) const noexcept
+{
+	return this->count(_String, _Length, xcc::CaseSensitive);
+}
+
+// 返回字符串 _String 在此字符串中出现的次数
+XString::size_type XString::count(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) const noexcept
+{
+	pos_type 	vPos = 0;
+	size_type	vSize = 0;
+	while(true)
+	{
+		vPos = this->find(_String, _Length, vPos, _XCS);
+		if(vPos == XString::npos)
+		{
+			break;
+		}
+		else
+		{
+			++vPos;
+			++vSize;
+		}
+	}
+	return vSize;
+}
+
+// 返回字符串 _String 在此字符串中出现的次数
+XString::size_type XString::count(const XString& _String) const noexcept
+{
+	return this->count(_String.data(), _String.size(), xcc::CaseSensitive);
+}
+
+// 返回字符串 _String 在此字符串中出现的次数
+XString::size_type XString::count(const XString& _String, xcc::CaseSensitivity _XCS) const noexcept
+{
+	return this->count(_String.data(), _String.size(), _XCS);
+}
 
 
 
@@ -1014,8 +1056,6 @@ int XString::compare(const XString& _String, xcc::CaseSensitivity _XCS) const no
 
 
 
-
-
 // 在头部插入数据
 XString& XString::prepend(elem_type _Char) noexcept
 {
@@ -1046,8 +1086,6 @@ XString& XString::prepend(const XString& _String) noexcept
 {
 	return this->prepend(_String.data(), _String.size());
 }
-
-
 
 
 
@@ -1084,8 +1122,6 @@ XString& XString::append(const XString& _String) noexcept
 
 
 
-
-
 // 在指定下标处插入数据
 XString& XString::insert(pos_type _Pos, elem_type _Char) noexcept
 {
@@ -1118,8 +1154,6 @@ XString& XString::insert(pos_type _Pos, const XString& _String) noexcept
 {
 	return this->insert(_Pos, _String.data(), _String.size());
 }
-
-
 
 
 
@@ -1165,10 +1199,18 @@ XString& XString::remove(const elem_type* _String, size_type _Length) noexcept
 // 删除与参数相同的数据
 XString& XString::remove(const elem_type* _String, size_type _Length, xcc::CaseSensitivity _XCS) noexcept
 {
-	auto		vFind = this->find(_String, _Length, 0, _XCS);
-	if(vFind != XString::npos)
+	pos_type 	vPos = 0;
+	while(true)
 	{
-		return this->remove(vFind, _Length);
+		vPos = this->find(_String, _Length, vPos, _XCS);
+		if(vPos == XString::npos)
+		{
+			break;
+		}
+		else
+		{
+			this->remove(vPos, _Length);
+		}
 	}
 	return *this;
 }
@@ -1184,8 +1226,6 @@ XString& XString::remove(const XString& _String, xcc::CaseSensitivity _XCS) noex
 {
 	return this->remove(_String.data(), _String.size(), _XCS);
 }
-
-
 
 
 
@@ -1214,8 +1254,6 @@ XString& XString::replace(pos_type _Pos, size_type _Length, const XString& _Afte
 {
 	return this->replace(_Pos, _Length, _After.data(), _After.size());
 }
-
-
 
 
 
@@ -1265,8 +1303,6 @@ XString& XString::replace(elem_type _Before, const XString& _After, xcc::CaseSen
 
 
 
-
-
 // 替换数据
 XString& XString::replace(const elem_type* _Before, elem_type _After) noexcept
 {
@@ -1304,8 +1340,6 @@ XString& XString::replace(const elem_type* _Before, const XString& _After, xcc::
 {
 	return this->replace(_Before, x_posix_strlen(_Before), _After.data(), _After.size(), _XCS);
 }
-
-
 
 
 
@@ -1359,8 +1393,6 @@ XString& XString::replace(const elem_type* _Before, size_type _LengthB, const XS
 
 
 
-
-
 // 替换数据
 XString& XString::replace(const XString& _Before, elem_type _After) noexcept
 {
@@ -1398,8 +1430,6 @@ XString& XString::replace(const XString& _Before, const XString& _After, xcc::Ca
 {
 	return this->replace(_Before.data(), _Before.size(), _After.data(), _After.size(), _XCS);
 }
-
-
 
 
 
@@ -1441,8 +1471,6 @@ std::list<XString> XString::split(const XString& _String) const noexcept
 
 
 
-
-
 // [opt] 子项是否全部一样
 bool XString::isSameElements() const noexcept
 {
@@ -1478,8 +1506,6 @@ XString XString::format(const char* _Format, ...) noexcept
 
 
 
-
-
 // [conv] 转换至大写
 XString XString::toUpper() const noexcept
 {
@@ -1504,8 +1530,6 @@ XString XString::toLower() const noexcept
 
 
 
-
-
 // [conv] convert to base64
 XString XString::toBase64() const noexcept
 {
@@ -1525,8 +1549,6 @@ XString XString::fromBase64(const XString& _Base64) noexcept
 {
 	return XString::fromBase64(_Base64.data(), _Base64.size());
 }
-
-
 
 
 
@@ -1565,8 +1587,6 @@ XString XString::fromAString(const AString& _AString) noexcept
 
 
 
-
-
 // [conv] 转换至WString
 WString XString::toWString() const noexcept
 {
@@ -1601,8 +1621,6 @@ XString XString::fromWString(const WString& _WString) noexcept
 
 
 
-
-
 // [conv] 转换至UString
 UString XString::toUString() const noexcept
 {
@@ -1620,8 +1638,6 @@ XString XString::fromUString(const UString& _UString) noexcept
 {
 	return {_UString.data(), _UString.size()};
 }
-
-
 
 
 
@@ -1650,8 +1666,6 @@ XString XString::fromNString(const NString& _NString) noexcept
 	return XString::fromUString(_NString);
 #endif
 }
-
-
 
 
 
@@ -1717,8 +1731,6 @@ XString XString::fromHex(const XString& _Hex) noexcept
 
 
 
-
-
 // [conv] convert to UTF-8 encoded byte array
 XByteArray XString::toBytes() const noexcept
 {
@@ -1730,8 +1742,6 @@ XString XString::fromBytes(const XByteArray& _Bytes) noexcept
 {
 	return {_Bytes.data(), _Bytes.size()};
 }
-
-
 
 
 
@@ -1815,8 +1825,6 @@ XString XString::fromUrl(const XString& _URL) noexcept
 	}
 	return vDecode;
 }
-
-
 
 
 
@@ -1954,8 +1962,6 @@ double XString::toDouble(bool* _Ok) const noexcept
 
 
 
-
-
 // [convert] convert from number
 XString& XString::setNumber(char _Value, int _Base) noexcept
 {
@@ -2051,8 +2057,6 @@ XString& XString::setNumber(double _Value, char _Format, int _Prec) noexcept
 	*this = std::to_string(_Value).data();
 	return *this;
 }
-
-
 
 
 
@@ -2154,10 +2158,100 @@ XString XString::number(double _Value, char _Format, int _Prec) noexcept
 
 
 
+// Syntax sugar: operator +
+_XCOREAPI_ XString __xcall__ operator + (XString::elem_type _Char, const XString& _Object) noexcept
+{
+	auto		vMerge = _Object;
+	vMerge.insert(0, _Char);
+	return vMerge;
+}
+
+// Syntax sugar: operator +
+_XCOREAPI_ XString __xcall__ operator + (const XString::elem_type* _String, const XString& _Object) noexcept
+{
+	auto		vMerge = _Object;
+	vMerge.insert(0, _String);
+	return vMerge;
+}
 
 
-// Standard enhancement function : stream <<
-_XCOREAPI_ std::ostream& operator<< (std::ostream& _OStream, const XString& _String) noexcept
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (XString::elem_type _Char, const XString& _Object) noexcept
+{
+	return _Object == _Char;
+}
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (const XString::elem_type* _String, const XString& _Object) noexcept
+{
+	return _Object == _String;
+}
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (XString::elem_type _Char, const XString& _Object) noexcept
+{
+	return _Object != _Char;
+}
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (const XString::elem_type* _String, const XString& _Object) noexcept
+{
+	return _Object != _String;
+}
+
+// Syntax sugar: operator <
+_XCOREAPI_ bool __xcall__ operator < (XString::elem_type _Char, const XString& _Object) noexcept
+{
+	return _Object >= _Char;
+}
+
+// Syntax sugar: operator <
+_XCOREAPI_ bool __xcall__ operator < (const XString::elem_type* _String, const XString& _Object) noexcept
+{
+	return _Object >= _String;
+}
+
+// Syntax sugar: operator >
+_XCOREAPI_ bool __xcall__ operator > (XString::elem_type _Char, const XString& _Object) noexcept
+{
+	return _Object <= _Char;
+}
+
+// Syntax sugar: operator >
+_XCOREAPI_ bool __xcall__ operator > (const XString::elem_type* _String, const XString& _Object) noexcept
+{
+	return _Object <= _String;
+}
+
+// Syntax sugar: operator <=
+_XCOREAPI_ bool __xcall__ operator <= (XString::elem_type _Char, const XString& _Object) noexcept
+{
+	return _Object > _Char;
+}
+
+// Syntax sugar: operator <=
+_XCOREAPI_ bool __xcall__ operator <= (const XString::elem_type* _String, const XString& _Object) noexcept
+{
+	return _Object > _String;
+}
+
+// Syntax sugar: operator >=
+_XCOREAPI_ bool __xcall__ operator >= (XString::elem_type _Char, const XString& _Object) noexcept
+{
+	return _Object < _Char;
+}
+
+// Syntax sugar: operator >=
+_XCOREAPI_ bool __xcall__ operator >= (const XString::elem_type* _String, const XString& _Object) noexcept
+{
+	return _Object < _String;
+}
+
+
+
+// Syntax sugar: operator <<
+_XCOREAPI_ std::ostream& __xcall__ operator<< (std::ostream& _OStream, const XString& _String) noexcept
 {
 	for(auto vIndex = 0U; vIndex < _String.size(); ++vIndex)
 	{
@@ -2166,8 +2260,8 @@ _XCOREAPI_ std::ostream& operator<< (std::ostream& _OStream, const XString& _Str
 	return _OStream;
 }
 
-// Standard enhancement function : stream >>
-_XCOREAPI_ std::istream& operator>> (std::istream& _IStream, XString& _String) noexcept
+// Syntax sugar: operator >>
+_XCOREAPI_ std::istream& __xcall__ operator>> (std::istream& _IStream, XString& _String) noexcept
 {
 	_String.clear();
 	do
@@ -2182,8 +2276,10 @@ _XCOREAPI_ std::istream& operator>> (std::istream& _IStream, XString& _String) n
 	return _IStream;
 }
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XString& _String, char _Delim) noexcept
+
+
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XString& _String, char _Delim) noexcept
 {
 	_String.clear();
 	do
@@ -2198,8 +2294,8 @@ _XCOREAPI_ std::istream& getline(std::istream& _IStream, XString& _String, char 
 	return _IStream;
 }
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XString& _String) noexcept
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XString& _String) noexcept
 {
 	return getline(_IStream, _String, '\n');
 }

@@ -51,10 +51,10 @@ public:
 	virtual ~XUuid() noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XUuid& operator = (const XUuid& _Object) noexcept;
 
-	// operator overload =
+	// operator =
 	XUuid& operator = (XUuid&& _Object) noexcept;
 
 private:

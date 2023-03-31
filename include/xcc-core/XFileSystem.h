@@ -39,111 +39,111 @@ namespace XFileSystem
 		virtual ~path() noexcept;
 
 	public:
-		// operator overload =
+		// operator =
 		XFileSystem::path& operator = (const _Elem* _Path) noexcept;
 
-		// operator overload =
+		// operator =
 		XFileSystem::path& operator = (const XString& _Path) noexcept;
 
-		// operator overload =
+		// operator =
 		XFileSystem::path& operator = (const XFileSystem::path& _Path) noexcept;
 
-		// operator overload =
+		// operator =
 		XFileSystem::path& operator = (XFileSystem::path&& _Path) noexcept;
 
 	public:
-		// operator overload +=
+		// operator +=
 		XFileSystem::path& operator += (const _Elem* _Path) noexcept;
 
-		// operator overload +=
+		// operator +=
 		XFileSystem::path& operator += (const XString& _Path) noexcept;
 
-		// operator overload +=
+		// operator +=
 		XFileSystem::path& operator += (const XFileSystem::path& _Path) noexcept;
 
 	public:
-		// operator overload +
+		// operator +
 		XFileSystem::path operator + (const _Elem* _Path) const noexcept;
 
-		// operator overload +
+		// operator +
 		XFileSystem::path operator + (const XString& _Path) const noexcept;
 
-		// operator overload +
+		// operator +
 		XFileSystem::path operator + (const XFileSystem::path& _Path) const noexcept;
 
 	public:
-		// operator overload /=
+		// operator /=
 		XFileSystem::path& operator /= (const _Elem* _Path) noexcept;
 
-		// operator overload /=
+		// operator /=
 		XFileSystem::path& operator /= (const XString& _Path) noexcept;
 
-		// operator overload /=
+		// operator /=
 		XFileSystem::path& operator /= (const XFileSystem::path& _Path) noexcept;
 
 	public:
-		// operator overload /
+		// operator /
 		XFileSystem::path operator / (const _Elem* _Path) const noexcept;
 
-		// operator overload /
+		// operator /
 		XFileSystem::path operator / (const XString& _Path) const noexcept;
 
-		// operator overload /
+		// operator /
 		XFileSystem::path operator / (const XFileSystem::path& _Path) const noexcept;
 
 	public:
-		// operator overload ==
+		// operator ==
 		bool operator == (const _Elem* _Path)const noexcept;
 
-		// operator overload ==
+		// operator ==
 		bool operator == (const XString& _Path)const noexcept;
 
-		// operator overload ==
+		// operator ==
 		bool operator == (const XFileSystem::path& _Path)const noexcept;
 
-		// operator overload !=
+		// operator !=
 		bool operator != (const _Elem* _Path)const noexcept;
 
-		// operator overload !=
+		// operator !=
 		bool operator != (const XString& _Path)const noexcept;
 
-		// operator overload !=
+		// operator !=
 		bool operator != (const XFileSystem::path& _Path)const noexcept;
 
-		// operator overload <
+		// operator <
 		bool operator < (const _Elem* _Path)const noexcept;
 
-		// operator overload <
+		// operator <
 		bool operator < (const XString& _Path)const noexcept;
 
-		// operator overload <
+		// operator <
 		bool operator < (const XFileSystem::path& _Path)const noexcept;
 
-		// operator overload >
+		// operator >
 		bool operator > (const _Elem* _Path) const noexcept;
 
-		// operator overload >
+		// operator >
 		bool operator > (const XString& _Path) const noexcept;
 
-		// operator overload >
+		// operator >
 		bool operator > (const XFileSystem::path& _Path) const noexcept;
 
-		// operator overload <=
+		// operator <=
 		bool operator <= (const _Elem* _Path) const noexcept;
 
-		// operator overload <=
+		// operator <=
 		bool operator <= (const XString& _Path) const noexcept;
 
-		// operator overload <=
+		// operator <=
 		bool operator <= (const XFileSystem::path& _Path) const noexcept;
 
-		// operator overload >=
+		// operator >=
 		bool operator >= (const _Elem* _Path) const noexcept;
 
-		// operator overload >=
+		// operator >=
 		bool operator >= (const XString& _Path) const noexcept;
 
-		// operator overload >=
+		// operator >=
 		bool operator >= (const XFileSystem::path& _Path) const noexcept;
 
 	public:
@@ -345,8 +345,23 @@ namespace XFileSystem
 	// XFileSystem::path
 	// ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
-	// 获取路径大小
-	_XCOREAPI_ x_uint64_t path_size(const XFileSystem::path& _Path) noexcept;
+	// Switch to common path
+	_XCOREAPI_ XString __xcall__ path_to_common(const XString& _Path) noexcept;
+
+	// Switch to native path
+	_XCOREAPI_ XString __xcall__ path_to_native(const XString& _Path) noexcept;
+
+	// Does the path exist
+	_XCOREAPI_ bool __xcall__ path_is_exist(const XString& _Path) noexcept;
+
+	// Whether the path is a file
+	_XCOREAPI_ bool __xcall__ path_is_file(const XString& _Path) noexcept;
+
+	// Whether the path is a dir
+	_XCOREAPI_ bool __xcall__ path_is_dir(const XString& _Path) noexcept;
+
+	// Get the size of a file or directory
+	_XCOREAPI_ x_uint64_t __xcall__ path_size(const XFileSystem::path& _Path) noexcept;
 
 
 

@@ -101,7 +101,7 @@ XAllocator::~XAllocator() noexcept
 
 
 
-// operator overload =
+// operator =
 XAllocator& XAllocator::operator = (const XAllocator& _Allocator) noexcept
 {
 	if(this != &_Allocator)
@@ -115,7 +115,7 @@ XAllocator& XAllocator::operator = (const XAllocator& _Allocator) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XAllocator& XAllocator::operator = (XAllocator&& _Allocator) noexcept
 {
 	if(this != &_Allocator)
@@ -137,7 +137,7 @@ XAllocator& XAllocator::operator = (XAllocator&& _Allocator) noexcept
 
 
 
-// operator overload +
+// operator +
 XAllocator XAllocator::operator + (const XAllocator& _Allocator) noexcept
 {
 	auto		vTemp = *this;
@@ -149,7 +149,7 @@ XAllocator XAllocator::operator + (const XAllocator& _Allocator) noexcept
 
 
 
-// operator overload +=
+// operator +=
 XAllocator& XAllocator::operator += (const XAllocator& _Allocator) noexcept
 {
 	auto		vLengthT = this->_memory_length;
@@ -166,7 +166,7 @@ XAllocator& XAllocator::operator += (const XAllocator& _Allocator) noexcept
 
 
 
-// operator overload []
+// operator []
 XAllocator::elem_type& XAllocator::operator [] (pos_type _Index)
 {
 	if(this->_memory_length <= _Index)
@@ -176,7 +176,7 @@ XAllocator::elem_type& XAllocator::operator [] (pos_type _Index)
 	return this->_memory_address[_Index];
 }
 
-// operator overload []
+// operator []
 XAllocator::elem_type XAllocator::operator [] (pos_type _Index) const
 {
 	if(this->_memory_length <= _Index)

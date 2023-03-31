@@ -51,7 +51,7 @@ XFileSystem::path::~path() noexcept = default;
 
 
 
-// operator overload =
+// operator =
 XFileSystem::path& XFileSystem::path::operator = (const _Elem* _Path) noexcept
 {
 	this->_filesystem_path = _Path;
@@ -59,7 +59,7 @@ XFileSystem::path& XFileSystem::path::operator = (const _Elem* _Path) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XFileSystem::path& XFileSystem::path::operator = (const XString& _Path) noexcept
 {
 	this->_filesystem_path = _Path;
@@ -67,7 +67,7 @@ XFileSystem::path& XFileSystem::path::operator = (const XString& _Path) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XFileSystem::path& XFileSystem::path::operator = (const XFileSystem::path& _Path) noexcept
 {
 	this->_filesystem_path = _Path._filesystem_path;
@@ -75,7 +75,7 @@ XFileSystem::path& XFileSystem::path::operator = (const XFileSystem::path& _Path
 	return *this;
 }
 
-// operator overload =
+// operator =
 XFileSystem::path& XFileSystem::path::operator = (XFileSystem::path&& _Path) noexcept
 {
 	this->_filesystem_path = _Path._filesystem_path;
@@ -86,7 +86,7 @@ XFileSystem::path& XFileSystem::path::operator = (XFileSystem::path&& _Path) noe
 
 
 
-// operator overload +=
+// operator +=
 XFileSystem::path& XFileSystem::path::operator += (const _Elem* _Path) noexcept
 {
 	this->_filesystem_path += _Path;
@@ -94,7 +94,7 @@ XFileSystem::path& XFileSystem::path::operator += (const _Elem* _Path) noexcept
 	return *this;
 }
 
-// operator overload +=
+// operator +=
 XFileSystem::path& XFileSystem::path::operator += (const XString& _Path) noexcept
 {
 	this->_filesystem_path += _Path;
@@ -102,7 +102,7 @@ XFileSystem::path& XFileSystem::path::operator += (const XString& _Path) noexcep
 	return *this;
 }
 
-// operator overload +=
+// operator +=
 XFileSystem::path& XFileSystem::path::operator += (const XFileSystem::path& _Path) noexcept
 {
 	this->_filesystem_path += _Path._filesystem_path;
@@ -112,7 +112,7 @@ XFileSystem::path& XFileSystem::path::operator += (const XFileSystem::path& _Pat
 
 
 
-// operator overload +
+// operator +
 XFileSystem::path XFileSystem::path::operator + (const _Elem* _Path) const noexcept
 {
 	auto		vTemp = *this;
@@ -121,7 +121,7 @@ XFileSystem::path XFileSystem::path::operator + (const _Elem* _Path) const noexc
 	return vTemp;
 }
 
-// operator overload +
+// operator +
 XFileSystem::path XFileSystem::path::operator + (const XString& _Path) const noexcept
 {
 	auto		vTemp = *this;
@@ -130,7 +130,7 @@ XFileSystem::path XFileSystem::path::operator + (const XString& _Path) const noe
 	return vTemp;
 }
 
-// operator overload +
+// operator +
 XFileSystem::path XFileSystem::path::operator + (const XFileSystem::path& _Path) const noexcept
 {
 	auto		vTemp = *this;
@@ -141,7 +141,7 @@ XFileSystem::path XFileSystem::path::operator + (const XFileSystem::path& _Path)
 
 
 
-// operator overload /=
+// operator /=
 XFileSystem::path& XFileSystem::path::operator /= (const _Elem* _Path) noexcept
 {
 	this->_filesystem_path += preferred_separator;
@@ -150,7 +150,7 @@ XFileSystem::path& XFileSystem::path::operator /= (const _Elem* _Path) noexcept
 	return *this;
 }
 
-// operator overload /=
+// operator /=
 XFileSystem::path& XFileSystem::path::operator /= (const XString& _Path) noexcept
 {
 	this->_filesystem_path += preferred_separator;
@@ -159,7 +159,7 @@ XFileSystem::path& XFileSystem::path::operator /= (const XString& _Path) noexcep
 	return *this;
 }
 
-// operator overload /=
+// operator /=
 XFileSystem::path& XFileSystem::path::operator /= (const XFileSystem::path& _Path) noexcept
 {
 	this->_filesystem_path += preferred_separator;
@@ -170,7 +170,7 @@ XFileSystem::path& XFileSystem::path::operator /= (const XFileSystem::path& _Pat
 
 
 
-// operator overload /
+// operator /
 XFileSystem::path XFileSystem::path::operator / (const _Elem* _Path) const noexcept
 {
 	auto		vTemp = *this;
@@ -180,7 +180,7 @@ XFileSystem::path XFileSystem::path::operator / (const _Elem* _Path) const noexc
 	return vTemp;
 }
 
-// operator overload /
+// operator /
 XFileSystem::path XFileSystem::path::operator / (const XString& _Path) const noexcept
 {
 	auto		vTemp = *this;
@@ -190,7 +190,7 @@ XFileSystem::path XFileSystem::path::operator / (const XString& _Path) const noe
 	return vTemp;
 }
 
-// operator overload /
+// operator /
 XFileSystem::path XFileSystem::path::operator / (const XFileSystem::path& _Path) const noexcept
 {
 	auto		vTemp = *this;
@@ -202,109 +202,109 @@ XFileSystem::path XFileSystem::path::operator / (const XFileSystem::path& _Path)
 
 
 
-// operator overload ==
+// operator ==
 bool XFileSystem::path::operator == (const _Elem* _Path) const noexcept
 {
 	return this->_filesystem_path == _Path;
 }
 
-// operator overload ==
+// operator ==
 bool XFileSystem::path::operator == (const XString& _Path) const noexcept
 {
 	return this->_filesystem_path == _Path;
 }
 
-// operator overload ==
+// operator ==
 bool XFileSystem::path::operator == (const XFileSystem::path& _Path) const noexcept
 {
 	return this->_filesystem_path == _Path._filesystem_path;
 }
 
-// operator overload !=
+// operator !=
 bool XFileSystem::path::operator != (const _Elem* _Path) const noexcept
 {
 	return this->_filesystem_path != _Path;
 }
 
-// operator overload !=
+// operator !=
 bool XFileSystem::path::operator != (const XString& _Path) const noexcept
 {
 	return this->_filesystem_path != _Path;
 }
 
-// operator overload !=
+// operator !=
 bool XFileSystem::path::operator != (const XFileSystem::path& _Path) const noexcept
 {
 	return this->_filesystem_path != _Path._filesystem_path;
 }
 
-// operator overload <
+// operator <
 bool XFileSystem::path::operator < (const _Elem* _Path) const noexcept
 {
 	return this->_filesystem_path < _Path;
 }
 
-// operator overload <
+// operator <
 bool XFileSystem::path::operator < (const XString& _Path) const noexcept
 {
 	return this->_filesystem_path < _Path;
 }
 
-// operator overload <
+// operator <
 bool XFileSystem::path::operator < (const XFileSystem::path& _Path) const noexcept
 {
 	return this->_filesystem_path < _Path._filesystem_path;
 }
 
-// operator overload >
+// operator >
 bool XFileSystem::path::operator > (const _Elem* _Path) const noexcept
 {
 	return this->_filesystem_path > _Path;
 }
 
-// operator overload >
+// operator >
 bool XFileSystem::path::operator > (const XString& _Path) const noexcept
 {
 	return this->_filesystem_path > _Path;
 }
 
-// operator overload >
+// operator >
 bool XFileSystem::path::operator > (const XFileSystem::path& _Path) const noexcept
 {
 	return this->_filesystem_path > _Path._filesystem_path;
 }
 
-// operator overload <=
+// operator <=
 bool XFileSystem::path::operator <= (const _Elem* _Path) const noexcept
 {
 	return this->_filesystem_path <= _Path;
 }
 
-// operator overload <=
+// operator <=
 bool XFileSystem::path::operator <= (const XString& _Path) const noexcept
 {
 	return this->_filesystem_path <= _Path;
 }
 
-// operator overload <=
+// operator <=
 bool XFileSystem::path::operator <= (const XFileSystem::path& _Path) const noexcept
 {
 	return this->_filesystem_path <= _Path._filesystem_path;
 }
 
-// operator overload >=
+// operator >=
 bool XFileSystem::path::operator >= (const _Elem* _Path) const noexcept
 {
 	return this->_filesystem_path >= _Path;
 }
 
-// operator overload >=
+// operator >=
 bool XFileSystem::path::operator >= (const XString& _Path) const noexcept
 {
 	return this->_filesystem_path >= _Path;
 }
 
-// operator overload >=
+// operator >=
 bool XFileSystem::path::operator >= (const XFileSystem::path& _Path) const noexcept
 {
 	return this->_filesystem_path >= _Path._filesystem_path;
@@ -1048,8 +1048,67 @@ bool XFileSystem::file::fromBase64(const XFileSystem::path& _Path, const XByteAr
 // XFileSystem::path
 // ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
 
-// 获取路径大小
-_XCOREAPI_ x_uint64_t XFileSystem::path_size(const XFileSystem::path& _Path) noexcept
+// Switch to common path
+_XCOREAPI_ XString __xcall__ XFileSystem::path_to_common(const XString& _Path) noexcept
+{
+	auto		vConvert = x_fs_path_to_common(_Path.data());
+	auto		vObject = XString(vConvert);
+	x_posix_free(vConvert);
+	return vObject;
+}
+
+// Switch to native path
+_XCOREAPI_ XString __xcall__ XFileSystem::path_to_native(const XString& _Path) noexcept
+{
+	auto		vConvert = x_fs_path_to_native(_Path.data());
+	auto		vObject = XString(vConvert);
+	x_posix_free(vConvert);
+	return vObject;
+}
+
+// Does the path exist
+_XCOREAPI_ bool __xcall__ XFileSystem::path_is_exist(const XString& _Path) noexcept
+{
+	auto		vCommon = XFileSystem::path_to_common(_Path);
+#if defined(XCC_SYSTEM_WINDOWS)
+	return 0 == x_posix_waccess(vCommon.toWString().data(), F_OK);
+#else
+	return 0 == x_posix_access(vCommon.data(), F_OK);
+#endif
+}
+
+// Whether the path is a file
+_XCOREAPI_ bool __xcall__ XFileSystem::path_is_file(const XString& _Path) noexcept
+{
+	if(XFileSystem::path_is_exist(_Path))
+	{
+		return !XFileSystem::path_is_dir(_Path);
+	}
+	return false;
+}
+
+// Whether the path is a dir
+_XCOREAPI_ bool __xcall__ XFileSystem::path_is_dir(const XString& _Path) noexcept
+{
+	auto		vCommon = XFileSystem::path_to_common(_Path);
+#if defined(XCC_SYSTEM_WINDOWS)
+	auto		vAttrib = ::GetFileAttributesW(vCommon.toWString().data());
+	if(INVALID_FILE_ATTRIBUTES != vAttrib && vAttrib & FILE_ATTRIBUTE_DIRECTORY)
+	{
+		return true;
+	}
+#else
+	x_file_stat_t	vFileStatus{};
+	if(0 == x_fs_path_stat(vCommon.data(), &vFileStatus))
+	{
+		return S_ISDIR(vFileStatus.st_mode);
+	}
+#endif
+	return false;
+}
+
+// Get the size of a file or directory
+_XCOREAPI_ x_uint64_t __xcall__ XFileSystem::path_size(const XFileSystem::path& _Path) noexcept
 {
 	if(XFileSystem::path::isDirectory(_Path))
 	{

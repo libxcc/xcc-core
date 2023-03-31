@@ -45,59 +45,59 @@ public:
 	virtual ~XByteArray() noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XByteArray& operator = (const elem_type* _Memory) noexcept;
 
-	// operator overload =
+	// operator =
 	XByteArray& operator = (const XByteArray& _Bytes) noexcept;
 
-	// operator overload =
+	// operator =
 	XByteArray& operator = (XByteArray&& _Bytes) noexcept;
 
 public:
-	// operator overload +=
+	// operator +=
 	XByteArray& operator += (elem_type _Char) noexcept;
 
-	// operator overload +=
+	// operator +=
 	XByteArray& operator += (const elem_type* _Bytes) noexcept;
 
-	// operator overload +=
+	// operator +=
 	XByteArray& operator += (const XByteArray& _Bytes) noexcept;
 
 public:
-	// operator overload +
+	// operator +
 	XByteArray operator + (elem_type _Char) const noexcept;
 
-	// operator overload +
+	// operator +
 	XByteArray operator + (const elem_type* _Bytes) const noexcept;
 
-	// operator overload +
+	// operator +
 	XByteArray operator + (const XByteArray& _Bytes) const noexcept;
 
 public:
-	// operator overload ==
+	// operator ==
 	bool operator == (elem_type _Char) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (const elem_type* _Bytes) const noexcept;
 
-	// operator overload ==
+	// operator ==
 	bool operator == (const XByteArray& _Bytes) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (elem_type _Char) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (const elem_type* _Bytes) const noexcept;
 
-	// operator overload !=
+	// operator !=
 	bool operator != (const XByteArray& _Bytes) const noexcept;
 
 public:
-	// operator overload []
+	// operator []
 	elem_type& operator [] (pos_type _Index);
 
-	// operator overload []
+	// operator []
 	elem_type operator [] (pos_type _Index) const;
 
 public:
@@ -531,16 +531,42 @@ public:
 
 
 
-// Standard enhancement function : stream <<
-_XCOREAPI_ std::ostream& operator << (std::ostream& _OStream, const XByteArray& _Bytes) noexcept;
+// Syntax sugar: operator +
+_XCOREAPI_ XByteArray __xcall__ operator + (XByteArray::elem_type _Char, const XByteArray& _Object) noexcept;
 
-// Standard enhancement function : stream >>
-_XCOREAPI_ std::istream& operator >> (std::istream& _IStream, XByteArray& _String) noexcept;
+// Syntax sugar: operator +
+_XCOREAPI_ XByteArray __xcall__ operator + (const XByteArray::elem_type* _Bytes, const XByteArray& _Object) noexcept;
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XByteArray& _String, char _Delim) noexcept;
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XByteArray& _String) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (XByteArray::elem_type _Char, const XByteArray& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (const XByteArray::elem_type* _Bytes, const XByteArray& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (XByteArray::elem_type _Char, const XByteArray& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (const XByteArray::elem_type* _Bytes, const XByteArray& _Object) noexcept;
+
+
+
+// Syntax sugar: operator <<
+_XCOREAPI_ std::ostream& __xcall__ operator << (std::ostream& _OStream, const XByteArray& _Bytes) noexcept;
+
+// Syntax sugar: operator >>
+_XCOREAPI_ std::istream& __xcall__ operator >> (std::istream& _IStream, XByteArray& _String) noexcept;
+
+
+
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XByteArray& _String, char _Delim) noexcept;
+
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XByteArray& _String) noexcept;
+
+
 
 #endif

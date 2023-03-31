@@ -37,9 +37,7 @@ XByteArray::~XByteArray() noexcept = default;
 
 
 
-
-
-// operator overload =
+// operator =
 XByteArray& XByteArray::operator = (const elem_type* _Memory) noexcept
 {
 	if(this->resize(x_posix_strlen(_Memory)))
@@ -49,7 +47,7 @@ XByteArray& XByteArray::operator = (const elem_type* _Memory) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XByteArray& XByteArray::operator = (const XByteArray& _Bytes) noexcept
 {
 	if(this != &_Bytes)
@@ -59,7 +57,7 @@ XByteArray& XByteArray::operator = (const XByteArray& _Bytes) noexcept
 	return *this;
 }
 
-// operator overload =
+// operator =
 XByteArray& XByteArray::operator = (XByteArray&& _Bytes) noexcept
 {
 	if(this != &_Bytes)
@@ -71,22 +69,20 @@ XByteArray& XByteArray::operator = (XByteArray&& _Bytes) noexcept
 
 
 
-
-
-// operator overload +=
+// operator +=
 XByteArray& XByteArray::operator += (elem_type _Char) noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->append(vBytes, 1);
 }
 
-// operator overload +=
+// operator +=
 XByteArray& XByteArray::operator += (const elem_type* _Bytes) noexcept
 {
 	return this->append(_Bytes, x_posix_strlen(_Bytes));
 }
 
-// operator overload +=
+// operator +=
 XByteArray& XByteArray::operator += (const XByteArray& _Bytes) noexcept
 {
 	return this->append(_Bytes.data(), _Bytes.size());
@@ -94,9 +90,7 @@ XByteArray& XByteArray::operator += (const XByteArray& _Bytes) noexcept
 
 
 
-
-
-// operator overload +
+// operator +
 XByteArray XByteArray::operator + (elem_type _Char) const noexcept
 {
 	auto		vTemp = *this;
@@ -104,7 +98,7 @@ XByteArray XByteArray::operator + (elem_type _Char) const noexcept
 	return vTemp;
 }
 
-// operator overload +
+// operator +
 XByteArray XByteArray::operator + (const elem_type* _Bytes) const noexcept
 {
 	auto		vTemp = *this;
@@ -112,7 +106,7 @@ XByteArray XByteArray::operator + (const elem_type* _Bytes) const noexcept
 	return vTemp;
 }
 
-// operator overload +
+// operator +
 XByteArray XByteArray::operator + (const XByteArray& _Bytes) const noexcept
 {
 	auto		vTemp = *this;
@@ -122,41 +116,39 @@ XByteArray XByteArray::operator + (const XByteArray& _Bytes) const noexcept
 
 
 
-
-
-// operator overload ==
+// operator ==
 bool XByteArray::operator == (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1) == 0;
 }
 
-// operator overload ==
+// operator ==
 bool XByteArray::operator == (const elem_type* _Bytes) const noexcept
 {
 	return this->compare(_Bytes, x_posix_strlen(_Bytes)) == 0;
 }
 
-// operator overload ==
+// operator ==
 bool XByteArray::operator == (const XByteArray& _Bytes) const noexcept
 {
 	return this->compare(_Bytes.data(), _Bytes.size()) == 0;
 }
 
-// operator overload !=
+// operator !=
 bool XByteArray::operator != (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1) != 0;
 }
 
-// operator overload !=
+// operator !=
 bool XByteArray::operator != (const elem_type* _Bytes) const noexcept
 {
 	return this->compare(_Bytes, x_posix_strlen(_Bytes)) != 0;
 }
 
-// operator overload !=
+// operator !=
 bool XByteArray::operator != (const XByteArray& _Bytes) const noexcept
 {
 	return this->compare(_Bytes.data(), _Bytes.size()) != 0;
@@ -164,21 +156,17 @@ bool XByteArray::operator != (const XByteArray& _Bytes) const noexcept
 
 
 
-
-
-// operator overload []
+// operator []
 XByteArray::elem_type& XByteArray::operator [] (pos_type _Index)
 {
 	return this->_Allocator[_Index];
 }
 
-// operator overload []
+// operator []
 XByteArray::elem_type XByteArray::operator [] (pos_type _Index) const
 {
 	return this->_Allocator[_Index];
 }
-
-
 
 
 
@@ -199,8 +187,6 @@ bool XByteArray::reverse(size_type _Length) noexcept
 {
 	return this->_Allocator.reverse(_Length);
 }
-
-
 
 
 
@@ -254,8 +240,6 @@ XByteArray::size_type XByteArray::max_size() const noexcept
 
 
 
-
-
 // 从源中截取部分数据
 XByteArray XByteArray::substr(pos_type _Pos) const noexcept
 {
@@ -293,8 +277,6 @@ XByteArray XByteArray::right(pos_type _Pos) const noexcept
 {
 	return this->substr(this->size() - _Pos, XByteArray::npos);
 }
-
-
 
 
 
@@ -378,8 +360,6 @@ XByteArray XByteArray::mid(const XByteArray& _Left, const XByteArray& _Right) co
 
 
 
-
-
 // 检测源数据是否存在指定的前缀
 bool XByteArray::startsWith(elem_type _Char) const noexcept
 {
@@ -417,8 +397,6 @@ bool XByteArray::startsWith(const XByteArray& _Bytes) const noexcept
 
 
 
-
-
 // 检测源数据是否存在指定的后缀
 bool XByteArray::endsWith(elem_type _Char) const noexcept
 {
@@ -453,8 +431,6 @@ bool XByteArray::endsWith(const XByteArray& _Bytes) const noexcept
 {
 	return this->endsWith(_Bytes.data(), _Bytes.size());
 }
-
-
 
 
 
@@ -510,8 +486,6 @@ XByteArray::pos_type XByteArray::find(const XByteArray& _Bytes, pos_type _Pos) c
 
 
 
-
-
 // 从指定位置按倒序查找数据
 XByteArray::pos_type XByteArray::rfind(elem_type _Char) const noexcept
 {
@@ -564,8 +538,6 @@ XByteArray::pos_type XByteArray::rfind(const XByteArray& _Bytes, pos_type _Pos) 
 
 
 
-
-
 // 检查是否包含指定数据
 bool XByteArray::contains(elem_type _Char) const noexcept
 {
@@ -597,8 +569,6 @@ bool XByteArray::contains(const XByteArray& _Bytes) const noexcept
 {
 	return this->contains(_Bytes.data(), _Bytes.size());
 }
-
-
 
 
 
@@ -635,8 +605,6 @@ int XByteArray::compare(const XByteArray& _Bytes) const noexcept
 
 
 
-
-
 // 在头部插入数据
 XByteArray& XByteArray::prepend(elem_type _Char) noexcept
 {
@@ -670,8 +638,6 @@ XByteArray& XByteArray::prepend(const XByteArray& _Bytes) noexcept
 
 
 
-
-
 // 在尾部添加数据
 XByteArray& XByteArray::append(elem_type _Char) noexcept
 {
@@ -702,8 +668,6 @@ XByteArray& XByteArray::append(const XByteArray& _Bytes) noexcept
 {
 	return this->append(_Bytes.data(), _Bytes.size());
 }
-
-
 
 
 
@@ -745,8 +709,6 @@ XByteArray& XByteArray::insert(pos_type _Pos, const XByteArray& _Bytes) noexcept
 {
 	return this->insert(_Pos, _Bytes.data(), _Bytes.size());
 }
-
-
 
 
 
@@ -795,8 +757,6 @@ XByteArray& XByteArray::remove(const XByteArray& _Bytes) noexcept
 
 
 
-
-
 // 替换数据
 XByteArray& XByteArray::replace(pos_type _Pos, size_type _Length, elem_type _After) noexcept
 {
@@ -828,8 +788,6 @@ XByteArray& XByteArray::replace(pos_type _Pos, size_type _Length, const XByteArr
 {
 	return this->replace(_Pos, _Length, _After.data(), _After.size());
 }
-
-
 
 
 
@@ -871,8 +829,6 @@ XByteArray& XByteArray::replace(elem_type _Before, const XByteArray& _After) noe
 
 
 
-
-
 // 替换数据
 XByteArray& XByteArray::replace(const elem_type* _Before, elem_type _After) noexcept
 {
@@ -906,8 +862,6 @@ XByteArray& XByteArray::replace(const elem_type* _Before, const XByteArray& _Aft
 
 
 
-
-
 // 替换数据
 XByteArray& XByteArray::replace(const elem_type* _Before, size_type _LengthB, elem_type _After) noexcept
 {
@@ -938,8 +892,6 @@ XByteArray& XByteArray::replace(const elem_type* _Before, size_type _LengthB, co
 {
 	return this->replace(_Before, _LengthB, _After.data(), _After.size());
 }
-
-
 
 
 
@@ -986,8 +938,6 @@ XByteArray& XByteArray::replace(const void* _Before, size_type _LengthB, const X
 
 
 
-
-
 // 替换数据
 XByteArray& XByteArray::replace(const XByteArray& _Before, elem_type _After) noexcept
 {
@@ -1021,8 +971,6 @@ XByteArray& XByteArray::replace(const XByteArray& _Before, const XByteArray& _Af
 
 
 
-
-
 // 从指定位置截断
 void XByteArray::truncate(pos_type _Pos) noexcept
 {
@@ -1031,8 +979,6 @@ void XByteArray::truncate(pos_type _Pos) noexcept
 		this->resize(_Pos);
 	}
 }
-
-
 
 
 
@@ -1080,8 +1026,6 @@ std::list<XByteArray> XByteArray::split(const XByteArray& _Bytes) const noexcept
 
 
 
-
-
 // [opt] 子项是否全部一样
 bool XByteArray::isSameElements() const noexcept
 {
@@ -1118,8 +1062,6 @@ XByteArray XByteArray::format(const char* _Format, ...) noexcept
 
 
 
-
-
 // [conv] 转换至大写
 XByteArray XByteArray::toUpper() const noexcept
 {
@@ -1141,8 +1083,6 @@ XByteArray XByteArray::toLower() const noexcept
 	}
 	return vStrUpper;
 }
-
-
 
 
 
@@ -1214,8 +1154,6 @@ XByteArray XByteArray::fromHex(const XByteArray& _Hex) noexcept
 
 
 
-
-
 // [conv] 转换至Base64
 XByteArray XByteArray::toBase64() const noexcept
 {
@@ -1266,10 +1204,52 @@ XByteArray XByteArray::fromBase64(const XByteArray& _Base64) noexcept
 
 
 
+// Syntax sugar: operator +
+_XCOREAPI_ XByteArray __xcall__ operator + (XByteArray::elem_type _Char, const XByteArray& _Object) noexcept
+{
+	auto		vMerge = _Object;
+	vMerge.insert(0, _Char);
+	return vMerge;
+}
+
+// Syntax sugar: operator +
+_XCOREAPI_ XByteArray __xcall__ operator + (const XByteArray::elem_type* _Bytes, const XByteArray& _Object) noexcept
+{
+	auto		vMerge = _Object;
+	vMerge.insert(0, _Bytes);
+	return vMerge;
+}
 
 
-// Standard enhancement function : stream <<
-_XCOREAPI_ std::ostream& operator<< (std::ostream& _OStream, const XByteArray& _Bytes) noexcept
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (XByteArray::elem_type _Char, const XByteArray& _Object) noexcept
+{
+	return _Object == _Char;
+}
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (const XByteArray::elem_type* _Bytes, const XByteArray& _Object) noexcept
+{
+	return _Object == _Bytes;
+}
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (XByteArray::elem_type _Char, const XByteArray& _Object) noexcept
+{
+	return _Object != _Char;
+}
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (const XByteArray::elem_type* _Bytes, const XByteArray& _Object) noexcept
+{
+	return _Object != _Bytes;
+}
+
+
+
+// Syntax sugar: operator <<
+_XCOREAPI_ std::ostream& __xcall__ operator<< (std::ostream& _OStream, const XByteArray& _Bytes) noexcept
 {
 	for(auto vIndex = 0U; vIndex < _Bytes.size(); ++vIndex)
 	{
@@ -1278,8 +1258,8 @@ _XCOREAPI_ std::ostream& operator<< (std::ostream& _OStream, const XByteArray& _
 	return _OStream;
 }
 
-// Standard enhancement function : stream >>
-_XCOREAPI_ std::istream& operator>> (std::istream& _IStream, XByteArray& _Bytes) noexcept
+// Syntax sugar: operator >>
+_XCOREAPI_ std::istream& __xcall__ operator>> (std::istream& _IStream, XByteArray& _Bytes) noexcept
 {
 	_Bytes.clear();
 	do
@@ -1294,8 +1274,10 @@ _XCOREAPI_ std::istream& operator>> (std::istream& _IStream, XByteArray& _Bytes)
 	return _IStream;
 }
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XByteArray& _Bytes, char _Delim) noexcept
+
+
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XByteArray& _Bytes, char _Delim) noexcept
 {
 	_Bytes.clear();
 	do
@@ -1310,8 +1292,8 @@ _XCOREAPI_ std::istream& getline(std::istream& _IStream, XByteArray& _Bytes, cha
 	return _IStream;
 }
 
-// Standard enhancement function : getline
-_XCOREAPI_ std::istream& getline(std::istream& _IStream, XByteArray& _Bytes) noexcept
+// Syntax sugar: getline
+_XCOREAPI_ std::istream& __xcall__ getline(std::istream& _IStream, XByteArray& _Bytes) noexcept
 {
 	return getline(_IStream, _Bytes, '\n');
 }

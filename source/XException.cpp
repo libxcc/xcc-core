@@ -27,21 +27,21 @@ XException::~XException() noexcept = default;
 
 
 
-// operator overloading =
+// operatoring =
 XException& XException::operator = (const char* _Explain) noexcept
 {
 	this->_explain = _Explain;
 	return *this;
 }
 
-// operator overloading =
+// operatoring =
 XException& XException::operator = (const XString& _Explain) noexcept
 {
 	this->_explain = _Explain;
 	return *this;
 }
 
-// operator overloading =
+// operatoring =
 XException& XException::operator = (const XException& _Exception) noexcept = default;
 
 

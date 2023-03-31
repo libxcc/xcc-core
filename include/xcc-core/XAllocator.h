@@ -44,25 +44,25 @@ public:
 	virtual ~XAllocator() noexcept;
 
 public:
-	// operator overload =
+	// operator =
 	XAllocator& operator = (const XAllocator& _Allocator) noexcept;
 
-	// operator overload =
+	// operator =
 	XAllocator& operator = (XAllocator&& _Allocator) noexcept;
 
 public:
-	// operator overload +
+	// operator +
 	XAllocator operator + (const XAllocator& _Allocator) noexcept;
 
 public:
-	// operator overload +=
+	// operator +=
 	XAllocator& operator += (const XAllocator& _Allocator) noexcept;
 
 public:
-	// operator overload []
+	// operator []
 	elem_type& operator [] (pos_type _Index);
 
-	// operator overload []
+	// operator []
 	elem_type operator [] (pos_type _Index) const;
 
 public:

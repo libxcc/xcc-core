@@ -18,10 +18,10 @@ XEndian::~XEndian() noexcept = default;
 
 
 
-// operator overload =
+// operator =
 XEndian& XEndian::operator = (const XEndian& _Endian) noexcept = default;
 
-// operator overload =
+// operator =
 XEndian& XEndian::operator = (XEndian&& _Endian) noexcept = default;
 
 
