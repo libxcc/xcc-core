@@ -1032,6 +1032,10 @@ int XString::compare(const elem_type* _String, size_type _Length, xcc::CaseSensi
 		}
 		return vCompare;
 	}
+	else if(this->empty() && _String == nullptr)
+	{
+		return 0;
+	}
 	else if(this->data())
 	{
 		return 1;

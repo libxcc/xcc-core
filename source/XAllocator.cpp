@@ -525,6 +525,10 @@ int XAllocator::compare(const void* _Memory, size_type _Length) const noexcept
 		}
 		return vCompare;
 	}
+	else if(this->empty() && _Memory == nullptr)
+	{
+		return 0;
+	}
 	else if(this->_memory_address)
 	{
 		return 1;
