@@ -1,4 +1,4 @@
-# Xcc.Core
+# xcc-core
 
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
@@ -7,7 +7,7 @@
 
 ## Explain
 
-This is a collection of C++ extension classes, which can make some C++ calls more convenient.
+C++ extended core support library for XCC series.
 
 
 ### Function
@@ -18,7 +18,6 @@ This is a collection of C++ extension classes, which can make some C++ calls mor
     XLibrary            : Dynamic library loading
     XMutex              : Mutex
     XShell              : Shell operation, xcc to call the command line and return output
-    XLog                : Multiple levels of log output
     XVariant            : Variant
     XHash               : Provide calculation of MD5 / CRC32 / SHA1
     XException          : Exception handling
@@ -81,4 +80,4 @@ sudo make install
 This library is licensed under the [GNU Lesser General Public License v2.1](https://www.gnu.org/licenses/lgpl-2.1.en.html),
 also included in the repository in the `LICENSE` file.
 
-README Updated on: 2023-02-04
+README Updated on: 2023-04-10
