@@ -1,10 +1,10 @@
 ﻿#ifndef			_XCC_CORE_JSON_PRIVATE_H_
 #define			_XCC_CORE_JSON_PRIVATE_H_
 
-#include <xcc-core/XJsonDocument.h>
-#include <xcc-core/XJsonValue.h>
-#include <xcc-core/XJsonObject.h>
-#include <xcc-core/XJsonArray.h>
+#include <xcc-core/serialize/XJsonDocument.h>
+#include <xcc-core/serialize/XJsonValue.h>
+#include <xcc-core/serialize/XJsonObject.h>
+#include <xcc-core/serialize/XJsonArray.h>
 #include <functional>
 
 

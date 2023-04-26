@@ -2,7 +2,7 @@
 #define			_XCC_CORE_BASE64_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XByteArray.h>
+#include <xcc-core/container/XByteArray.h>
 
 ///  <summary>
 ///  Base64 codec

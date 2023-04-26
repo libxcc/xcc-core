@@ -2,7 +2,7 @@
 #define			_XCC_CORE_BYTE_ARRAY_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XAllocator.h>
+#include <xcc-core/container/XAllocator.h>
 
 
 /// class XByteArray

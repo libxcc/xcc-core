@@ -2,8 +2,8 @@
 #define			_XCC_CORE_VARIANT_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XByteArray.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XByteArray.h>
+#include <xcc-core/container/XString.h>
 
 // Xanadu Class Variant
 class _XCOREAPI_ XVariant

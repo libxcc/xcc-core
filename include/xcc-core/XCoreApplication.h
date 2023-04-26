@@ -2,7 +2,7 @@
 #define			_XCC_CORE_CORE_APPLICATION_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 
 // 核心应用程序的私有数据

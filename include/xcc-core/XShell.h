@@ -2,7 +2,7 @@
 #define			_XCC_CORE_SHELL_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 // Xanadu Class Shell
 class _XCOREAPI_ XShell

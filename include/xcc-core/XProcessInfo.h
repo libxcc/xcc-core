@@ -2,7 +2,7 @@
 #define			_XCC_CORE_PROCESS_INFO_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 // 进程信息私有块
 class XProcessInfoPrivate;

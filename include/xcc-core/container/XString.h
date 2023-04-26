@@ -2,8 +2,8 @@
 #define			_XCC_CORE_STRING_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XAllocator.h>
-#include <xcc-core/XByteArray.h>
+#include <xcc-core/container/XAllocator.h>
+#include <xcc-core/container/XByteArray.h>
 
 
 // String type definition

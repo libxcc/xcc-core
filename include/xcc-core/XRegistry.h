@@ -2,7 +2,7 @@
 #define			_XCC_CORE_REGISTRY_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 
 // 注册表操作 - 跨平台宏定义

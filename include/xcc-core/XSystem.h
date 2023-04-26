@@ -2,7 +2,7 @@
 #define			_XCC_CORE_SYSTEM_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 #define			XCC_OS_VERSION_UNKNOWN				0x00000000
 

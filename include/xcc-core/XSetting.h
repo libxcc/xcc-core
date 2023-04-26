@@ -2,7 +2,7 @@
 #define			_XCC_CORE_SETTING_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 #include <xcc-core/XVariant.h>
 
 // Xanadu Setting Private

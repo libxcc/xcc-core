@@ -1,4 +1,4 @@
-﻿#include <xcc-core/XString.h>
+﻿#include <xcc-core/container/XString.h>
 #include <xcc-core/XBase64.h>
 
 

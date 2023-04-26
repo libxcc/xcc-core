@@ -1,5 +1,7 @@
 ﻿#include <xcc-core/XBase64.h>
 
+
+
 // Check for Base64 characters
 bool XanaduByteArrayIsBase64(unsigned char _Char)
 {
@@ -7,13 +9,12 @@ bool XanaduByteArrayIsBase64(unsigned char _Char)
 }
 
 
+
 // constructor
 XBase64::XBase64() noexcept = default;
 
 // destructor
 XBase64::~XBase64() noexcept = default;
-
-
 
 
 
@@ -87,8 +88,6 @@ XByteArray XBase64::encode(const XByteArray& _Bytes) noexcept
 {
 	return XBase64::encode(_Bytes.data(), _Bytes.size());
 }
-
-
 
 
 

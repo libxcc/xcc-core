@@ -1,7 +1,7 @@
 #ifndef			_XCC_CORE_FILESYSTEM_H_
 #define			_XCC_CORE_FILESYSTEM_H_
 
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 
 /// <summary>

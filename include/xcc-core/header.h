@@ -110,6 +110,14 @@
 
 
 
+// X系列核心 - 命名空间定义
+#define 		XCC_NAMESPACE_BEGIN				namespace xcc{
+#define 		XCC_NAMESPACE_END				}
+#define 		XCC_NAMESPACE_PREFIX				xcc
+#define 		XCC_NAMESPACE_USING				using namespace xcc
+
+
+
 // X系列核心 - 类型定义
 namespace xcc
 {

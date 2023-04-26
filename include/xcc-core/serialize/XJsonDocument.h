@@ -2,9 +2,9 @@
 #define			_XCC_CORE_JSON_DOCUMENT_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XByteArray.h>
-#include <xcc-core/XString.h>
-#include <xcc-core/XJsonValue.h>
+#include <xcc-core/container/XByteArray.h>
+#include <xcc-core/container/XString.h>
+#include <xcc-core/serialize/XJsonValue.h>
 
 
 // Json: 文档处理

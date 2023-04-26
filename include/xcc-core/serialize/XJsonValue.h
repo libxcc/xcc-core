@@ -2,7 +2,7 @@
 #define			_XCC_CORE_JSON_VALUE_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 
 // Json: 前置声明

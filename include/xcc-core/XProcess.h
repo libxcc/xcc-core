@@ -2,7 +2,7 @@
 #define			_XCC_CORE_PROCESS_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 #include <xcc-core/XProcessInfo.h>
 
 // 卸载列表

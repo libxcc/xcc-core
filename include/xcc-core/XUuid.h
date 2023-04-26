@@ -2,7 +2,7 @@
 #define			_XCC_CORE_UUID_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/XString.h>
+#include <xcc-core/container/XString.h>
 
 
 /// class XUuid
