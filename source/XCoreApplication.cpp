@@ -1,6 +1,6 @@
 ﻿#include <xcc-core/XCoreApplication.h>
-#include <xcc-core/XFileSystem.h>
-#include <xcc-core/XSystem.h>
+#include <xcc-core/filesystem/XFileSystem.h>
+#include <xcc-core/system/XSystem.h>
 #if defined(XCC_SYSTEM_DARWIN)
 #include <mach-o/dyld.h>
 #endif

@@ -1,7 +1,7 @@
 ﻿#include <xcc-core/XVariant.h>
 
 
-// Structure
+// constructor
 XVariant::XVariant() noexcept
 {
 	this->_variant_type = XVariant::VariantInvalid;

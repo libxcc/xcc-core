@@ -3,7 +3,7 @@
 
 #include <xcc-posix/xcc.h>
 
-// 根据操作系统版本包含一些C运行时库头文件
+// Include some C runtime library headers depending on OS version
 #if defined(XCC_SYSTEM_ANDROID)
 #include <sys/time.h>
 #else

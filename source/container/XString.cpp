@@ -1,5 +1,5 @@
 ﻿#include <xcc-core/container/XString.h>
-#include <xcc-core/XBase64.h>
+#include <xcc-core/serialize/XBase64.h>
 
 
 
