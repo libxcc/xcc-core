@@ -2,7 +2,7 @@
 #define			_XCC_CORE_DYNAMIC_LIBRARY_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/container/XString.h>
+#include <xcc-core/container/string.h>
 
 
 // Defines a dynamic library loading flag that does not exist under Windows
@@ -17,37 +17,29 @@
 #endif
 
 
-// Loading and processing of dynamic link library
-class _XCOREAPI_ XDynamicLibrary
+
+// dynamic library
+namespace xcc::dynamic_library
 {
-public:
 	using				handle_type = HANDLE;
 	using				func_type = void*;
+}
 
-private:
-	XCC_DISABLE_COPY(XDynamicLibrary);
-	XCC_DISABLE_MOVE(XDynamicLibrary);
-
-public:
-	// constructor
-	XDynamicLibrary() noexcept;
-
-	// destructor
-	virtual ~XDynamicLibrary() noexcept;
-
-public:
+// dynamic library
+namespace xcc::dynamic_library
+{
 	// Load the specified dynamic link library
-	static handle_type open(const XString& _FileName) noexcept;
+	_XCOREAPI_ handle_type __xcall__ open(const XString& _FileName) noexcept;
 
 	// Load the specified dynamic library link library according to the flags tag
-	static handle_type open(const XString& _FileName, int _Flags) noexcept;
+	_XCOREAPI_ handle_type __xcall__ open(const XString& _FileName, int _Flags) noexcept;
 
 	// Find the specified function in the handle
-	static func_type find(handle_type _Handle, const XString& _FuncName) noexcept;
+	_XCOREAPI_ func_type __xcall__ find(handle_type _Handle, const XString& _FuncName) noexcept;
 
 	// close handle
-	static void close(handle_type _Handle) noexcept;
-};
+	_XCOREAPI_ void __xcall__ close(handle_type _Handle) noexcept;
+}
 
 
 #endif

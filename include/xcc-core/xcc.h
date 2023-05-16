@@ -12,6 +12,7 @@
 #include <xcc-core/serialize/XJsonObject.h>
 #include <xcc-core/serialize/XJsonValue.h>
 
+#include <xcc-core/filesystem/path.h>
 #include <xcc-core/filesystem/XFileInfo.h>
 #include <xcc-core/filesystem/XFileSystem.h>
 
@@ -20,7 +21,9 @@
 #include <xcc-core/sync/XProcess.h>
 
 #include <xcc-core/system/XEndian.h>
-#include <xcc-core/system/XDynamicLibrary.h>
+#include <xcc-core/system/dynamic_library.h>
+#include <xcc-core/system/shell.h>
+#include <xcc-core/system/operating_system.h>
 #include <xcc-core/system/XShell.h>
 #include <xcc-core/system/XSystem.h>
 #include <xcc-core/system/XNative.h>

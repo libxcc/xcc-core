@@ -1,6 +1,6 @@
 ﻿#include <xcc-core/system/XSystem.h>
 #include <xcc-core/serialize/XCryptoHash.h>
-#include <xcc-core/system/XDynamicLibrary.h>
+#include <xcc-core/system/dynamic_library.h>
 #include <xcc-core/system/XShell.h>
 #include <xcc-core/XTernary.h>
 #include <xcc-core/XUuid.h>
@@ -38,10 +38,10 @@ x_int64_t XSystem::SystemVersion() noexcept
 		auto		vVersion_2 = static_cast<long>(0);
 		auto		vVersion_3 = static_cast<long>(0);
 		auto		vIsServer = isServer();
-		auto		vModule = XDynamicLibrary::open("ntdll.dll");
+		auto		vModule = xcc::dynamic_library::open("ntdll.dll");
 		if(vModule)
 		{
-			auto		GetVersionNumbers = (_Function_GetVersionNumbers)XDynamicLibrary::find(vModule, "RtlGetNtVersionNumbers");
+			auto		GetVersionNumbers = (_Function_GetVersionNumbers)xcc::dynamic_library::find(vModule, "RtlGetNtVersionNumbers");
 			if(GetVersionNumbers)
 			{
 				GetVersionNumbers(&vVersion_1, &vVersion_2, &vVersion_3);
@@ -74,7 +74,7 @@ x_int64_t XSystem::SystemVersion() noexcept
 						break;
 				}
 			}
-			XDynamicLibrary::close(vModule);
+			xcc::dynamic_library::close(vModule);
 		}
 #endif
 #if defined(XCC_SYSTEM_LINUX)
@@ -248,15 +248,15 @@ bool XSystem::isServer() noexcept
 	{
 #if defined(XCC_SYSTEM_WINDOWS)
 		typedef BOOL(WINAPI* _Function_IsWindowsServer)();
-		auto		vHandle = XDynamicLibrary::open("Kernel32.dll");
+		auto		vHandle = xcc::dynamic_library::open("Kernel32.dll");
 		if(vHandle)
 		{
-			auto		vIsWindowsServer = (_Function_IsWindowsServer)XDynamicLibrary::find(vHandle, "IsWindowsServer");
+			auto		vIsWindowsServer = (_Function_IsWindowsServer)xcc::dynamic_library::find(vHandle, "IsWindowsServer");
 			if(vIsWindowsServer)
 			{
 				vValueServer = vIsWindowsServer() != 0;
 			}
-			XDynamicLibrary::close(vHandle);
+			xcc::dynamic_library::close(vHandle);
 		}
 #else
 		vValueServer = false;
@@ -419,21 +419,21 @@ XString XSystem::buildVersion() noexcept
 {
 #if defined(XCC_SYSTEM_WINDOWS)
 	auto		vBuildVersion = XString();
-	auto		vModule = XDynamicLibrary::open("ntdll.dll");
+	auto		vModule = xcc::dynamic_library::open("ntdll.dll");
 	if(vModule)
 	{
 		auto		vValue1 = static_cast<long>(0);
 		auto		vValue2 = static_cast<long>(0);
 		auto		vValue3 = static_cast<long>(0);
 		typedef void(WINAPI* LP_GetVersionNumbers)(long*, long*, long*);
-		auto		GetVersionNumbers = (LP_GetVersionNumbers)XDynamicLibrary::find(vModule, "RtlGetNtVersionNumbers");
+		auto		GetVersionNumbers = (LP_GetVersionNumbers)xcc::dynamic_library::find(vModule, "RtlGetNtVersionNumbers");
 		if(GetVersionNumbers)
 		{
 			GetVersionNumbers(&vValue1, &vValue2, &vValue3);
 			vBuildVersion = XString::format("%ld", vValue3 & 0xFFFF);
 
 		}
-		XDynamicLibrary::close(vModule);
+		xcc::dynamic_library::close(vModule);
 	}
 	return vBuildVersion;
 #endif
