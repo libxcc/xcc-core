@@ -244,7 +244,7 @@ _XCOREAPI_ x_uint64_t __xcall__ xcc::os::bits() noexcept
 		}
 #else
 		auto		vLongBit = xcc::shell::terminal_command("getconf LONG_BIT");
-		static_object_example = vTempResult.toULLong();
+		static_object_example = vLongBit.toULLong();
 #endif
 	}
 	return static_object_example;
