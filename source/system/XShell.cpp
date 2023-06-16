@@ -1,10 +1,12 @@
 ﻿#include <xcc-core/system/XShell.h>
 #include <xcc-core/sync/XProcess.h>
-#include <source/platform/process_common.h>
+#include <platform/xpa/XPlatformProcess.h>
 
 
+// constructor
 XShell::XShell() noexcept = default;
 
+// destructor
 XShell::~XShell() noexcept = default;
 
 

@@ -8,8 +8,10 @@
 class _XCOREAPI_ XShell
 {
 public:
+	// constructor
 	XShell() noexcept;
 
+	// destructor
 	virtual ~XShell() noexcept;
 
 public:

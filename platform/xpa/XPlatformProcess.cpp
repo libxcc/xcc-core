@@ -1,4 +1,4 @@
-﻿#include <source/platform/process_common.h>
+﻿#include <platform/xpa/XPlatformProcess.h>
 
 
 
@@ -239,4 +239,26 @@ void x_process_param_free(char** _Argv) noexcept
 		x_posix_free(_Argv[vIndex]);
 	}
 	x_posix_free(_Argv);
+}
+
+
+
+// XPA: 根据进程名称结束进程
+int XPA_ProcessTerminateByName(const XString& _ProcessName) noexcept
+{
+	auto		vSync = -1;
+	if(_ProcessName.empty())
+	{
+		return vSync;
+	}
+
+	XPA_ProcessList([&](const XProcessInfo& _ProcessInfo)->bool
+	{
+		if(_ProcessInfo.name() == _ProcessName)
+		{
+			vSync = XPA_ProcessTerminateById(_ProcessInfo.pid());
+		}
+		return true;
+	});
+	return vSync;
 }

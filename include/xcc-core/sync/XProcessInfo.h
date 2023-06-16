@@ -5,39 +5,45 @@
 #include <xcc-core/container/XString.h>
 
 
-// 进程信息私有块
-class XProcessInfoPrivate;
-
 // 进程信息
+struct XPrivateProcessData;
+typedef struct XPrivateProcessData		XPrivateProcessData;
 class _XCOREAPI_ XProcessInfo
 {
 private:
-	XProcessInfoPrivate*			_private_info;
+	// 私有数据
+	XPrivateProcessData*			d_ptr;
 
 public:
+	// constructor
+	explicit XProcessInfo(XPrivateProcessData* _Private) noexcept;
+
+public:
+	// constructor
 	XProcessInfo() noexcept;
 
-	explicit XProcessInfo(x_uint64_t _ProcessID) noexcept;
+	// constructor
+	XProcessInfo(const XProcessInfo& _Right) noexcept;
 
-	XProcessInfo(x_uint64_t _ProcessID, const XString& _ProcessName) noexcept;
-
-	XProcessInfo(const XProcessInfo& _Other) noexcept;
-
+	// destructor
 	virtual ~XProcessInfo() noexcept;
 
 public:
-	XProcessInfo& operator = (const XProcessInfo& _Other) noexcept;
+	// operator =
+	XProcessInfo& operator = (const XProcessInfo& _Right) noexcept;
 
 public:
-	// 获取进程ID
-	virtual x_uint64_t getProcessID() const noexcept;
+	// [get] 进程ID
+	virtual x_uint64_t pid() const noexcept final;
 
-	// 获取进程名称
-	virtual XString getProcessName() const noexcept;
+	// [get] 进程名称
+	virtual XString name() const noexcept final;
 
-public:
-	// 结束进程
-	virtual bool terminate() const noexcept;
+	// [get] 进程路径
+	virtual XString path() const noexcept final;
+
+	// [get] 进程参数
+	virtual std::list<XString> args() const noexcept final;
 };
 
 #endif

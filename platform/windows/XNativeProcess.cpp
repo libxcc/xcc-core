@@ -1,72 +1,113 @@
-﻿#include <source/platform/process_common.h>
-#include <source/platform/windows/ntdll.h>
+﻿#include <platform/xpa/XPlatformProcess.h>
+#include <platform/windows/XNativeNtdll.h>
+#include <TlHelp32.h>
 
 
 
-// namespace pe
-namespace pe
+// XPA: 遍历本机进程数据
+int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>& _Lambda) noexcept
 {
-	// 格式化DOS头
-	bool format_dos_header(const unsigned char* _Memory, x_uint64_t _Length, IMAGE_DOS_HEADER** _DosHeader) noexcept
+	int		vError = -1;
+	auto		vProcessEntry32 = PROCESSENTRY32W();
+	auto		vSnapshotHandle = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if(vSnapshotHandle != INVALID_HANDLE_VALUE)
 	{
-		if(_DosHeader == nullptr || _Length < sizeof(IMAGE_DOS_HEADER))
+		vProcessEntry32.dwSize = sizeof(vProcessEntry32);
+		auto		vMore = ::Process32FirstW(vSnapshotHandle, &vProcessEntry32);
+		while(vMore)
 		{
-			return false;
+			auto		vPrivate = new(std::nothrow) XPrivateProcessData();
+			if(vPrivate == nullptr)
+			{
+				break;
+			}
+			vPrivate->id = vProcessEntry32.th32ProcessID;
+			vPrivate->name = XString::fromWString(vProcessEntry32.szExeFile);
+			if(!_Lambda(XProcessInfo(vPrivate)))
+			{
+				break;
+			}
+			vMore = ::Process32NextW(vSnapshotHandle, &vProcessEntry32);
 		}
-
-		*_DosHeader = (IMAGE_DOS_HEADER*)_Memory;
-		if((*_DosHeader)->e_magic != IMAGE_DOS_SIGNATURE)
-		{
-			return false;
-		}
-
-		return true;
+		::CloseHandle(vSnapshotHandle);
+		vError = 0;
 	}
+	return vError;
+}
 
-	// 格式化NT头
-	bool format_nt_header(const unsigned char* _Memory, x_uint64_t _Length, const IMAGE_DOS_HEADER* _DosHeader, IMAGE_NT_HEADERS** _NtHeader) noexcept
+// XPA: 根据进程ID结束进程
+int XPA_ProcessTerminateById(x_uint64_t _ProcessID) noexcept
+{
+	auto		vSync = true;
+	auto		vProcess = ::OpenProcess(PROCESS_ALL_ACCESS, FALSE, static_cast<DWORD>(_ProcessID));
+	if(vProcess != nullptr)
 	{
-		if(_DosHeader == nullptr || _NtHeader == nullptr || _Length < (_DosHeader->e_lfanew + sizeof(IMAGE_NT_HEADERS)))
-		{
-			return false;
-		}
-
-		(*_NtHeader) = PIMAGE_NT_HEADERS(DWORD(_Memory) + _DosHeader->e_lfanew);
-		if((*_NtHeader)->Signature != IMAGE_NT_SIGNATURE)
-		{
-			return false;
-		}
-
-		return true;
+		vSync = ::TerminateProcess(vProcess, 0);
+		::CloseHandle(vProcess);
 	}
-
-	// 检查PE是否32位
-	bool pe_bit_is_32(const IMAGE_NT_HEADERS* _NtHeader) noexcept
-	{
-		if(_NtHeader->FileHeader.Machine == IMAGE_FILE_MACHINE_I386)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	// 检查PE是否64位
-	bool pe_bit_is_64(const IMAGE_NT_HEADERS* _NtHeader) noexcept
-	{
-		if(_NtHeader->FileHeader.Machine == IMAGE_FILE_MACHINE_IA64 || _NtHeader->FileHeader.Machine == IMAGE_FILE_MACHINE_AMD64)
-		{
-			return true;
-		}
-		return false;
-	}
+	return vSync;
 }
 
 
 
-// 获取默认HOST
-static const char* x_process_get_default_host(const IMAGE_NT_HEADERS* _NtHeader) noexcept
+// 格式化DOS头
+static bool pe_format_dos_header(const void* _Memory, x_uint64_t _Length, IMAGE_DOS_HEADER** _DosHeader) noexcept
 {
-	if(XSystem::is_64bit() && pe::pe_bit_is_64(_NtHeader))
+	if(_DosHeader == nullptr || _Length < sizeof(IMAGE_DOS_HEADER))
+	{
+		return false;
+	}
+
+	*_DosHeader = (IMAGE_DOS_HEADER*)_Memory;
+	if((*_DosHeader)->e_magic != IMAGE_DOS_SIGNATURE)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+// 格式化NT头
+static bool pe_format_nt_header(const void* _Memory, x_uint64_t _Length, const IMAGE_DOS_HEADER* _DosHeader, IMAGE_NT_HEADERS** _NtHeader) noexcept
+{
+	if(_DosHeader == nullptr || _NtHeader == nullptr || _Length < (_DosHeader->e_lfanew + sizeof(IMAGE_NT_HEADERS)))
+	{
+		return false;
+	}
+
+	(*_NtHeader) = PIMAGE_NT_HEADERS(DWORD(_Memory) + _DosHeader->e_lfanew);
+	if((*_NtHeader)->Signature != IMAGE_NT_SIGNATURE)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+// 检查PE是否32位
+static bool pe_bit_is_32(const IMAGE_NT_HEADERS* _NtHeader) noexcept
+{
+	if(_NtHeader->FileHeader.Machine == IMAGE_FILE_MACHINE_I386)
+	{
+		return true;
+	}
+	return false;
+}
+
+// 检查PE是否64位
+static bool pe_bit_is_64(const IMAGE_NT_HEADERS* _NtHeader) noexcept
+{
+	if(_NtHeader->FileHeader.Machine == IMAGE_FILE_MACHINE_IA64 || _NtHeader->FileHeader.Machine == IMAGE_FILE_MACHINE_AMD64)
+	{
+		return true;
+	}
+	return false;
+}
+
+// 获取默认HOST
+static const char* pe_run_get_default_host(const IMAGE_NT_HEADERS* _NtHeader) noexcept
+{
+	if(XSystem::is_64bit() && pe_bit_is_64(_NtHeader))
 	{
 		return R"(C:\Windows\SysWOW64\cmd.exe)";
 	}
@@ -77,7 +118,7 @@ static const char* x_process_get_default_host(const IMAGE_NT_HEADERS* _NtHeader)
 }
 
 // 初始化管道
-static bool x_process_run_memory_init_pipe(STARTUPINFOW* SI, HANDLE* _WHandle, HANDLE* _RHandle) noexcept
+static bool pe_run_memory_init_pipe(STARTUPINFOW* SI, HANDLE* _WHandle, HANDLE* _RHandle) noexcept
 {
 	SECURITY_ATTRIBUTES	sa;
 	HANDLE			vRHandle = nullptr;
@@ -104,8 +145,8 @@ static bool x_process_run_memory_init_pipe(STARTUPINFOW* SI, HANDLE* _WHandle, H
 	return false;
 }
 
-// 从内存中运行进程
-int x_process_run_memory_application(const X_PROCESS_RUN_MEMORY_APPLICATION* _Context, const std::function<bool(const XString& _Output)>& _Lambda) noexcept
+// XPA: 从内存中运行进程
+int XPA_ProcessRunByMemory(const XPrivateProcessRunMemory& _Context, const std::function<bool(const XString& _Output)>& _Lambda) noexcept
 {
 	auto		Context = static_cast<CONTEXT*>(nullptr);
 	auto		DosHeader = static_cast<IMAGE_DOS_HEADER*>(nullptr);
@@ -115,6 +156,7 @@ int x_process_run_memory_application(const X_PROCESS_RUN_MEMORY_APPLICATION* _Co
 	auto		SI = STARTUPINFOW();
 	HANDLE		vRHandle = nullptr;
 	HANDLE		vWHandle = nullptr;
+	auto		vAppMemory = _Context.memory;
 
 	std::memset(&PI, 0, sizeof(PROCESS_INFORMATION));
 	std::memset(&SI, 0, sizeof(STARTUPINFOW));
@@ -122,30 +164,30 @@ int x_process_run_memory_application(const X_PROCESS_RUN_MEMORY_APPLICATION* _Co
 	do
 	{
 		// 初始化管道
-		if(!x_process_run_memory_init_pipe(&SI, &vWHandle, &vRHandle))
+		if(!pe_run_memory_init_pipe(&SI, &vWHandle, &vRHandle))
 		{
 			break;
 		}
 
 		// 格式化DOS头
-		if(!pe::format_dos_header(_Context->AppMemory, _Context->AppLength, &DosHeader))
+		if(!pe_format_dos_header(vAppMemory.data(), vAppMemory.size(), &DosHeader))
 		{
 			break;
 		}
 
 		// 格式化NT头
-		if(!pe::format_nt_header(_Context->AppMemory, _Context->AppLength, DosHeader, &NtHeader))
+		if(!pe_format_nt_header(vAppMemory.data(), vAppMemory.size(), DosHeader, &NtHeader))
 		{
 			break;
 		}
 
 		// 为新图像创建一个处于挂起状态的当前进程的新实例
-		auto		AppMemory = _Context->AppMemory;
-		auto		RunParameter = XString::fromUString(_Context->RunParameter).toWString();
+		auto		AppMemory = vAppMemory.data();
+		auto		RunParameter = _Context.args.toWString();
 		auto		RunParameterW = x_posix_wcsdup(RunParameter.data());
-		auto		HostApp = (x_posix_strlen(_Context->HostApp) == 0) ? x_process_get_default_host(NtHeader) : _Context->HostApp;
-		auto		HostAppW = XString::fromUString(HostApp).toWString();
-		auto		RunDirectory = XString::fromUString(_Context->RunDirectory).toWString();
+		auto		HostApp = _Context.host.empty() ? pe_run_get_default_host(NtHeader) : _Context.host;
+		auto		HostAppW = HostApp.toWString();
+		auto		RunDirectory = _Context.directory.toWString();
 		if (CreateProcessW(HostAppW.data(), RunParameterW, nullptr, nullptr, TRUE, CREATE_SUSPENDED, nullptr, RunDirectory.data(), &SI, &PI))
 		{
 			::CloseHandle(vWHandle);

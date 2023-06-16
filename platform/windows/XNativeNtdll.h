@@ -1,5 +1,5 @@
-﻿#ifndef			_XCC_CORE_NTDLL_H_
-#define			_XCC_CORE_NTDLL_H_
+﻿#ifndef			_XCC_CORE_PLATFORM_NATIVE_NTDLL_H_
+#define			_XCC_CORE_PLATFORM_NATIVE_NTDLL_H_
 
 #include <xcc-core/xcc.h>
 

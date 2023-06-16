@@ -1,14 +1,7 @@
 ﻿#include <xcc-core/sync/XProcess.h>
 #include <xcc-core/filesystem/XFileSystem.h>
 #include <xcc-core/system/XNative.h>
-#include <xcc-core/system/XSystem.h>
-#if defined(XCC_SYSTEM_WINDOWS)
-#include <TlHelp32.h>
-#endif
-#if defined(XCC_SYSTEM_DARWIN)
-#include <libproc.h>
-#endif
-#include <source/platform/process_common.h>
+#include <platform/xpa/XPlatformProcess.h>
 
 
 // constructor
@@ -27,33 +20,15 @@ bool XProcess::kill(const XString& _ProcessName) noexcept
 		return false;
 	}
 
-	auto		vSync = true;
-	XProcess::traverse([&](const XProcessInfo& _ProcessInfo)->bool
-	{
-		if(_ProcessInfo.getProcessName() == _ProcessName)
-		{
-			vSync = XProcess::kill(_ProcessInfo.getProcessID());
-		}
-		return true;
-	});
-	return vSync;
+	auto		vSync = XPA_ProcessTerminateByName(_ProcessName);
+	return 0 == vSync;
 }
 
 // Kill the process with the specified process ID
 bool XProcess::kill(x_uint64_t _ProcessID) noexcept
 {
-	auto		vSync = true;
-#if defined(XCC_SYSTEM_WINDOWS)
-	auto		vProcess = ::OpenProcess(PROCESS_ALL_ACCESS, FALSE, static_cast<DWORD>(_ProcessID));
-	if(vProcess != nullptr)
-	{
-		vSync = ::TerminateProcess(vProcess, 0);
-		::CloseHandle(vProcess);
-	}
-#else
-	vSync = x_posix_kill(_ProcessID, 9) == 0;
-#endif
-	return vSync;
+	auto		vSync = XPA_ProcessTerminateById(_ProcessID);
+	return 0 == vSync;
 }
 
 
@@ -71,92 +46,8 @@ bool XProcess::traverse(const std::function<bool(const XProcessInfo& _Info)>& _L
 {
 	XCC_CHECK_RETURN(_Lambda, false);
 
-	auto		vSync = false;
-
-#if defined(XCC_SYSTEM_WINDOWS)
-	auto		vProcessEntry32 = PROCESSENTRY32W();
-	vProcessEntry32.dwSize = sizeof(vProcessEntry32);
-	auto		vSnapshotHandle = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if(vSnapshotHandle != INVALID_HANDLE_VALUE)
-	{
-		vSync = true;
-		auto		vMore = ::Process32FirstW(vSnapshotHandle, &vProcessEntry32);
-		while(vMore)
-		{
-			if(!_Lambda(XProcessInfo(static_cast<x_uint64_t>(vProcessEntry32.th32ProcessID), XString::fromWString(vProcessEntry32.szExeFile))))
-			{
-				// If the caller cancels the operation, then we should jump out of the loop
-				break;
-			}
-			vMore = ::Process32NextW(vSnapshotHandle, &vProcessEntry32);
-		};
-		::CloseHandle(vSnapshotHandle);
-	}
-#endif
-#if defined(XCC_SYSTEM_LINUX)
-	vSync = XFileSystem::directory_traverse("/proc", [&](const XFileSystem::path& _Path)->bool
-	{
-		if(XFileSystem::path::isDirectory(_Path))
-		{
-			auto		vExepath = XString::format("/proc/%ls/exe", _Path.fileName().data());
-			auto		vApplication = vExepath.toUString();
-			char		vDirectory[XCC_PATH_MAX] = { 0 };
-			auto		vCount = readlink(vApplication.data(), vDirectory, XCC_PATH_MAX);
-			if(0 <= vCount || vCount <= XCC_PATH_MAX)
-			{
-				if(x_posix_strlen(vDirectory))
-				{
-					auto		vName = x_posix_strrchr(vDirectory, '/') + 1;
-					if(vName && x_posix_strlen(vName))
-					{
-						if(false == _Lambda(XProcessInfo(static_cast<x_uint64_t>(_Path.fileName().toLLong()), XString::fromUString(vName))))
-						{
-							// If the caller cancels the operation, then we should jump out of the loop
-							return false;
-						}
-					}
-				}
-			}
-		}
-		return true;
-	});
-#endif
-#if defined(XCC_SYSTEM_DARWIN)
-	auto		vProcessNumber = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0) * 2;
-	if(vProcessNumber)
-	{
-		auto	vProcessArray = (pid_t*)x_posix_malloc(sizeof(pid_t) * vProcessNumber);
-		if(vProcessArray)
-		{
-			vProcessNumber = proc_listpids(PROC_ALL_PIDS, 0, vProcessArray, sizeof(pid_t) * vProcessNumber);
-			if(vProcessNumber)
-			{
-				vSync = true;
-				for(auto vIndex = 0; vIndex < vProcessNumber; ++vIndex)
-				{
-					pid_t           vProcessID = vProcessArray[vIndex];
-					if(vProcessID == 0)
-					{
-						continue;
-					}
-					char			vProcessNAME[1024] = { 0 };
-					//char			vProcessPATH[2048] = { 0 };
-					//struct proc_bsdinfo     vProcessINFO;
-					proc_name(vProcessID, vProcessNAME, 1024);
-					//proc_pidpath(vProcessID, vProcessPATH, 2048);
-					//proc_pidinfo(vProcessID, PROC_PIDTBSDINFO, 0, &vProcessINFO, PROC_PIDTBSDINFO_SIZE);
-					if(false == _Lambda(XProcessInfo(static_cast<x_uint64_t>(vProcessID), XString::fromUString(vProcessNAME))))
-					{
-						// If the caller cancels the operation, then we should jump out of the loop
-						break;
-					}
-				}
-			}
-			x_posix_free(vProcessArray);
-		}
-	}
-#endif
-	return vSync;
+	auto		vSync = XPA_ProcessList(_Lambda);
+	return 0 == vSync;
 }
 
 
@@ -185,9 +76,9 @@ x_uint64_t XProcess::number(const XString& _ProcessName) noexcept
 	}
 
 	auto		vNumber = 0;
-	XProcess::traverse([&](const XProcessInfo& _ProcessInfo)->bool
+	XPA_ProcessList([&](const XProcessInfo& _ProcessInfo)->bool
 	{
-		if(_ProcessInfo.getProcessName() == _ProcessName)
+		if(_ProcessInfo.name() == _ProcessName)
 		{
 			++vNumber;
 		}
@@ -301,22 +192,13 @@ int XProcess::execds(const char* _Application, const char* _Directory, const cha
 int XProcess::run_memory_app(const XProcessRunMemoryInfo& _MemoryInfo, const std::function<bool(const XString& _Output)>& _Lambda) noexcept
 {
 	auto		vRunStatus = 0;
-	auto		vContext = new(std::nothrow) X_PROCESS_RUN_MEMORY_APPLICATION();
-	if(vContext == nullptr)
-	{
-		return -1;
-	}
-	x_posix_memset(vContext, 0, sizeof(X_PROCESS_RUN_MEMORY_APPLICATION));
+	auto		vContext = XPrivateProcessRunMemory();
 
-	vContext->AppMemory = (unsigned char*)_MemoryInfo._memberMemoryApp.data();
-	vContext->AppLength = _MemoryInfo._memberMemoryApp.size();
-	vContext->RunParameter = _MemoryInfo._memberParam.data();
-	vContext->RunDirectory = _MemoryInfo._memberDirectory.data();
-	vContext->HostApp = _MemoryInfo._memberHostApp.data();
+	vContext.memory = _MemoryInfo._memberMemoryApp;
+	vContext.args = _MemoryInfo._memberParam;
+	vContext.directory = _MemoryInfo._memberDirectory;
+	vContext.host = _MemoryInfo._memberHostApp;
 
-	vRunStatus = x_process_run_memory_application(vContext, _Lambda);
-
-	x_posix_free(vContext);
-
+	vRunStatus = XPA_ProcessRunByMemory(vContext, _Lambda);
 	return vRunStatus;
 }

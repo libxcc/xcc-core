@@ -1,4 +1,4 @@
-﻿#include <source/platform/process_common.h>
+﻿#include <platform/xpa/XPlatformProcess.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -6,16 +6,63 @@
 
 
 
-// 从内存中运行进程
-int x_process_run_memory_application(const X_PROCESS_RUN_MEMORY_APPLICATION* _Context, const std::function<bool(const XString& _Output)>& _Lambda) noexcept
+// XPA: 遍历本机进程数据
+int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>& _Lambda) noexcept
+{
+	auto		vSync = XFileSystem::directory_traverse("/proc", [&](const XFileSystem::path& _Path)->bool
+	{
+		if(XFileSystem::path::isDirectory(_Path))
+		{
+			auto		vExepath = XString::format("/proc/%ls/exe", _Path.fileName().data());
+			auto		vApplication = vExepath.toUString();
+			char		vDirectory[XCC_PATH_MAX] = { 0 };
+			auto		vCount = readlink(vApplication.data(), vDirectory, XCC_PATH_MAX);
+			if(0 <= vCount || vCount <= XCC_PATH_MAX)
+			{
+				if(x_posix_strlen(vDirectory))
+				{
+					auto		vName = x_posix_strrchr(vDirectory, '/') + 1;
+					if(vName && x_posix_strlen(vName))
+					{
+						auto		vPrivate = new(std::nothrow) XPrivateProcessData();
+						if(vPrivate == nullptr)
+						{
+							return false;
+						}
+						vPrivate->id = _Path.fileName().toLLong();
+						vPrivate->name = XString::fromUString(vName);
+						if(!_Lambda(XProcessInfo(vPrivate)))
+						{
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	});
+	return vSync ? 0 : -1;
+}
+
+// XPA: 根据进程ID结束进程
+int XPA_ProcessTerminateById(x_uint64_t _ProcessID) noexcept
+{
+	auto		vError = x_posix_kill(_ProcessID, 9);
+	return vError;
+}
+
+
+
+// XPA: 从内存中运行进程
+int XPA_ProcessRunByMemory(const XPrivateProcessRunMemory& _Context, const std::function<bool(const XString& _Output)>& _Lambda) noexcept
 {
 	XCC_UNUSED(_Context);
 	XCC_UNUSED(_Lambda);
 
-	auto		AppMemory = _Context->AppMemory;
-	auto		AppLength = _Context->AppLength;
-	auto		RunParameter = x_process_param_string_to_argv(_Context->RunParameter);
-	auto		RunDirectory = _Context->RunDirectory;
+	auto		AppMemory = _Context.memory.data();
+	auto		AppLength = _Context.memory.size();
+	auto		RunParameter = x_process_param_string_to_argv(_Context.args.data());
+	auto		RunDirectory = _Context.directory;
 	char		HostPath[256] = "\0";
 	int		HostHandle = 0;
 	pid_t		AppProcessID = x_posix_getpid();
@@ -79,7 +126,7 @@ int x_process_run_memory_application(const X_PROCESS_RUN_MEMORY_APPLICATION* _Co
 		x_posix_dup2(AppSync[1], 1);
 		x_posix_dup2(AppSync[1], 2);
 
-		x_posix_chdir(RunDirectory);
+		x_posix_chdir(RunDirectory.data());
 		execve(HostPath, RunParameter, nullptr);
 		return 0;
 	}

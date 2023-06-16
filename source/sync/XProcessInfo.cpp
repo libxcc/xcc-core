@@ -1,80 +1,70 @@
 ﻿#include <xcc-core/sync/XProcessInfo.h>
-#include <xcc-core/sync/XProcess.h>
+#include <platform/xpa/XPlatformProcess.h>
 
-// 进程信息私有块
-class XProcessInfoPrivate
+
+
+
+// constructor
+XProcessInfo::XProcessInfo(XPrivateProcessData* _Private) noexcept
 {
-public:
-	x_uint64_t				_ProcessID;
-	XString					_ProcessName;
+	d_ptr = _Private;
+}
 
-public:
-	XProcessInfoPrivate()
-	{
-		this->_ProcessID = 0ULL;
-	};
 
-	static void copy(XProcessInfoPrivate* _Target, const XProcessInfoPrivate* _Source)
-	{
-		_Target->_ProcessID = _Source->_ProcessID;
-		_Target->_ProcessName = _Source->_ProcessName;
-	};
-};
 
+// constructor
 XProcessInfo::XProcessInfo() noexcept
 {
-	this->_private_info = new(std::nothrow) XProcessInfoPrivate();
+	d_ptr = new(std::nothrow) XPrivateProcessData();
 }
 
-XProcessInfo::XProcessInfo(x_uint64_t _ProcessID) noexcept
+// constructor
+XProcessInfo::XProcessInfo(const XProcessInfo& _Right) noexcept
 {
-	this->_private_info = new(std::nothrow) XProcessInfoPrivate();
-	this->_private_info->_ProcessID = _ProcessID;
+	d_ptr = new(std::nothrow) XPrivateProcessData();
+	*d_ptr = *_Right.d_ptr;
 }
 
-XProcessInfo::XProcessInfo(x_uint64_t _ProcessID, const XString& _ProcessName) noexcept
-{
-	this->_private_info = new(std::nothrow) XProcessInfoPrivate();
-	this->_private_info->_ProcessID = _ProcessID;
-	this->_private_info->_ProcessName = _ProcessName;
-}
-
-XProcessInfo::XProcessInfo(const XProcessInfo& _Other) noexcept
-{
-	this->_private_info = new(std::nothrow) XProcessInfoPrivate();
-	XProcessInfoPrivate::copy(this->_private_info, _Other._private_info);
-}
-
+// destructor
 XProcessInfo::~XProcessInfo() noexcept
 {
-	XCC_DELETE_PTR(this->_private_info);
+	delete d_ptr;
 }
 
 
 
-
-XProcessInfo& XProcessInfo::operator = (const XProcessInfo& _Other) noexcept
+// operator =
+XProcessInfo& XProcessInfo::operator = (const XProcessInfo& _Right) noexcept
 {
-	XProcessInfoPrivate::copy(this->_private_info, _Other._private_info);
+	if(this != &_Right)
+	{
+		*d_ptr = *_Right.d_ptr;
+	}
 	return *this;
 }
 
 
 
-// 获取进程ID
-x_uint64_t XProcessInfo::getProcessID() const noexcept
+// [get] 进程ID
+x_uint64_t XProcessInfo::pid() const noexcept
 {
-	return this->_private_info->_ProcessID;
+	return d_ptr->id;
 }
 
-// 获取进程名称
-XString XProcessInfo::getProcessName() const noexcept
+// [get] 进程名称
+XString XProcessInfo::name() const noexcept
 {
-	return this->_private_info->_ProcessName;
+	return d_ptr->name;
 }
 
-// 结束进程
-bool XProcessInfo::terminate() const noexcept
+// [get] 进程路径
+XString XProcessInfo::path() const noexcept
 {
-	return XProcess::kill(this->getProcessID());
+	return d_ptr->path;
+}
+
+// [get] 进程参数
+std::list<XString> XProcessInfo::args() const noexcept
+{
+	return d_ptr->args;
 }
