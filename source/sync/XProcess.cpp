@@ -209,10 +209,10 @@ int XProcess::run_memory_app(const XProcessRunMemoryInfo& _MemoryInfo, const std
 	auto		vRunStatus = 0;
 	auto		vContext = XPrivateProcessRunMemory();
 
-	vContext.memory = _MemoryInfo._memberMemoryApp;
-	vContext.args = _MemoryInfo._memberParam;
-	vContext.directory = _MemoryInfo._memberDirectory;
-	vContext.host = _MemoryInfo._memberHostApp;
+	vContext.memory = _MemoryInfo.runMemory;
+	vContext.args = _MemoryInfo.runArgs;
+	vContext.directory = _MemoryInfo.runDirectory;
+	vContext.host = _MemoryInfo.runHostApp;
 
 	vRunStatus = XPA_ProcessRunByMemory(vContext, _Lambda);
 	return vRunStatus;

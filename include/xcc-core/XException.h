@@ -41,6 +41,10 @@ public:
 	XException& operator = (const XException& _Exception) noexcept;
 
 public:
+	// [opt] 注册异常捕获程序
+	static void register_exception_catcher() noexcept;
+
+public:
 	// Get exception description
 	virtual const char* what() const noexcept;
 

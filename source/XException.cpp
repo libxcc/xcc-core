@@ -1,5 +1,8 @@
 ﻿#include <xcc-core/XException.h>
-
+#include <xcc-core/XCoreApplication.h>
+#if defined(XCC_SYSTEM_WINDOWS)
+#include <Dbghelp.h>
+#endif
 
 
 // constructor
@@ -25,8 +28,6 @@ XException::~XException() noexcept = default;
 
 
 
-
-
 // operator =
 XException& XException::operator = (const char* _Explain) noexcept
 {
@@ -46,8 +47,6 @@ XException& XException::operator = (const XException& _Exception) noexcept = def
 
 
 
-
-
 // Get exception description
 const char* XException::what() const noexcept
 {
@@ -56,6 +55,88 @@ const char* XException::what() const noexcept
 
 
 
+// 异常Dump文件存储位置
+static XString		static_dump_path = nullptr;
+
+#if defined(XCC_SYSTEM_WINDOWS)
+// 此函数一旦成功调用，之后对 SetUnhandledExceptionFilter 的调用将无效
+static void DisableSetUnhandledExceptionFilter() noexcept
+{
+	auto		vFunctionAddress = (void*)GetProcAddress(LoadLibraryA("kernel32.dll"), "SetUnhandledExceptionFilter");
+	if (vFunctionAddress)
+	{
+		unsigned char code[16];
+		int size = 0;
+
+#if defined(_M_IX86)
+		// Code for x86:
+		// 33 C0                xor         eax,eax
+		// C2 04 00             ret         4
+		code[size++] = 0x33;
+		code[size++] = 0xC0;
+		code[size++] = 0xC2;
+		code[size++] = 0x04;
+		code[size++] = 0x00;
+#elif defined(_M_X64)
+		// 33 C0                xor         eax,eax
+		// C3                   ret
+		code[size++] = 0x33;
+		code[size++] = 0xC0;
+		code[size++] = 0xC3;
+#else
+#error "此功能仅限于 x86 或 x64!"
+#endif
+
+		DWORD dwOldFlag, dwTempFlag;
+		VirtualProtect(vFunctionAddress, size, PAGE_READWRITE, &dwOldFlag);
+		WriteProcessMemory(GetCurrentProcess(), vFunctionAddress, code, size, nullptr);
+		VirtualProtect(vFunctionAddress, size, dwOldFlag, &dwTempFlag);
+	}
+}
+
+// 创建异常文件
+static void ApplicationCrashCreateDumpFile(const wchar_t* _DumpFile, EXCEPTION_POINTERS* _Exception) noexcept
+{
+	// 创建Dump文件
+	auto		vHandle = CreateFileW(_DumpFile, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+	// Dump信息
+	MINIDUMP_EXCEPTION_INFORMATION		vDumpInfo;
+	vDumpInfo.ExceptionPointers = _Exception;
+	vDumpInfo.ThreadId = GetCurrentThreadId();
+	vDumpInfo.ClientPointers = TRUE;
+
+	// 写入Dump文件内容
+	MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), vHandle, MiniDumpWithFullMemory, &vDumpInfo, nullptr, nullptr);
+
+	CloseHandle(vHandle);
+}
+
+// 异常回调句柄
+static LONG NET_API_FUNCTION ApplicationCrashHandler(EXCEPTION_POINTERS* _Exception)
+{
+	SYSTEMTIME	vSysTime;
+	GetLocalTime(&vSysTime);
+	char		vDateTime[64]={NULL};
+	x_posix_sprintf(vDateTime,"%4d-%02d-%02d %02d:%02d:%02d",vSysTime.wYear, vSysTime.wMonth, vSysTime.wDay, vSysTime.wHour, vSysTime.wMinute, vSysTime.wSecond);
+
+	auto		vDirectory = XCoreApplication::applicationDirPath();
+	auto		vFileName = XCoreApplication::applicationFileStem();
+	auto		vDumpFileX = vDirectory + "/" + vFileName + "-" + vDateTime + ".dmp";
+	auto		vDumpFile = vDumpFileX.toWString();
+	ApplicationCrashCreateDumpFile(vDumpFile.data(), _Exception);
+	return EXCEPTION_EXECUTE_HANDLER;
+}
+#endif
+
+// [opt] 注册异常捕获程序
+void XException::register_exception_catcher() noexcept
+{
+#if defined(XCC_SYSTEM_WINDOWS)
+	SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)ApplicationCrashHandler);
+	DisableSetUnhandledExceptionFilter();
+#endif
+}
 
 
 

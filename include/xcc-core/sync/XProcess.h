@@ -10,10 +10,10 @@
 class XProcessRunMemoryInfo
 {
 public:
-	XByteArray				_memberMemoryApp;
-	XString					_memberParam;
-	XString					_memberDirectory;
-	XString					_memberHostApp;
+	XByteArray				runMemory;
+	XString					runArgs;
+	XString					runDirectory;
+	XString					runHostApp;
 };
 
 // Process

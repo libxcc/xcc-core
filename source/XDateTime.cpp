@@ -27,7 +27,7 @@ static x_time_type __xcall__ x_datetime_current_millisecond_utc() noexcept
 	ftime(&vRawTime);
 	return vRawTime.time * 1000LL + vRawTime.millitm;
 #endif
-};
+}
 
 
 
