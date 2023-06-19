@@ -12,6 +12,21 @@ XProcess::~XProcess() noexcept = default;
 
 
 
+// 指定延时(毫秒)后退出
+static void xcc_core_process_exit_by_delay(x_uint32_t _Millisecond, int _Code) noexcept
+{
+	x_posix_msleep(_Millisecond);
+	x_posix_exit(_Code);
+}
+
+// 指定延时(毫秒)后退出
+void XProcess::delay_exit(x_uint32_t _Millisecond, int _Code) noexcept
+{
+	std::thread(xcc_core_process_exit_by_delay, _Millisecond, _Code).detach();
+}
+
+
+
 // Kills the process by the specified name
 bool XProcess::kill(const XString& _ProcessName) noexcept
 {

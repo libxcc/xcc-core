@@ -27,6 +27,10 @@ public:
 	virtual ~XProcess() noexcept;
 
 public:
+	// 指定延时(毫秒)后退出
+	static void delay_exit(x_uint32_t _Millisecond, int _Code) noexcept;
+
+public:
 	// Kills the process by the specified name
 	static bool kill(const XString& _ProcessName) noexcept;
 
