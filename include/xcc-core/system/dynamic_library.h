@@ -2,7 +2,7 @@
 #define			_XCC_CORE_DYNAMIC_LIBRARY_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/container/string.h>
+#include <xcc-core/container/XString.h>
 
 
 // Defines a dynamic library loading flag that does not exist under Windows

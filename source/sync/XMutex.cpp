@@ -88,13 +88,13 @@ void XMutex::unlock() noexcept
 
 
 // constructor
-XMutexAuto::XMutexAuto(XMutex& _Mutex) noexcept : _data_mutex(_Mutex)
+XMutexLocker::XMutexLocker(XMutex& _Mutex) noexcept : _data_mutex(_Mutex)
 {
 	this->_data_mutex.lock();
 }
 
 // destructor
-XMutexAuto::~XMutexAuto() noexcept
+XMutexLocker::~XMutexLocker() noexcept
 {
 	this->_data_mutex.unlock();
 }

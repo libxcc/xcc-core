@@ -41,8 +41,11 @@ public:
 	XException& operator = (const XException& _Exception) noexcept;
 
 public:
-	// [opt] 注册异常捕获程序
-	static void register_exception_catcher() noexcept;
+	// [opt] 核心转储注册
+	static void coreDumpRegistry() noexcept;
+
+	// [opt] 核心转储反注册
+	static void coreDumpUnregister() noexcept;
 
 public:
 	// Get exception description

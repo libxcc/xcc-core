@@ -55,9 +55,6 @@ const char* XException::what() const noexcept
 
 
 
-// 异常Dump文件存储位置
-static XString		static_dump_path = nullptr;
-
 #if defined(XCC_SYSTEM_WINDOWS)
 // 此函数一旦成功调用，之后对 SetUnhandledExceptionFilter 的调用将无效
 static void DisableSetUnhandledExceptionFilter() noexcept
@@ -129,12 +126,20 @@ static LONG NET_API_FUNCTION ApplicationCrashHandler(EXCEPTION_POINTERS* _Except
 }
 #endif
 
-// [opt] 注册异常捕获程序
-void XException::register_exception_catcher() noexcept
+// [opt] 核心转储注册
+void XException::coreDumpRegistry() noexcept
 {
 #if defined(XCC_SYSTEM_WINDOWS)
 	SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)ApplicationCrashHandler);
-	DisableSetUnhandledExceptionFilter();
+	// DisableSetUnhandledExceptionFilter();
+#endif
+}
+
+// [opt] 核心转储反注册
+void XException::coreDumpUnregister() noexcept
+{
+#if defined(XCC_SYSTEM_WINDOWS)
+	SetUnhandledExceptionFilter(nullptr);
 #endif
 }
 

@@ -32,7 +32,7 @@ _XCOREAPI_ bool __xcall__ PeekMessageW(LPMSG lpMsg, HWND hWnd, unsigned int wMsg
 
 	auto			vThreadID = x_posix_gettid();
 	auto			vFind = false;
-	XCC_MUTEX_AUTO(_StaticMessageMutex);
+	XCC_MUTEX_LOCKER(_StaticMessageMutex);
 
 	auto		vIterator = _StaticMessageArray.find(vThreadID);
 	if(vIterator != _StaticMessageArray.end())
@@ -69,7 +69,7 @@ _XCOREAPI_ bool __xcall__ PeekMessageW(LPMSG lpMsg, HWND hWnd, unsigned int wMsg
 //将一个队列消息放入（寄送）到指定线程的消息队列里，不等待线程处理消息就返回
 _XCOREAPI_ bool __xcall__ PostThreadMessageW(unsigned long _ThreadID, unsigned int Msg, WPARAM wParam, LPARAM lParam)
 {
-	XCC_MUTEX_AUTO(_StaticMessageMutex);
+	XCC_MUTEX_LOCKER(_StaticMessageMutex);
 
 	auto		vIterator = _StaticMessageArray.find(_ThreadID);
 	if(vIterator == _StaticMessageArray.end())

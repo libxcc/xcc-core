@@ -2,7 +2,7 @@
 #define			_XCC_CORE_SYSTEM_SHELL_H_
 
 #include <xcc-core/header.h>
-#include <xcc-core/container/string.h>
+#include <xcc-core/container/XString.h>
 
 
 // Shell

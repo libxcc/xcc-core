@@ -47,23 +47,23 @@ public:
 ///  <summary>
 ///  A class that can release XMutex automatically
 ///  </summary>
-class _XCOREAPI_ XMutexAuto
+class _XCOREAPI_ XMutexLocker
 {
 private:
 	XMutex&				_data_mutex;
 
 public:
 	// constructor
-	explicit XMutexAuto(XMutex& _Mutex) noexcept;
+	explicit XMutexLocker(XMutex& _Mutex) noexcept;
 
 	// destructor
-	virtual ~XMutexAuto() noexcept;
+	virtual ~XMutexLocker() noexcept;
 };
 
 
 
 // Macro used to call auto destruct lock conveniently
-#define				XCC_MUTEX_AUTO(_Mutex)			XMutexAuto			_XanaduMutexAuto(_Mutex)
-#define				XCC_MUTEX_GUARD(_Mutex)			std::lock_guard<std::mutex>	_TempMutexGuard(_Mutex)
+#define				XCC_MUTEX_LOCKER(_Mutex)		XMutexLocker			xcc_mutex_locker(_Mutex)
+#define				XCC_MUTEX_GUARD(_Mutex)			std::lock_guard<std::mutex>	std_mutex_locker(_Mutex)
 
 #endif
