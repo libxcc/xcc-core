@@ -161,7 +161,7 @@ XVariant::~XVariant() noexcept
 
 
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (bool _Value) noexcept
 {
 	this->clear();
@@ -170,7 +170,7 @@ XVariant& XVariant::operator = (bool _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_int8_t _Value) noexcept
 {
 	this->clear();
@@ -179,7 +179,7 @@ XVariant& XVariant::operator = (x_int8_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_uint8_t _Value) noexcept
 {
 	this->clear();
@@ -188,7 +188,7 @@ XVariant& XVariant::operator = (x_uint8_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_int16_t _Value) noexcept
 {
 	this->clear();
@@ -197,7 +197,7 @@ XVariant& XVariant::operator = (x_int16_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_uint16_t _Value) noexcept
 {
 	this->clear();
@@ -206,7 +206,7 @@ XVariant& XVariant::operator = (x_uint16_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_int32_t _Value) noexcept
 {
 	this->clear();
@@ -215,7 +215,7 @@ XVariant& XVariant::operator = (x_int32_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_uint32_t _Value) noexcept
 {
 	this->clear();
@@ -224,7 +224,7 @@ XVariant& XVariant::operator = (x_uint32_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (long _Value) noexcept
 {
 	this->clear();
@@ -233,7 +233,7 @@ XVariant& XVariant::operator = (long _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (unsigned long _Value) noexcept
 {
 	this->clear();
@@ -242,7 +242,7 @@ XVariant& XVariant::operator = (unsigned long _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_int64_t _Value) noexcept
 {
 	this->clear();
@@ -251,7 +251,7 @@ XVariant& XVariant::operator = (x_int64_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (x_uint64_t _Value) noexcept
 {
 	this->clear();
@@ -260,7 +260,7 @@ XVariant& XVariant::operator = (x_uint64_t _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (float _Value) noexcept
 {
 	this->clear();
@@ -269,7 +269,7 @@ XVariant& XVariant::operator = (float _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (double _Value) noexcept
 {
 	this->clear();
@@ -278,7 +278,7 @@ XVariant& XVariant::operator = (double _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (const char* _Value) noexcept
 {
 	this->clear();
@@ -287,7 +287,7 @@ XVariant& XVariant::operator = (const char* _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (const XString& _Value) noexcept
 {
 	this->clear();
@@ -296,7 +296,7 @@ XVariant& XVariant::operator = (const XString& _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (const XByteArray& _Value) noexcept
 {
 	this->clear();
@@ -305,7 +305,7 @@ XVariant& XVariant::operator = (const XByteArray& _Value) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (const XVariant& _Other) noexcept
 {
 	if(this == &_Other)
@@ -316,7 +316,7 @@ XVariant& XVariant::operator = (const XVariant& _Other) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XVariant& XVariant::operator = (XVariant&& _Other) noexcept
 {
 	if(this != &_Other)

@@ -53,17 +53,6 @@ public:
 
 	// [get] 应用程序运行目录
 	static XString currentDirectory() noexcept;
-
-public:
-	// [get] 运行环境目录	***/com.xanadu.exe
-	static XString environmentDirPath() noexcept;
-
-public:
-	// Gets the cache directory currently in use
-	static XString cacheDirectory() noexcept;
-
-	// Get local configuration directory
-	static XString configDirectory() noexcept;
 };
 
 #endif

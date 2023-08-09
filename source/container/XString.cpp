@@ -32,7 +32,7 @@ XString::~XString() noexcept = default;
 
 
 
-// operator =
+// operator override =
 XString& XString::operator = (const elem_type* _Memory) noexcept
 {
 	if(this->resize(x_posix_strlen(_Memory)))
@@ -42,7 +42,7 @@ XString& XString::operator = (const elem_type* _Memory) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XString& XString::operator = (const XString& _String) noexcept
 {
 	if(this != &_String)
@@ -52,7 +52,7 @@ XString& XString::operator = (const XString& _String) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XString& XString::operator = (XString&& _String) noexcept
 {
 	if(this != &_String)
@@ -64,20 +64,20 @@ XString& XString::operator = (XString&& _String) noexcept
 
 
 
-// operator +=
+// operator override +=
 XString& XString::operator += (elem_type _Char) noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->append(vBytes, 1);
 }
 
-// operator +=
+// operator override +=
 XString& XString::operator += (const elem_type* _String) noexcept
 {
 	return this->append(_String, x_posix_strlen(_String));
 }
 
-// operator +=
+// operator override +=
 XString& XString::operator += (const XString& _String) noexcept
 {
 	return this->append(_String.data(), _String.size());
@@ -85,7 +85,7 @@ XString& XString::operator += (const XString& _String) noexcept
 
 
 
-// operator +
+// operator override +
 XString XString::operator + (elem_type _Char) const noexcept
 {
 	auto		vTemp = *this;
@@ -93,7 +93,7 @@ XString XString::operator + (elem_type _Char) const noexcept
 	return vTemp;
 }
 
-// operator +
+// operator override +
 XString XString::operator + (const elem_type* _String) const noexcept
 {
 	auto		vTemp = *this;
@@ -101,7 +101,7 @@ XString XString::operator + (const elem_type* _String) const noexcept
 	return vTemp;
 }
 
-// operator +
+// operator override +
 XString XString::operator + (const XString& _String) const noexcept
 {
 	auto		vTemp = *this;
@@ -111,115 +111,136 @@ XString XString::operator + (const XString& _String) const noexcept
 
 
 
-// operator ==
+// operator override <<
+XString& XString::operator << (elem_type _Char) noexcept
+{
+	elem_type		vBytes[2] = {_Char, '\0'};
+	return this->append(vBytes, 1);
+}
+
+// operator override <<
+XString& XString::operator << (const elem_type* _String) noexcept
+{
+	return this->append(_String, x_posix_strlen(_String));
+}
+
+// operator override <<
+XString& XString::operator << (const XString& _String) noexcept
+{
+	return this->append(_String.data(), _String.size());
+}
+
+
+
+// operator override ==
 bool XString::operator == (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) == 0;
 }
 
-// operator ==
+// operator override ==
 bool XString::operator == (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) == 0;
 }
 
-// operator ==
+// operator override ==
 bool XString::operator == (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) == 0;
 }
 
-// operator !=
+// operator override !=
 bool XString::operator != (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) != 0;
 }
 
-// operator !=
+// operator override !=
 bool XString::operator != (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) != 0;
 }
 
-// operator !=
+// operator override !=
 bool XString::operator != (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) != 0;
 }
 
-// operator <
+// operator override <
 bool XString::operator < (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) < 0;
 }
 
-// operator <
+// operator override <
 bool XString::operator < (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) < 0;
 }
 
-// operator <
+// operator override <
 bool XString::operator < (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) < 0;
 }
 
-// operator >
+// operator override >
 bool XString::operator > (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) > 0;
 }
 
-// operator >
+// operator override >
 bool XString::operator > (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) > 0;
 }
 
-// operator >
+// operator override >
 bool XString::operator > (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) > 0;
 }
 
-// operator <=
+// operator override <=
 bool XString::operator <= (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) <= 0;
 }
 
-// operator <=
+// operator override <=
 bool XString::operator <= (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) <= 0;
 }
 
-// operator <=
+// operator override <=
 bool XString::operator <= (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) <= 0;
 }
 
-// operator >=
+// operator override >=
 bool XString::operator >= (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1, xcc::CaseSensitive) >= 0;
 }
 
-// operator >=
+// operator override >=
 bool XString::operator >= (const elem_type* _String) const noexcept
 {
 	return this->compare(_String, x_posix_strlen(_String), xcc::CaseSensitive) >= 0;
 }
 
-// operator >=
+// operator override >=
 bool XString::operator >= (const XString& _String) const noexcept
 {
 	return this->compare(_String.data(), _String.size(), xcc::CaseSensitive) >= 0;
@@ -227,13 +248,13 @@ bool XString::operator >= (const XString& _String) const noexcept
 
 
 
-// operator []
+// operator override []
 XString::elem_type& XString::operator [] (pos_type _Index)
 {
 	return this->_Allocator[_Index];
 }
 
-// operator []
+// operator override []
 XString::elem_type XString::operator [] (pos_type _Index) const
 {
 	return this->_Allocator[_Index];

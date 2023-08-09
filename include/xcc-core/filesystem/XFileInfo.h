@@ -5,7 +5,7 @@
 #include <xcc-core/container/XString.h>
 
 
-// file details
+// 文件详情
 struct XFileInfoPrivate;
 typedef struct XFileInfoPrivate			XFileInfoPrivate;
 class _XCOREAPI_ XFileInfo
@@ -34,65 +34,65 @@ public:
 	virtual ~XFileInfo() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XFileInfo& operator=(const XFileInfo& _Right) noexcept;
 
-	// operator =
+	// operator override =
 	XFileInfo& operator=(XFileInfo&& _Right) noexcept;
 
 public:
-	// [fmt] Convert path to native format
+	// [fmt] 转换至本机路径
 	static XString pathToNative(const XString& _Path) noexcept;
 
-	// [fmt] Convert path to common format
+	// [fmt] 转换至通用路径
 	static XString pathToCommon(const XString& _Path) noexcept;
 
 public:
-	// [static] Check if the path exists
+	// [static] 检查路径是否存在
 	static bool exist(const XString& _Path) noexcept;
 
-	// [static] checks whether the given path refers to a directory
+	// [static] 检查路径是否为目录
 	static bool isDir(const XString& _Path) noexcept;
 
-	// [static] checks whether the given path refers to a file
+	// [static] 检查路径是否为文件
 	static bool isFile(const XString& _Path) noexcept;
 
-	// [static] returns the size of a path
+	// [static] 获取文件大小
 	static x_uint64_t size(const XString& _Path) noexcept;
 
 public:
-	// clear all status flags
+	// 清理所有状态标记
 	virtual void clear() const noexcept final;
 
-	// Does the file exist
+	// 检查路径是否存在
 	virtual bool exist() const noexcept final;
 
-	// checks whether the given path refers to a directory
+	// 检查路径是否为目录
 	virtual bool isDir() const noexcept final;
 
-	// checks whether the given path refers to a file
+	// 检查路径是否为文件
 	virtual bool isFile() const noexcept final;
 
-	// Query file size
+	// 获取文件大小
 	virtual x_uint64_t size() const noexcept final;
 
 public:
-	// file parent directory path
+	// 路径的父目录
 	virtual XString dirPath() const noexcept final;
 
-	// file absolute path
+	// 路径的绝对路径
 	virtual XString filePath() const noexcept final;
 
-	// file name
+	// 路径的名称
 	virtual XString fileName() const noexcept final;
 
-	// returns the stem path component
+	// 路径不带后缀的名称
 	virtual XString stem() const noexcept final;
 
-	// returns the file extension path component
+	// 返回文件的扩展名
 	virtual XString extension() const noexcept final;
 
-	// returns the file extension path component
+	// 返回文件的扩展名
 	virtual XString suffix() const noexcept final;
 };
 

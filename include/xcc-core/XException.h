@@ -31,13 +31,13 @@ public:
 	virtual ~XException() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XException& operator = (const char* _Explain) noexcept;
 
-	// operator =
+	// operator override =
 	XException& operator = (const XString& _Explain) noexcept;
 
-	// operator =
+	// operator override =
 	XException& operator = (const XException& _Exception) noexcept;
 
 public:

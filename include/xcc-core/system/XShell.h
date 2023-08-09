@@ -23,6 +23,10 @@ public:
 
 	// Native system
 	static int system(const XString& _Command) noexcept;
+
+public:
+	// 运行命令行并返回结果
+	static XString terminalCommand(const XString& _Command) noexcept;
 };
 
 #endif

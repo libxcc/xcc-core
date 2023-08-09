@@ -19,7 +19,7 @@ XFileInfo::XFileInfo(const XString& _Path) noexcept
 {
 	d_ptr = new(std::nothrow) XFileInfoPrivate();
 
-	d_ptr->path = XFileInfo::pathToNative(_Path);
+	d_ptr->path = XFileInfo::pathToCommon(_Path);
 }
 
 // constructor
@@ -46,7 +46,7 @@ XFileInfo::~XFileInfo() noexcept
 
 
 
-// operator =
+// operator override =
 XFileInfo& XFileInfo::operator=(const XFileInfo& _Right) noexcept
 {
 	if(this != &_Right)
@@ -56,7 +56,7 @@ XFileInfo& XFileInfo::operator=(const XFileInfo& _Right) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XFileInfo& XFileInfo::operator=(XFileInfo&& _Right) noexcept
 {
 	if(this != &_Right)
@@ -68,7 +68,7 @@ XFileInfo& XFileInfo::operator=(XFileInfo&& _Right) noexcept
 
 
 
-// [fmt] Convert path to native format
+// [fmt] 转换至本机路径
 XString XFileInfo::pathToNative(const XString& _Path) noexcept
 {
 	auto		vFilePath = _Path;
@@ -85,7 +85,7 @@ XString XFileInfo::pathToNative(const XString& _Path) noexcept
 	return vFilePath;
 }
 
-// [fmt] Convert path to common format
+// [fmt] 转换至通用路径
 XString XFileInfo::pathToCommon(const XString& _Path) noexcept
 {
 	auto		vFilePath = _Path;
@@ -99,7 +99,7 @@ XString XFileInfo::pathToCommon(const XString& _Path) noexcept
 
 
 
-// [static] Check if the path exists
+// [static] 检查路径是否存在
 bool XFileInfo::exist(const XString& _Path) noexcept
 {
 	auto		vFilePath = XFileInfo::pathToNative(_Path);
@@ -110,7 +110,7 @@ bool XFileInfo::exist(const XString& _Path) noexcept
 #endif
 }
 
-// [static] checks whether the given path refers to a directory
+// [static] 检查路径是否为目录
 bool XFileInfo::isDir(const XString& _Path) noexcept
 {
 	auto		vFilePath = XFileInfo::pathToNative(_Path);
@@ -131,7 +131,7 @@ bool XFileInfo::isDir(const XString& _Path) noexcept
 	return false;
 }
 
-// [static] checks whether the given path refers to a file
+// [static] 检查路径是否为文件
 bool XFileInfo::isFile(const XString& _Path) noexcept
 {
 	auto		vFilePath = XFileInfo::pathToNative(_Path);
@@ -142,7 +142,7 @@ bool XFileInfo::isFile(const XString& _Path) noexcept
 	return false;
 }
 
-// [static] returns the size of a path
+// [static] 获取文件大小
 x_uint64_t XFileInfo::size(const XString& _Path) noexcept
 {
 	auto		vFilePath = XFileInfo::pathToNative(_Path);
@@ -151,13 +151,13 @@ x_uint64_t XFileInfo::size(const XString& _Path) noexcept
 
 
 
-// clear all status flags
+// 清理所有状态标记
 void XFileInfo::clear() const noexcept
 {
 	d_ptr->status = 0;
 }
 
-// Does the file exist
+// 检查路径是否存在
 bool XFileInfo::exist() const noexcept
 {
 	if((d_ptr->status & XFileInfoStatus::FILE_EXIST) == 0)
@@ -168,7 +168,7 @@ bool XFileInfo::exist() const noexcept
 	return d_ptr->exist;
 }
 
-// checks whether the given path refers to a directory
+// 检查路径是否为目录
 bool XFileInfo::isDir() const noexcept
 {
 	if((d_ptr->status & XFileInfoStatus::FILE_TYPE) == 0)
@@ -179,7 +179,7 @@ bool XFileInfo::isDir() const noexcept
 	return d_ptr->isDir;
 }
 
-// checks whether the given path refers to a file
+// 检查路径是否为文件
 bool XFileInfo::isFile() const noexcept
 {
 	if((d_ptr->status & XFileInfoStatus::FILE_TYPE) == 0)
@@ -190,7 +190,7 @@ bool XFileInfo::isFile() const noexcept
 	return !d_ptr->isDir;
 }
 
-// Query file size
+// 获取文件大小
 x_uint64_t XFileInfo::size() const noexcept
 {
 	if((d_ptr->status & XFileInfoStatus::FILE_SIZE) == 0)
@@ -203,7 +203,7 @@ x_uint64_t XFileInfo::size() const noexcept
 
 
 
-// file parent directory path
+// 路径的父目录
 XString XFileInfo::dirPath() const noexcept
 {
 	auto		vPos = d_ptr->path.rfind("/");
@@ -218,13 +218,13 @@ XString XFileInfo::dirPath() const noexcept
 	}
 }
 
-// file absolute path
+// 路径的绝对路径
 XString XFileInfo::filePath() const noexcept
 {
 	return d_ptr->path;
 }
 
-// file name
+// 路径的名称
 XString XFileInfo::fileName() const noexcept
 {
 	auto		vPos = d_ptr->path.rfind("/");
@@ -239,7 +239,7 @@ XString XFileInfo::fileName() const noexcept
 	}
 }
 
-// returns the stem path component
+// 路径不带后缀的名称
 XString XFileInfo::stem() const noexcept
 {
 	auto		vFileName = this->fileName();
@@ -254,13 +254,13 @@ XString XFileInfo::stem() const noexcept
 	}
 }
 
-// returns the file extension path component
+// 返回文件的扩展名
 XString XFileInfo::extension() const noexcept
 {
 	return this->suffix();
 }
 
-// returns the file extension path component
+// 返回文件的扩展名
 XString XFileInfo::suffix() const noexcept
 {
 	auto		vFileName = this->fileName();

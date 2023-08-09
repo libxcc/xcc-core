@@ -28,21 +28,21 @@ XException::~XException() noexcept = default;
 
 
 
-// operator =
+// operator override =
 XException& XException::operator = (const char* _Explain) noexcept
 {
 	this->_explain = _Explain;
 	return *this;
 }
 
-// operator =
+// operator override =
 XException& XException::operator = (const XString& _Explain) noexcept
 {
 	this->_explain = _Explain;
 	return *this;
 }
 
-// operator =
+// operator override =
 XException& XException::operator = (const XException& _Exception) noexcept = default;
 
 
@@ -115,7 +115,7 @@ static LONG NET_API_FUNCTION ApplicationCrashHandler(EXCEPTION_POINTERS* _Except
 	SYSTEMTIME	vSysTime;
 	GetLocalTime(&vSysTime);
 	char		vDateTime[64]={NULL};
-	x_posix_sprintf(vDateTime,"%4d-%02d-%02d %02d:%02d:%02d",vSysTime.wYear, vSysTime.wMonth, vSysTime.wDay, vSysTime.wHour, vSysTime.wMinute, vSysTime.wSecond);
+	x_posix_sprintf(vDateTime,"%4d-%02d-%02d-%02d-%02d-%02d",vSysTime.wYear, vSysTime.wMonth, vSysTime.wDay, vSysTime.wHour, vSysTime.wMinute, vSysTime.wSecond);
 
 	auto		vDirectory = XCoreApplication::applicationDirPath();
 	auto		vFileName = XCoreApplication::applicationFileStem();

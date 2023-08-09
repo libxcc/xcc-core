@@ -56,9 +56,6 @@ int XPA_ProcessTerminateById(x_uint64_t _ProcessID) noexcept
 // XPA: 从内存中运行进程
 int XPA_ProcessRunByMemory(const XPrivateProcessRunMemory& _Context, const std::function<bool(const XString& _Output)>& _Lambda) noexcept
 {
-	XCC_UNUSED(_Context);
-	XCC_UNUSED(_Lambda);
-
 	auto		AppMemory = _Context.memory.data();
 	auto		AppLength = _Context.memory.size();
 	auto		RunParameter = x_process_param_string_to_argv(_Context.args.data());

@@ -43,10 +43,10 @@ public:
 	virtual ~XEndian() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XEndian& operator = (const XEndian& _Endian) noexcept;
 
-	// operator =
+	// operator override =
 	XEndian& operator = (XEndian&& _Endian) noexcept;
 
 public:

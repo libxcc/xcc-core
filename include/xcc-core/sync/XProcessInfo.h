@@ -29,7 +29,7 @@ public:
 	virtual ~XProcessInfo() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XProcessInfo& operator = (const XProcessInfo& _Right) noexcept;
 
 public:

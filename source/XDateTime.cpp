@@ -29,6 +29,28 @@ static x_time_type __xcall__ x_datetime_current_millisecond_utc() noexcept
 #endif
 }
 
+// 检查相同字符数量
+static int __xcall__ xcc_datetime_repeat_count(const XString& _String) noexcept
+{
+	if(_String.empty())
+	{
+		return 0;
+	}
+
+	auto		vChar = _String[0];
+	auto		vCount = _String.size();
+	auto		vIndex = XString::size_type(1);
+	while(vIndex < vCount)
+	{
+		if(vChar != _String[vIndex])
+		{
+			break;
+		}
+		++vIndex;
+	}
+	return (int)vIndex;
+}
+
 
 
 // constructors
@@ -61,7 +83,7 @@ XDateTime::~XDateTime() noexcept = default;
 
 
 
-// override operator =
+// operator override =
 XDateTime& XDateTime::operator = (const XDateTime& _Other) noexcept = default;
 
 
@@ -116,7 +138,7 @@ x_time_type XDateTime::weekStartOffset(x_time_type _Year) noexcept
 {
 	// 一周起始定为周一
 	static const x_time_type 	week_offset_1901 = -6;
-	if(_Year < 1901)
+	if(_Year < 1900)
 	{
 		return 0;
 	}
@@ -148,22 +170,186 @@ x_time_type XDateTime::toSecond() const noexcept
 // [cnv] 转换为字符串
 XString XDateTime::toString(const XString& _Format) const noexcept
 {
-	XCC_UNUSED(_Format);
-
 	auto		vMillisecond = this->toMillisecond();
 	auto		vTM = x_datetime_millisecond_to_tm(vMillisecond);
+	if(vTM == nullptr)
+	{
+		return "null";
+	}
+	auto		value_year	= vTM->tm_year + XDateTime::tm_offset_year;
+	auto		value_month	= vTM->tm_mon + XDateTime::tm_offset_month;
+	auto		value_day	= vTM->tm_mday + XDateTime::tm_offset_day;
+	auto		value_hour	= vTM->tm_hour;
+	auto		value_min	= vTM->tm_min;
+	auto		value_sec	= vTM->tm_sec;
+	auto		value_ms	= vMillisecond % XDateTime::millisecond_second;
+	auto		value_week	= (vTM->tm_wday + 6) % 7;
 
-	return XString::format("%04d-%02d-%02dT%02d:%02d:%02d.%03dZ",
-			       vTM->tm_year + XDateTime::tm_offset_year,
-			       vTM->tm_mon + XDateTime::tm_offset_month,
-			       vTM->tm_mday + XDateTime::tm_offset_day,
-			       vTM->tm_hour, vTM->tm_min, vTM->tm_sec, vMillisecond % XDateTime::millisecond_second);
+	// 检查数据范围
+	if(value_month <= 0 || value_month > 12)
+	{
+		return "null";
+	}
+
+	XString		vFormatDT = nullptr;
+	auto		vFormatCount = _Format.size();
+	auto		vFormatIndex = XString::size_type(0);
+	while(vFormatIndex < vFormatCount)
+	{
+		auto		vChar = _Format[vFormatIndex];
+		auto		vSameAmount = xcc_datetime_repeat_count(_Format.mid(vFormatIndex));
+		switch (vChar)
+		{
+			case 'y':
+				switch (vSameAmount)
+				{
+					case 4:
+						vFormatDT << XString::format("%04d", value_year).right(vSameAmount);
+						vFormatIndex += vSameAmount;
+						break;
+					case 2:
+						vFormatDT << XString::format("%02d", value_year).right(vSameAmount);
+						vFormatIndex += vSameAmount;
+						break;
+					default:
+						vFormatDT << vChar;
+						vFormatIndex += 1;
+						break;
+				}
+				break;
+			case 'M':
+				switch (vSameAmount)
+				{
+					case 4:
+						vFormatDT << month_name_long[value_month - 1];
+						vFormatIndex += vSameAmount;
+						break;
+					case 3:
+						vFormatDT << month_name_short[value_month - 1];
+						vFormatIndex += vSameAmount;
+						break;
+					case 2:
+						vFormatDT << XString::format("%02d", value_month).right(vSameAmount);
+						vFormatIndex += vSameAmount;
+						break;
+					case 1:
+						vFormatDT << XString::format("%d", value_month);
+						vFormatIndex += vSameAmount;
+						break;
+					default:
+						vFormatDT << vChar;
+						vFormatIndex += 1;
+						break;
+				}
+				break;
+			case 'd':
+				switch (vSameAmount)
+				{
+					case 4:
+						vFormatDT << week_name_long[value_week];
+						vFormatIndex += vSameAmount;
+						break;
+					case 3:
+						vFormatDT << week_name_short[value_week];
+						vFormatIndex += vSameAmount;
+						break;
+					case 2:
+						vFormatDT << XString::format("%02d", value_day).right(vSameAmount);
+						vFormatIndex += vSameAmount;
+						break;
+					case 1:
+						vFormatDT << XString::format("%d", value_day).right(vSameAmount);
+						vFormatIndex += vSameAmount;
+						break;
+					default:
+						vFormatDT << vChar;
+						vFormatIndex += 1;
+						break;
+				}
+				break;
+			case 'h':
+				switch (vSameAmount)
+				{
+					case 2:
+						vFormatDT << XString::format("%02d", value_hour);
+						vFormatIndex += vSameAmount;
+						break;
+					case 1:
+						vFormatDT << XString::format("%d", value_hour);
+						vFormatIndex += vSameAmount;
+						break;
+					default:
+						vFormatDT << vChar;
+						vFormatIndex += 1;
+						break;
+				}
+				break;
+			case 'm':
+				switch (vSameAmount)
+				{
+					case 2:
+						vFormatDT << XString::format("%02d", value_min);
+						vFormatIndex += vSameAmount;
+						break;
+					case 1:
+						vFormatDT << XString::format("%d", value_min);
+						vFormatIndex += vSameAmount;
+						break;
+					default:
+						vFormatDT << vChar;
+						vFormatIndex += 1;
+						break;
+				}
+				break;
+			case 's':
+				switch (vSameAmount)
+				{
+					case 2:
+						vFormatDT << XString::format("%02d", value_sec);
+						vFormatIndex += vSameAmount;
+						break;
+					case 1:
+						vFormatDT << XString::format("%d", value_sec);
+						vFormatIndex += vSameAmount;
+						break;
+					default:
+						vFormatDT << vChar;
+						vFormatIndex += 1;
+						break;
+				}
+				break;
+			case 'z':
+				switch (vSameAmount)
+				{
+					case 3:
+					case 2:
+					case 1:
+						vFormatDT << XString::format("%03d", value_ms).left(vSameAmount);
+						vFormatIndex += vSameAmount;
+						break;
+					default:
+						vFormatDT << vChar;
+						vFormatIndex += 1;
+						break;
+				}
+				break;
+			default:
+				vFormatDT << vChar;
+				vFormatIndex += 1;
+				break;
+		}
+	}
+	return vFormatDT;
 }
 
 // [cnv] 转换到年份
 x_time_type XDateTime::convertToYear() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
+	if(vTM == nullptr)
+	{
+		return 0;
+	}
 	return vTM->tm_year + XDateTime::tm_offset_year;
 }
 
@@ -171,6 +357,10 @@ x_time_type XDateTime::convertToYear() const noexcept
 x_time_type XDateTime::convertToMonth() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
+	if(vTM == nullptr)
+	{
+		return 0;
+	}
 	return vTM->tm_mon + XDateTime::tm_offset_month;
 }
 
@@ -178,6 +368,10 @@ x_time_type XDateTime::convertToMonth() const noexcept
 x_time_type XDateTime::convertToDay() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
+	if(vTM == nullptr)
+	{
+		return 0;
+	}
 	return vTM->tm_yday + XDateTime::tm_offset_day;
 }
 
@@ -187,7 +381,10 @@ x_time_type XDateTime::convertToDay() const noexcept
 XDateTime& XDateTime::truncateToYear() noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
-	*this = XDateTime(vTM->tm_year + XDateTime::tm_offset_year, 0 + XDateTime::tm_offset_month, 1 + XDateTime::tm_offset_day, 0, 0, 0, 0);
+	if(vTM)
+	{
+		*this = XDateTime(vTM->tm_year + XDateTime::tm_offset_year, 0 + XDateTime::tm_offset_month, 1 + XDateTime::tm_offset_day, 0, 0, 0, 0);
+	}
 	return *this;
 }
 
@@ -195,7 +392,10 @@ XDateTime& XDateTime::truncateToYear() noexcept
 XDateTime& XDateTime::truncateToMonth() noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
-	*this = XDateTime(vTM->tm_year + XDateTime::tm_offset_year, vTM->tm_mon + XDateTime::tm_offset_month, 1 + XDateTime::tm_offset_day, 0, 0, 0, 0);
+	if(vTM)
+	{
+		*this = XDateTime(vTM->tm_year + XDateTime::tm_offset_year, vTM->tm_mon + XDateTime::tm_offset_month, 1 + XDateTime::tm_offset_day, 0, 0, 0, 0);
+	}
 	return *this;
 }
 

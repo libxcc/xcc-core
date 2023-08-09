@@ -56,95 +56,105 @@ public:
 	virtual ~XString() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XString& operator = (const elem_type* _Memory) noexcept;
 
-	// operator =
+	// operator override =
 	XString& operator = (const XString& _String) noexcept;
 
-	// operator =
+	// operator override =
 	XString& operator = (XString&& _String) noexcept;
 
 public:
-	// operator +=
+	// operator override +=
 	XString& operator += (elem_type _Char) noexcept;
 
-	// operator +=
+	// operator override +=
 	XString& operator += (const elem_type* _String) noexcept;
 
-	// operator +=
+	// operator override +=
 	XString& operator += (const XString& _String) noexcept;
 
 public:
-	// operator +
+	// operator override +
 	XString operator + (elem_type _Char) const noexcept;
 
-	// operator +
+	// operator override +
 	XString operator + (const elem_type* _String) const noexcept;
 
-	// operator +
+	// operator override +
 	XString operator + (const XString& _String) const noexcept;
 
 public:
-	// operator ==
+	// operator override <<
+	XString& operator << (elem_type _Char) noexcept;
+
+	// operator override <<
+	XString& operator << (const elem_type* _String) noexcept;
+
+	// operator override <<
+	XString& operator << (const XString& _String) noexcept;
+
+public:
+	// operator override ==
 	bool operator == (elem_type _Char) const noexcept;
 
-	// operator ==
+	// operator override ==
 	bool operator == (const elem_type* _String) const noexcept;
 
-	// operator ==
+	// operator override ==
 	bool operator == (const XString& _String) const noexcept;
 
-	// operator !=
+	// operator override !=
 	bool operator != (elem_type _Char) const noexcept;
 
-	// operator !=
+	// operator override !=
 	bool operator != (const elem_type* _String) const noexcept;
 
-	// operator !=
+	// operator override !=
 	bool operator != (const XString& _String) const noexcept;
 
-	// operator <
+	// operator override <
 	bool operator < (elem_type _Char) const noexcept;
 
-	// operator <
+	// operator override <
 	bool operator < (const elem_type* _String) const noexcept;
 
-	// operator <
+	// operator override <
 	bool operator < (const XString& _String) const noexcept;
 
-	// operator >
+	// operator override >
 	bool operator > (elem_type _Char) const noexcept;
 
-	// operator >
+	// operator override >
 	bool operator > (const elem_type* _String) const noexcept;
 
-	// operator >
+	// operator override >
 	bool operator > (const XString& _String) const noexcept;
 
-	// operator <=
+	// operator override <=
 	bool operator <= (elem_type _Char) const noexcept;
 
-	// operator <=
+	// operator override <=
 	bool operator <= (const elem_type* _String) const noexcept;
 
-	// operator <=
+	// operator override <=
 	bool operator <= (const XString& _String) const noexcept;
 
-	// operator >=
+	// operator override >=
 	bool operator >= (elem_type _Char) const noexcept;
 
-	// operator >=
+	// operator override >=
 	bool operator >= (const elem_type* _String) const noexcept;
 
-	// operator >=
+	// operator override >=
 	bool operator >= (const XString& _String) const noexcept;
 
 public:
-	// operator []
+	// operator override []
 	elem_type& operator [] (pos_type _Index);
 
-	// operator []
+	// operator override []
 	elem_type operator [] (pos_type _Index) const;
 
 public:
@@ -653,10 +663,10 @@ public:
 	virtual XString toBase64() const noexcept final;
 
 	// [conv] convert from base64
-	virtual XString fromBase64(const elem_type* _String, size_type _Size) noexcept final;
+	static XString fromBase64(const elem_type* _String, size_type _Size) noexcept;
 
 	// [conv] convert from base64
-	virtual XString fromBase64(const XString& _Base64) noexcept final;
+	static XString fromBase64(const XString& _Base64) noexcept;
 
 public:
 	// [conv] 转换至AString

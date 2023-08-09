@@ -107,7 +107,7 @@ static bool pe_bit_is_64(const IMAGE_NT_HEADERS* _NtHeader) noexcept
 // 获取默认HOST
 static const char* pe_run_get_default_host(const IMAGE_NT_HEADERS* _NtHeader) noexcept
 {
-	if(XSystem::is_64bit() && pe_bit_is_64(_NtHeader))
+	if(XOperatingSystem::isBit64() && pe_bit_is_64(_NtHeader))
 	{
 		return R"(C:\Windows\SysWOW64\cmd.exe)";
 	}

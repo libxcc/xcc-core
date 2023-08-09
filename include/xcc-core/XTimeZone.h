@@ -60,10 +60,10 @@ public:
 	virtual ~XTimeZone() noexcept;
 
 public:
-	// override operator =
+	// operator override =
 	XTimeZone& operator = (XTimeZone::Region _Region) noexcept;
 
-	// override operator =
+	// operator override =
 	XTimeZone& operator = (const XTimeZone& _Other) noexcept;
 
 public:

@@ -40,111 +40,111 @@ namespace XFileSystem
 		virtual ~path() noexcept;
 
 	public:
-		// operator =
+		// operator override =
 		XFileSystem::path& operator = (const _Elem* _Path) noexcept;
 
-		// operator =
+		// operator override =
 		XFileSystem::path& operator = (const XString& _Path) noexcept;
 
-		// operator =
+		// operator override =
 		XFileSystem::path& operator = (const XFileSystem::path& _Path) noexcept;
 
-		// operator =
+		// operator override =
 		XFileSystem::path& operator = (XFileSystem::path&& _Path) noexcept;
 
 	public:
-		// operator +=
+		// operator override +=
 		XFileSystem::path& operator += (const _Elem* _Path) noexcept;
 
-		// operator +=
+		// operator override +=
 		XFileSystem::path& operator += (const XString& _Path) noexcept;
 
-		// operator +=
+		// operator override +=
 		XFileSystem::path& operator += (const XFileSystem::path& _Path) noexcept;
 
 	public:
-		// operator +
+		// operator override +
 		XFileSystem::path operator + (const _Elem* _Path) const noexcept;
 
-		// operator +
+		// operator override +
 		XFileSystem::path operator + (const XString& _Path) const noexcept;
 
-		// operator +
+		// operator override +
 		XFileSystem::path operator + (const XFileSystem::path& _Path) const noexcept;
 
 	public:
-		// operator /=
+		// operator override /=
 		XFileSystem::path& operator /= (const _Elem* _Path) noexcept;
 
-		// operator /=
+		// operator override /=
 		XFileSystem::path& operator /= (const XString& _Path) noexcept;
 
-		// operator /=
+		// operator override /=
 		XFileSystem::path& operator /= (const XFileSystem::path& _Path) noexcept;
 
 	public:
-		// operator /
+		// operator override /
 		XFileSystem::path operator / (const _Elem* _Path) const noexcept;
 
-		// operator /
+		// operator override /
 		XFileSystem::path operator / (const XString& _Path) const noexcept;
 
-		// operator /
+		// operator override /
 		XFileSystem::path operator / (const XFileSystem::path& _Path) const noexcept;
 
 	public:
-		// operator ==
+		// operator override ==
 		bool operator == (const _Elem* _Path)const noexcept;
 
-		// operator ==
+		// operator override ==
 		bool operator == (const XString& _Path)const noexcept;
 
-		// operator ==
+		// operator override ==
 		bool operator == (const XFileSystem::path& _Path)const noexcept;
 
-		// operator !=
+		// operator override !=
 		bool operator != (const _Elem* _Path)const noexcept;
 
-		// operator !=
+		// operator override !=
 		bool operator != (const XString& _Path)const noexcept;
 
-		// operator !=
+		// operator override !=
 		bool operator != (const XFileSystem::path& _Path)const noexcept;
 
-		// operator <
+		// operator override <
 		bool operator < (const _Elem* _Path)const noexcept;
 
-		// operator <
+		// operator override <
 		bool operator < (const XString& _Path)const noexcept;
 
-		// operator <
+		// operator override <
 		bool operator < (const XFileSystem::path& _Path)const noexcept;
 
-		// operator >
+		// operator override >
 		bool operator > (const _Elem* _Path) const noexcept;
 
-		// operator >
+		// operator override >
 		bool operator > (const XString& _Path) const noexcept;
 
-		// operator >
+		// operator override >
 		bool operator > (const XFileSystem::path& _Path) const noexcept;
 
-		// operator <=
+		// operator override <=
 		bool operator <= (const _Elem* _Path) const noexcept;
 
-		// operator <=
+		// operator override <=
 		bool operator <= (const XString& _Path) const noexcept;
 
-		// operator <=
+		// operator override <=
 		bool operator <= (const XFileSystem::path& _Path) const noexcept;
 
-		// operator >=
+		// operator override >=
 		bool operator >= (const _Elem* _Path) const noexcept;
 
-		// operator >=
+		// operator override >=
 		bool operator >= (const XString& _Path) const noexcept;
 
-		// operator >=
+		// operator override >=
 		bool operator >= (const XFileSystem::path& _Path) const noexcept;
 
 	public:

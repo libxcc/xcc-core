@@ -31,10 +31,10 @@ public:
 	virtual ~XNativeSoftwareDesc() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XNativeSoftwareDesc& operator=(const XNativeSoftwareDesc& _Right) noexcept;
 
-	// operator =
+	// operator override =
 	XNativeSoftwareDesc& operator=(XNativeSoftwareDesc&& _Right) noexcept;
 
 public:

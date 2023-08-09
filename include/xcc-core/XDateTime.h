@@ -76,7 +76,7 @@ public:
 	virtual ~XDateTime() noexcept;
 
 public:
-	// override operator =
+	// operator override =
 	XDateTime& operator = (const XDateTime& _Other) noexcept;
 
 public:

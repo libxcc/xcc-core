@@ -37,7 +37,7 @@ XByteArray::~XByteArray() noexcept = default;
 
 
 
-// operator =
+// operator override =
 XByteArray& XByteArray::operator = (const elem_type* _Memory) noexcept
 {
 	if(this->resize(x_posix_strlen(_Memory)))
@@ -47,7 +47,7 @@ XByteArray& XByteArray::operator = (const elem_type* _Memory) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XByteArray& XByteArray::operator = (const XByteArray& _Bytes) noexcept
 {
 	if(this != &_Bytes)
@@ -57,7 +57,7 @@ XByteArray& XByteArray::operator = (const XByteArray& _Bytes) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XByteArray& XByteArray::operator = (XByteArray&& _Bytes) noexcept
 {
 	if(this != &_Bytes)
@@ -69,20 +69,20 @@ XByteArray& XByteArray::operator = (XByteArray&& _Bytes) noexcept
 
 
 
-// operator +=
+// operator override +=
 XByteArray& XByteArray::operator += (elem_type _Char) noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->append(vBytes, 1);
 }
 
-// operator +=
+// operator override +=
 XByteArray& XByteArray::operator += (const elem_type* _Bytes) noexcept
 {
 	return this->append(_Bytes, x_posix_strlen(_Bytes));
 }
 
-// operator +=
+// operator override +=
 XByteArray& XByteArray::operator += (const XByteArray& _Bytes) noexcept
 {
 	return this->append(_Bytes.data(), _Bytes.size());
@@ -90,7 +90,7 @@ XByteArray& XByteArray::operator += (const XByteArray& _Bytes) noexcept
 
 
 
-// operator +
+// operator override +
 XByteArray XByteArray::operator + (elem_type _Char) const noexcept
 {
 	auto		vTemp = *this;
@@ -98,7 +98,7 @@ XByteArray XByteArray::operator + (elem_type _Char) const noexcept
 	return vTemp;
 }
 
-// operator +
+// operator override +
 XByteArray XByteArray::operator + (const elem_type* _Bytes) const noexcept
 {
 	auto		vTemp = *this;
@@ -106,7 +106,7 @@ XByteArray XByteArray::operator + (const elem_type* _Bytes) const noexcept
 	return vTemp;
 }
 
-// operator +
+// operator override +
 XByteArray XByteArray::operator + (const XByteArray& _Bytes) const noexcept
 {
 	auto		vTemp = *this;
@@ -116,39 +116,60 @@ XByteArray XByteArray::operator + (const XByteArray& _Bytes) const noexcept
 
 
 
-// operator ==
+// operator override <<
+XByteArray& XByteArray::operator << (elem_type _Char) noexcept
+{
+	elem_type		vBytes[2] = {_Char, '\0'};
+	return this->append(vBytes, 1);
+}
+
+// operator override <<
+XByteArray& XByteArray::operator << (const elem_type* _Bytes) noexcept
+{
+	return this->append(_Bytes, x_posix_strlen(_Bytes));
+}
+
+// operator override <<
+XByteArray& XByteArray::operator << (const XByteArray& _Bytes) noexcept
+{
+	return this->append(_Bytes.data(), _Bytes.size());
+}
+
+
+
+// operator override ==
 bool XByteArray::operator == (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1) == 0;
 }
 
-// operator ==
+// operator override ==
 bool XByteArray::operator == (const elem_type* _Bytes) const noexcept
 {
 	return this->compare(_Bytes, x_posix_strlen(_Bytes)) == 0;
 }
 
-// operator ==
+// operator override ==
 bool XByteArray::operator == (const XByteArray& _Bytes) const noexcept
 {
 	return this->compare(_Bytes.data(), _Bytes.size()) == 0;
 }
 
-// operator !=
+// operator override !=
 bool XByteArray::operator != (elem_type _Char) const noexcept
 {
 	elem_type		vBytes[2] = {_Char, '\0'};
 	return this->compare(vBytes, 1) != 0;
 }
 
-// operator !=
+// operator override !=
 bool XByteArray::operator != (const elem_type* _Bytes) const noexcept
 {
 	return this->compare(_Bytes, x_posix_strlen(_Bytes)) != 0;
 }
 
-// operator !=
+// operator override !=
 bool XByteArray::operator != (const XByteArray& _Bytes) const noexcept
 {
 	return this->compare(_Bytes.data(), _Bytes.size()) != 0;
@@ -156,13 +177,13 @@ bool XByteArray::operator != (const XByteArray& _Bytes) const noexcept
 
 
 
-// operator []
+// operator override []
 XByteArray::elem_type& XByteArray::operator [] (pos_type _Index)
 {
 	return this->_Allocator[_Index];
 }
 
-// operator []
+// operator override []
 XByteArray::elem_type XByteArray::operator [] (pos_type _Index) const
 {
 	return this->_Allocator[_Index];

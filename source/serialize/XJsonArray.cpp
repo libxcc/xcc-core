@@ -34,7 +34,7 @@ XJsonArray::~XJsonArray() noexcept
 
 
 
-// operator =
+// operator override =
 XJsonArray& XJsonArray::operator = (const XJsonArray& _Object) noexcept
 {
 	if(this != &_Object)
@@ -45,7 +45,7 @@ XJsonArray& XJsonArray::operator = (const XJsonArray& _Object) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XJsonArray& XJsonArray::operator = (XJsonArray&& _Object) noexcept
 {
 	if(this != &_Object)
@@ -59,13 +59,13 @@ XJsonArray& XJsonArray::operator = (XJsonArray&& _Object) noexcept
 
 
 
-// operator []
+// operator override []
 XJsonValue& XJsonArray::operator[](x_size_t _Index)
 {
 	return memberData->data[_Index];
 }
 
-// operator []
+// operator override []
 const XJsonValue& XJsonArray::operator[](x_size_t _Index) const
 {
 	return memberData->data[_Index];
@@ -286,7 +286,7 @@ XJsonArray::iterator::~iterator() noexcept
 
 
 
-// operator =
+// operator override =
 XJsonArray::iterator& XJsonArray::iterator::operator =(const iterator& _Object) noexcept
 {
 	if(this != &_Object)
@@ -297,7 +297,7 @@ XJsonArray::iterator& XJsonArray::iterator::operator =(const iterator& _Object) 
 	return *this;
 }
 
-// operator =
+// operator override =
 XJsonArray::iterator& XJsonArray::iterator::operator =(iterator&& _Object) noexcept
 {
 	if(this != &_Object)
@@ -311,7 +311,7 @@ XJsonArray::iterator& XJsonArray::iterator::operator =(iterator&& _Object) noexc
 
 
 
-// operator =
+// operator override =
 bool XJsonArray::iterator::operator ==(const iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -321,7 +321,7 @@ bool XJsonArray::iterator::operator ==(const iterator& _Object) noexcept
 	return false;
 }
 
-// operator =
+// operator override =
 bool XJsonArray::iterator::operator !=(const iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -333,14 +333,14 @@ bool XJsonArray::iterator::operator !=(const iterator& _Object) noexcept
 
 
 
-// operator ++
+// operator override ++
 XJsonArray::iterator& XJsonArray::iterator::operator ++() noexcept
 {
 	operator += (1);
 	return *this;
 }
 
-// operator ++
+// operator override ++
 XJsonArray::iterator XJsonArray::iterator::operator ++() const noexcept
 {
 	auto		vIterator = *this;
@@ -348,14 +348,14 @@ XJsonArray::iterator XJsonArray::iterator::operator ++() const noexcept
 	return vIterator;
 }
 
-// operator --
+// operator override --
 XJsonArray::iterator& XJsonArray::iterator::operator --() noexcept
 {
 	operator -= (1);
 	return *this;
 }
 
-// operator --
+// operator override --
 XJsonArray::iterator XJsonArray::iterator::operator --() const noexcept
 {
 	auto		vIterator = *this;
@@ -363,7 +363,7 @@ XJsonArray::iterator XJsonArray::iterator::operator --() const noexcept
 	return vIterator;
 }
 
-// operator +
+// operator override +
 XJsonArray::iterator XJsonArray::iterator::operator +(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -371,7 +371,7 @@ XJsonArray::iterator XJsonArray::iterator::operator +(x_ssize_t _Size) const noe
 	return vIterator;
 }
 
-// operator -
+// operator override -
 XJsonArray::iterator XJsonArray::iterator::operator -(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -379,7 +379,7 @@ XJsonArray::iterator XJsonArray::iterator::operator -(x_ssize_t _Size) const noe
 	return vIterator;
 }
 
-// operator +=
+// operator override +=
 XJsonArray::iterator& XJsonArray::iterator::operator +=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -389,7 +389,7 @@ XJsonArray::iterator& XJsonArray::iterator::operator +=(x_ssize_t _Size) noexcep
 	return *this;
 }
 
-// operator -=
+// operator override -=
 XJsonArray::iterator& XJsonArray::iterator::operator -=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -401,13 +401,13 @@ XJsonArray::iterator& XJsonArray::iterator::operator -=(x_ssize_t _Size) noexcep
 
 
 
-// operator *
+// operator override *
 XJsonValue& XJsonArray::iterator::operator *()
 {
 	return *(memberData->iter);
 }
 
-// operator *
+// operator override *
 const XJsonValue& XJsonArray::iterator::operator *() const
 {
 	return *(memberData->iter);
@@ -484,7 +484,7 @@ XJsonArray::const_iterator::~const_iterator() noexcept
 
 
 
-// operator =
+// operator override =
 XJsonArray::const_iterator& XJsonArray::const_iterator::operator =(const const_iterator& _Object) noexcept
 {
 	if(this != &_Object)
@@ -495,7 +495,7 @@ XJsonArray::const_iterator& XJsonArray::const_iterator::operator =(const const_i
 	return *this;
 }
 
-// operator =
+// operator override =
 XJsonArray::const_iterator& XJsonArray::const_iterator::operator =(const_iterator&& _Object) noexcept
 {
 	if(this != &_Object)
@@ -509,7 +509,7 @@ XJsonArray::const_iterator& XJsonArray::const_iterator::operator =(const_iterato
 
 
 
-// operator =
+// operator override =
 bool XJsonArray::const_iterator::operator ==(const const_iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -519,7 +519,7 @@ bool XJsonArray::const_iterator::operator ==(const const_iterator& _Object) noex
 	return false;
 }
 
-// operator =
+// operator override =
 bool XJsonArray::const_iterator::operator !=(const const_iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -531,14 +531,14 @@ bool XJsonArray::const_iterator::operator !=(const const_iterator& _Object) noex
 
 
 
-// operator ++
+// operator override ++
 XJsonArray::const_iterator& XJsonArray::const_iterator::operator ++() noexcept
 {
 	operator += (1);
 	return *this;
 }
 
-// operator ++
+// operator override ++
 XJsonArray::const_iterator XJsonArray::const_iterator::operator ++() const noexcept
 {
 	auto		vIterator = *this;
@@ -546,14 +546,14 @@ XJsonArray::const_iterator XJsonArray::const_iterator::operator ++() const noexc
 	return vIterator;
 }
 
-// operator --
+// operator override --
 XJsonArray::const_iterator& XJsonArray::const_iterator::operator --() noexcept
 {
 	operator -= (1);
 	return *this;
 }
 
-// operator --
+// operator override --
 XJsonArray::const_iterator XJsonArray::const_iterator::operator --() const noexcept
 {
 	auto		vIterator = *this;
@@ -561,7 +561,7 @@ XJsonArray::const_iterator XJsonArray::const_iterator::operator --() const noexc
 	return vIterator;
 }
 
-// operator +
+// operator override +
 XJsonArray::const_iterator XJsonArray::const_iterator::operator +(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -569,7 +569,7 @@ XJsonArray::const_iterator XJsonArray::const_iterator::operator +(x_ssize_t _Siz
 	return vIterator;
 }
 
-// operator -
+// operator override -
 XJsonArray::const_iterator XJsonArray::const_iterator::operator -(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -577,7 +577,7 @@ XJsonArray::const_iterator XJsonArray::const_iterator::operator -(x_ssize_t _Siz
 	return vIterator;
 }
 
-// operator +=
+// operator override +=
 XJsonArray::const_iterator& XJsonArray::const_iterator::operator +=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -587,7 +587,7 @@ XJsonArray::const_iterator& XJsonArray::const_iterator::operator +=(x_ssize_t _S
 	return *this;
 }
 
-// operator -=
+// operator override -=
 XJsonArray::const_iterator& XJsonArray::const_iterator::operator -=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -599,7 +599,7 @@ XJsonArray::const_iterator& XJsonArray::const_iterator::operator -=(x_ssize_t _S
 
 
 
-// operator *
+// operator override *
 const XJsonValue& XJsonArray::const_iterator::operator *() const
 {
 	return *(memberData->iter);

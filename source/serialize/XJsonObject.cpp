@@ -34,7 +34,7 @@ XJsonObject::~XJsonObject() noexcept
 
 
 
-// operator =
+// operator override =
 XJsonObject& XJsonObject::operator = (const XJsonObject& _Object) noexcept
 {
 	if(this != &_Object)
@@ -45,7 +45,7 @@ XJsonObject& XJsonObject::operator = (const XJsonObject& _Object) noexcept
 	return *this;
 }
 
-// operator =
+// operator override =
 XJsonObject& XJsonObject::operator = (XJsonObject&& _Object) noexcept
 {
 	if(this != &_Object)
@@ -59,7 +59,7 @@ XJsonObject& XJsonObject::operator = (XJsonObject&& _Object) noexcept
 
 
 
-// operator []
+// operator override []
 XJsonValue& XJsonObject::operator[](const XString& _Key)
 {
 	auto		vIterator = memberData->find(_Key);
@@ -71,7 +71,7 @@ XJsonValue& XJsonObject::operator[](const XString& _Key)
 	return vIterator->second;
 }
 
-// operator []
+// operator override []
 const XJsonValue& XJsonObject::operator[](const XString& _Key) const
 {
 	auto		vIterator = memberData->find(_Key);
@@ -296,7 +296,7 @@ XJsonObject::iterator::~iterator() noexcept
 
 
 
-// operator =
+// operator override =
 XJsonObject::iterator& XJsonObject::iterator::operator =(const iterator& _Object) noexcept
 {
 	if(this != &_Object)
@@ -307,7 +307,7 @@ XJsonObject::iterator& XJsonObject::iterator::operator =(const iterator& _Object
 	return *this;
 }
 
-// operator =
+// operator override =
 XJsonObject::iterator& XJsonObject::iterator::operator =(iterator&& _Object) noexcept
 {
 	if(this != &_Object)
@@ -321,7 +321,7 @@ XJsonObject::iterator& XJsonObject::iterator::operator =(iterator&& _Object) noe
 
 
 
-// operator =
+// operator override =
 bool XJsonObject::iterator::operator ==(const iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -331,7 +331,7 @@ bool XJsonObject::iterator::operator ==(const iterator& _Object) noexcept
 	return false;
 }
 
-// operator =
+// operator override =
 bool XJsonObject::iterator::operator !=(const iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -343,14 +343,14 @@ bool XJsonObject::iterator::operator !=(const iterator& _Object) noexcept
 
 
 
-// operator ++
+// operator override ++
 XJsonObject::iterator& XJsonObject::iterator::operator ++() noexcept
 {
 	operator += (1);
 	return *this;
 }
 
-// operator ++
+// operator override ++
 XJsonObject::iterator XJsonObject::iterator::operator ++() const noexcept
 {
 	auto		vIterator = *this;
@@ -358,14 +358,14 @@ XJsonObject::iterator XJsonObject::iterator::operator ++() const noexcept
 	return vIterator;
 }
 
-// operator --
+// operator override --
 XJsonObject::iterator& XJsonObject::iterator::operator --() noexcept
 {
 	operator -= (1);
 	return *this;
 }
 
-// operator --
+// operator override --
 XJsonObject::iterator XJsonObject::iterator::operator --() const noexcept
 {
 	auto		vIterator = *this;
@@ -373,7 +373,7 @@ XJsonObject::iterator XJsonObject::iterator::operator --() const noexcept
 	return vIterator;
 }
 
-// operator +
+// operator override +
 XJsonObject::iterator XJsonObject::iterator::operator +(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -381,7 +381,7 @@ XJsonObject::iterator XJsonObject::iterator::operator +(x_ssize_t _Size) const n
 	return vIterator;
 }
 
-// operator -
+// operator override -
 XJsonObject::iterator XJsonObject::iterator::operator -(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -389,7 +389,7 @@ XJsonObject::iterator XJsonObject::iterator::operator -(x_ssize_t _Size) const n
 	return vIterator;
 }
 
-// operator +=
+// operator override +=
 XJsonObject::iterator& XJsonObject::iterator::operator +=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -411,7 +411,7 @@ XJsonObject::iterator& XJsonObject::iterator::operator +=(x_ssize_t _Size) noexc
 	return *this;
 }
 
-// operator -=
+// operator override -=
 XJsonObject::iterator& XJsonObject::iterator::operator -=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -435,13 +435,13 @@ XJsonObject::iterator& XJsonObject::iterator::operator -=(x_ssize_t _Size) noexc
 
 
 
-// operator *
+// operator override *
 XJsonValue& XJsonObject::iterator::operator *()
 {
 	return memberData->iter->second;
 }
 
-// operator *
+// operator override *
 const XJsonValue& XJsonObject::iterator::operator *() const
 {
 	return memberData->iter->second;
@@ -514,7 +514,7 @@ XJsonObject::const_iterator::~const_iterator() noexcept
 
 
 
-// operator =
+// operator override =
 XJsonObject::const_iterator& XJsonObject::const_iterator::operator =(const const_iterator& _Object) noexcept
 {
 	if(this != &_Object)
@@ -525,7 +525,7 @@ XJsonObject::const_iterator& XJsonObject::const_iterator::operator =(const const
 	return *this;
 }
 
-// operator =
+// operator override =
 XJsonObject::const_iterator& XJsonObject::const_iterator::operator =(const_iterator&& _Object) noexcept
 {
 	if(this != &_Object)
@@ -539,7 +539,7 @@ XJsonObject::const_iterator& XJsonObject::const_iterator::operator =(const_itera
 
 
 
-// operator =
+// operator override =
 bool XJsonObject::const_iterator::operator ==(const const_iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -549,7 +549,7 @@ bool XJsonObject::const_iterator::operator ==(const const_iterator& _Object) noe
 	return false;
 }
 
-// operator =
+// operator override =
 bool XJsonObject::const_iterator::operator !=(const const_iterator& _Object) noexcept
 {
 	if(memberData && _Object.memberData)
@@ -561,14 +561,14 @@ bool XJsonObject::const_iterator::operator !=(const const_iterator& _Object) noe
 
 
 
-// operator ++
+// operator override ++
 XJsonObject::const_iterator& XJsonObject::const_iterator::operator ++() noexcept
 {
 	operator += (1);
 	return *this;
 }
 
-// operator ++
+// operator override ++
 XJsonObject::const_iterator XJsonObject::const_iterator::operator ++() const noexcept
 {
 	auto		vIterator = *this;
@@ -576,14 +576,14 @@ XJsonObject::const_iterator XJsonObject::const_iterator::operator ++() const noe
 	return vIterator;
 }
 
-// operator --
+// operator override --
 XJsonObject::const_iterator& XJsonObject::const_iterator::operator --() noexcept
 {
 	operator -= (1);
 	return *this;
 }
 
-// operator --
+// operator override --
 XJsonObject::const_iterator XJsonObject::const_iterator::operator --() const noexcept
 {
 	auto		vIterator = *this;
@@ -591,7 +591,7 @@ XJsonObject::const_iterator XJsonObject::const_iterator::operator --() const noe
 	return vIterator;
 }
 
-// operator +
+// operator override +
 XJsonObject::const_iterator XJsonObject::const_iterator::operator +(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -599,7 +599,7 @@ XJsonObject::const_iterator XJsonObject::const_iterator::operator +(x_ssize_t _S
 	return vIterator;
 }
 
-// operator -
+// operator override -
 XJsonObject::const_iterator XJsonObject::const_iterator::operator -(x_ssize_t _Size) const noexcept
 {
 	auto		vIterator = *this;
@@ -607,7 +607,7 @@ XJsonObject::const_iterator XJsonObject::const_iterator::operator -(x_ssize_t _S
 	return vIterator;
 }
 
-// operator +=
+// operator override +=
 XJsonObject::const_iterator& XJsonObject::const_iterator::operator +=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -632,7 +632,7 @@ XJsonObject::const_iterator& XJsonObject::const_iterator::operator +=(x_ssize_t 
 	return *this;
 }
 
-// operator -=
+// operator override -=
 XJsonObject::const_iterator& XJsonObject::const_iterator::operator -=(x_ssize_t _Size) noexcept
 {
 	if(memberData)
@@ -659,7 +659,7 @@ XJsonObject::const_iterator& XJsonObject::const_iterator::operator -=(x_ssize_t 
 
 
 
-// operator *
+// operator override *
 const XJsonValue& XJsonObject::const_iterator::operator *() const
 {
 	return memberData->iter->second;

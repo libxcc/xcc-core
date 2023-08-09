@@ -80,7 +80,7 @@ XString XCoreApplication::applicationFilePath() noexcept
 		::GetModuleFileNameW(::GetModuleHandleW(nullptr), vDirectory, XCC_PATH_MAX);
 		static_object_example = XFileSystem::path::format(XString::fromWString(vDirectory)).filePath();
 #else
-		#if defined(XCC_SYSTEM_DARWIN)
+#if defined(XCC_SYSTEM_DARWIN)
 		char		vDirectory[XCC_PATH_MAX];
 		x_uint32_t	vLength = XCC_PATH_MAX;
 		if(_NSGetExecutablePath(vDirectory, &vLength) != 0)
@@ -180,71 +180,4 @@ XString XCoreApplication::currentDirectory() noexcept
 	x_posix_getcwd(vDirectory, XCC_PATH_MAX);
 	auto		vDirectoryPath = XFileSystem::path::format(XString::fromUString(vDirectory));
 	return vDirectoryPath.filePath();
-}
-
-
-
-// [get] 运行环境目录
-XString XCoreApplication::environmentDirPath() noexcept
-{
-	static auto	vEnvironmentDirPath = XString();
-	if(vEnvironmentDirPath.empty())
-	{
-		auto		vApplicationName = applicationFileStem().toLower();
-		auto		vDirectory = XCoreApplication::configDirectory() + "/com.xanadu." + vApplicationName;
-		XFileSystem::directory_create(vDirectory);
-		vEnvironmentDirPath = vDirectory;
-	}
-	return vEnvironmentDirPath;
-}
-
-
-
-// Gets the cache directory currently in use
-XString XCoreApplication::cacheDirectory() noexcept
-{
-	static auto	vCacheDirectory = XString();
-	if(vCacheDirectory.empty())
-	{
-#if defined(XCC_SYSTEM_WINDOWS)
-		wchar_t		vLongDirectory[XCC_PATH_MAX] = { 0 };
-		wchar_t		vTempDirectory[XCC_PATH_MAX] = { 0 };
-		if(::GetTempPathW(XCC_PATH_MAX, vTempDirectory))
-		{
-			::GetLongPathNameW(vTempDirectory, vLongDirectory, XCC_PATH_MAX);
-		}
-		auto		vDirectoryPrefix = XFileSystem::path::format(XString::fromWString(vLongDirectory)).filePath();
-#else
-		auto		vDirectoryPrefix = XString("/tmp");
-#endif
-		XFileSystem::directory_create(vDirectoryPrefix);
-		vCacheDirectory = vDirectoryPrefix;
-	}
-	return vCacheDirectory;
-}
-
-// Get local configuration directory
-XString XCoreApplication::configDirectory() noexcept
-{
-	static auto	vConfigDirectory = XString();
-	if(vConfigDirectory.empty())
-	{
-		auto		vDirectoryPrefix = XString();
-#if defined(XCC_SYSTEM_WINDOWS)
-		wchar_t		vLocalDirectory[XCC_PATH_MAX] = { 0 };
-		if(::SHGetSpecialFolderPathW(GetDesktopWindow(), vLocalDirectory, CSIDL_LOCAL_APPDATA, FALSE))
-		{
-			vDirectoryPrefix = XFileSystem::path::format(XString::fromWString(vLocalDirectory)).filePath();
-		}
-		else
-		{
-			vDirectoryPrefix = XSystem::userHome() + "/AppData/Local";
-		}
-#else
-		vDirectoryPrefix = XSystem::userHome() + "/.config";
-#endif
-		XFileSystem::directory_create(vDirectoryPrefix);
-		vConfigDirectory = vDirectoryPrefix;
-	}
-	return vConfigDirectory;
 }

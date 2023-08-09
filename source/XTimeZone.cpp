@@ -22,14 +22,14 @@ XTimeZone::~XTimeZone() noexcept = default;
 
 
 
-// override operator =
+// operator override =
 XTimeZone& XTimeZone::operator = (XTimeZone::Region _Region) noexcept
 {
 	memberRegion = _Region;
 	return *this;
 }
 
-// override operator =
+// operator override =
 XTimeZone& XTimeZone::operator = (const XTimeZone& _Other) noexcept = default;
 
 

@@ -45,59 +45,69 @@ public:
 	virtual ~XByteArray() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XByteArray& operator = (const elem_type* _Memory) noexcept;
 
-	// operator =
+	// operator override =
 	XByteArray& operator = (const XByteArray& _Bytes) noexcept;
 
-	// operator =
+	// operator override =
 	XByteArray& operator = (XByteArray&& _Bytes) noexcept;
 
 public:
-	// operator +=
+	// operator override +=
 	XByteArray& operator += (elem_type _Char) noexcept;
 
-	// operator +=
+	// operator override +=
 	XByteArray& operator += (const elem_type* _Bytes) noexcept;
 
-	// operator +=
+	// operator override +=
 	XByteArray& operator += (const XByteArray& _Bytes) noexcept;
 
 public:
-	// operator +
+	// operator override +
 	XByteArray operator + (elem_type _Char) const noexcept;
 
-	// operator +
+	// operator override +
 	XByteArray operator + (const elem_type* _Bytes) const noexcept;
 
-	// operator +
+	// operator override +
 	XByteArray operator + (const XByteArray& _Bytes) const noexcept;
 
 public:
-	// operator ==
+	// operator override <<
+	XByteArray& operator << (elem_type _Char) noexcept;
+
+	// operator override <<
+	XByteArray& operator << (const elem_type* _Bytes) noexcept;
+
+	// operator override <<
+	XByteArray& operator << (const XByteArray& _Bytes) noexcept;
+
+public:
+	// operator override ==
 	bool operator == (elem_type _Char) const noexcept;
 
-	// operator ==
+	// operator override ==
 	bool operator == (const elem_type* _Bytes) const noexcept;
 
-	// operator ==
+	// operator override ==
 	bool operator == (const XByteArray& _Bytes) const noexcept;
 
-	// operator !=
+	// operator override !=
 	bool operator != (elem_type _Char) const noexcept;
 
-	// operator !=
+	// operator override !=
 	bool operator != (const elem_type* _Bytes) const noexcept;
 
-	// operator !=
+	// operator override !=
 	bool operator != (const XByteArray& _Bytes) const noexcept;
 
 public:
-	// operator []
+	// operator override []
 	elem_type& operator [] (pos_type _Index);
 
-	// operator []
+	// operator override []
 	elem_type operator [] (pos_type _Index) const;
 
 public:

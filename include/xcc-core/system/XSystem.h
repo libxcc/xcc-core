@@ -59,26 +59,8 @@ public:
 	// Computer name
 	static XString hostName() noexcept;
 
-	// Gets the directory for the current user
-	static XString userHome() noexcept;
-
-	// Whether the operating system is 32-bit
-	static bool is_32bit() noexcept;
-
-	// Whether the operating system is 64-bit
-	static bool is_64bit() noexcept;
-
-	// Whether the operating system is a server version
-	static bool isServer() noexcept;
-
-	// Whether the operating system is a desktop version
-	static bool isDesktop() noexcept;
-
 	// Native system String
 	static XString nativeString() noexcept;
-
-	// Native Build Version
-	static XString buildVersion() noexcept;
 
 public:
 	// [get] 系统唯一ID

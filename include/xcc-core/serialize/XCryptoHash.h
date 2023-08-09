@@ -6,8 +6,8 @@
 #include <xcc-core/container/XString.h>
 
 
-// A public class that evaluates the hash value.
-// Contains common algorithm such as CRC32, MD5, SHA1.
+// 计算哈希值的公共类。
+// 包含CRC32、MD5、SHA1等常用算法。
 struct XCryptoHashPrivate;
 typedef struct XCryptoHashPrivate		XCryptoHashPrivate;
 class _XCOREAPI_ XCryptoHash

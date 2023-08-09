@@ -33,7 +33,7 @@ XProcessInfo::~XProcessInfo() noexcept
 
 
 
-// operator =
+// operator override =
 XProcessInfo& XProcessInfo::operator = (const XProcessInfo& _Right) noexcept
 {
 	if(this != &_Right)

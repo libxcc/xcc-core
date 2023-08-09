@@ -1,5 +1,5 @@
 ﻿#include <xcc-core/native/XNativeSoftware.h>
-#include <xcc-core/system/XSystem.h>
+#include <xcc-core/system/XOperatingSystem.h>
 
 
 // Native software details
@@ -57,7 +57,7 @@ XNativeSoftwareDesc::~XNativeSoftwareDesc() noexcept
 
 
 
-// operator =
+// operator override =
 XNativeSoftwareDesc& XNativeSoftwareDesc::operator=(const XNativeSoftwareDesc& _Right) noexcept
 {
 	if(this != &_Right)
@@ -67,7 +67,7 @@ XNativeSoftwareDesc& XNativeSoftwareDesc::operator=(const XNativeSoftwareDesc& _
 	return *this;
 }
 
-// operator =
+// operator override =
 XNativeSoftwareDesc& XNativeSoftwareDesc::operator=(XNativeSoftwareDesc&& _Right) noexcept
 {
 	if(this != &_Right)
@@ -202,7 +202,7 @@ bool XNativeSoftware::softwareEnum(const std::function<bool(const XNativeSoftwar
 		}
 	}
 	//获取64位
-	if(XSystem::is_64bit())
+	if(XOperatingSystem::isBit64())
 	{
 		HKEY		vKey = nullptr;
 		LONG		vRegedit = RegOpenKeyExA(HKEY_LOCAL_MACHINE, R"(SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall)", NULL, KEY_READ | KEY_WOW64_64KEY, &vKey);

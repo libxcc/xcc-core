@@ -135,3 +135,17 @@ int XShell::system(const XString& _Command) noexcept
 	return x_posix_system(_Command.toUString().data());
 #endif
 }
+
+
+
+// 运行命令行并返回结果
+XString XShell::terminalCommand(const XString& _Command) noexcept
+{
+	XString		vTempResult;
+	XShell::run(_Command, [&](const XString& _Output)->bool
+	{
+		vTempResult += _Output;
+		return true;
+	});
+	return vTempResult;
+}

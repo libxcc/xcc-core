@@ -26,10 +26,10 @@ public:
 	virtual ~XThread() noexcept;
 
 private:
-	// operator =
+	// operator override =
 	XThread& operator = (const XThread& _Other) noexcept;
 
-	// operator =
+	// operator override =
 	XThread& operator = (XThread&& _Other) noexcept;
 
 public:

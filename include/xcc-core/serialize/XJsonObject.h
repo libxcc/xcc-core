@@ -42,17 +42,17 @@ public:
 	virtual ~XJsonObject() noexcept;
 
 public:
-	// operator =
+	// operator override =
 	XJsonObject& operator=(const XJsonObject &_Object) noexcept;
 
-	// operator =
+	// operator override =
 	XJsonObject& operator=(XJsonObject &&_Object) noexcept;
 
 public:
-	// operator []
+	// operator override []
 	XJsonValue& operator[](const XString& _Key);
 
-	// operator []
+	// operator override []
 	const XJsonValue& operator[](const XString& _Key) const;
 
 public:
@@ -141,49 +141,49 @@ public:
 		virtual ~iterator() noexcept;
 
 	public:
-		// operator =
+		// operator override =
 		iterator& operator =(const iterator& _Object) noexcept;
 
-		// operator =
+		// operator override =
 		iterator& operator =(iterator&& _Object) noexcept;
 
 	public:
-		// operator =
+		// operator override =
 		bool operator ==(const iterator& _Object) noexcept;
 
-		// operator =
+		// operator override =
 		bool operator !=(const iterator& _Object) noexcept;
 
 	public:
-		// operator ++
+		// operator override ++
 		iterator& operator ++() noexcept;
 
-		// operator ++
+		// operator override ++
 		iterator operator ++() const noexcept;
 
-		// operator --
+		// operator override --
 		iterator& operator --() noexcept;
 
-		// operator --
+		// operator override --
 		iterator operator --() const noexcept;
 
-		// operator +
+		// operator override +
 		iterator operator +(x_ssize_t _Size) const noexcept;
 
-		// operator -
+		// operator override -
 		iterator operator -(x_ssize_t _Size) const noexcept;
 
-		// operator +=
+		// operator override +=
 		iterator& operator +=(x_ssize_t _Size) noexcept;
 
-		// operator -=
+		// operator override -=
 		iterator& operator -=(x_ssize_t _Size) noexcept;
 
 	public:
-		// operator *
+		// operator override *
 		virtual XJsonValue& operator *() final;
 
-		// operator *
+		// operator override *
 		virtual const XJsonValue& operator *() const final;
 
 	public:
@@ -228,46 +228,46 @@ public:
 		virtual ~const_iterator() noexcept;
 
 	public:
-		// operator =
+		// operator override =
 		const_iterator& operator =(const const_iterator& _Object) noexcept;
 
-		// operator =
+		// operator override =
 		const_iterator& operator =(const_iterator&& _Object) noexcept;
 
 	public:
-		// operator =
+		// operator override =
 		bool operator ==(const const_iterator& _Object) noexcept;
 
-		// operator =
+		// operator override =
 		bool operator !=(const const_iterator& _Object) noexcept;
 
 	public:
-		// operator ++
+		// operator override ++
 		const_iterator& operator ++() noexcept;
 
-		// operator ++
+		// operator override ++
 		const_iterator operator ++() const noexcept;
 
-		// operator --
+		// operator override --
 		const_iterator& operator --() noexcept;
 
-		// operator --
+		// operator override --
 		const_iterator operator --() const noexcept;
 
-		// operator +
+		// operator override +
 		const_iterator operator +(x_ssize_t _Size) const noexcept;
 
-		// operator -
+		// operator override -
 		const_iterator operator -(x_ssize_t _Size) const noexcept;
 
-		// operator +=
+		// operator override +=
 		const_iterator& operator +=(x_ssize_t _Size) noexcept;
 
-		// operator -=
+		// operator override -=
 		const_iterator& operator -=(x_ssize_t _Size) noexcept;
 
 	public:
-		// operator *
+		// operator override *
 		virtual const XJsonValue& operator *() const final;
 
 	public:

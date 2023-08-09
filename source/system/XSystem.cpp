@@ -1,6 +1,6 @@
 ﻿#include <xcc-core/system/XSystem.h>
 #include <xcc-core/serialize/XCryptoHash.h>
-#include <xcc-core/system/dynamic_library.h>
+#include <xcc-core/system/XDynamicLibrary.h>
 #include <xcc-core/system/XShell.h>
 #include <xcc-core/XTernary.h>
 #include <xcc-core/XUuid.h>
@@ -10,8 +10,7 @@
 #else
 #include <sys/utsname.h>
 #endif
-
-XCC_NAMESPACE_USING;
+#include <xcc-core/system/XOperatingSystem.h>
 
 
 
@@ -37,11 +36,11 @@ x_int64_t XSystem::SystemVersion() noexcept
 		auto		vVersion_1 = static_cast<long>(0);
 		auto		vVersion_2 = static_cast<long>(0);
 		auto		vVersion_3 = static_cast<long>(0);
-		auto		vIsServer = isServer();
-		auto		vModule = xcc::dynamic_library::open("ntdll.dll");
+		auto		vIsServer = XOperatingSystem::isServerVersion();
+		auto		vModule = XDynamicLibrary::open("ntdll.dll");
 		if(vModule)
 		{
-			auto		GetVersionNumbers = (_Function_GetVersionNumbers)xcc::dynamic_library::find(vModule, "RtlGetNtVersionNumbers");
+			auto		GetVersionNumbers = (_Function_GetVersionNumbers)XDynamicLibrary::find(vModule, "RtlGetNtVersionNumbers");
 			if(GetVersionNumbers)
 			{
 				GetVersionNumbers(&vVersion_1, &vVersion_2, &vVersion_3);
@@ -74,7 +73,7 @@ x_int64_t XSystem::SystemVersion() noexcept
 						break;
 				}
 			}
-			xcc::dynamic_library::close(vModule);
+			XDynamicLibrary::close(vModule);
 		}
 #endif
 #if defined(XCC_SYSTEM_LINUX)
@@ -191,84 +190,6 @@ XString XSystem::hostName() noexcept
 	gethostname(vHostName, XCC_PATH_MAX);
 	return XString::fromUString(vHostName);
 #endif
-}
-
-// Gets the directory for the current user
-XString XSystem::userHome() noexcept
-{
-#if defined(XCC_SYSTEM_WINDOWS)
-	return XString::fromWString(L"C:/Users/") + XSystem::currentUser();
-#endif
-#if defined(XCC_SYSTEM_LINUX)
-	return XString("/home/") + XSystem::currentUser();
-#endif
-#if defined(XCC_SYSTEM_DARWIN)
-	return XString("/Users/") + XSystem::currentUser();
-#endif
-}
-
-// Whether the operating system is 32-bit
-bool XSystem::is_32bit() noexcept
-{
-	return !XSystem::is_64bit();
-}
-
-// Whether the operating system is 64-bit
-bool XSystem::is_64bit() noexcept
-{
-	static XTernary		vValue64Bit = nullptr;
-	if(vValue64Bit == nullptr)
-	{
-#if defined(XCC_SYSTEM_WINDOWS)
-		SYSTEM_INFO	vSystemInfo;
-		GetNativeSystemInfo(&vSystemInfo);
-		switch(vSystemInfo.wProcessorArchitecture)
-		{
-			case PROCESSOR_ARCHITECTURE_AMD64:
-			case PROCESSOR_ARCHITECTURE_IA64:
-			case PROCESSOR_ARCHITECTURE_ALPHA64:
-				vValue64Bit = true;
-				break;
-			default:
-				vValue64Bit = false;
-				break;
-		}
-#else
-		vValue64Bit = true;
-#endif
-	}
-	return vValue64Bit == true;
-}
-
-// Whether the operating system is a server version
-bool XSystem::isServer() noexcept
-{
-	static XTernary		vValueServer = nullptr;
-	if(vValueServer == nullptr)
-	{
-#if defined(XCC_SYSTEM_WINDOWS)
-		typedef BOOL(WINAPI* _Function_IsWindowsServer)();
-		auto		vHandle = xcc::dynamic_library::open("Kernel32.dll");
-		if(vHandle)
-		{
-			auto		vIsWindowsServer = (_Function_IsWindowsServer)xcc::dynamic_library::find(vHandle, "IsWindowsServer");
-			if(vIsWindowsServer)
-			{
-				vValueServer = vIsWindowsServer() != 0;
-			}
-			xcc::dynamic_library::close(vHandle);
-		}
-#else
-		vValueServer = false;
-#endif
-	}
-	return vValueServer == true;
-}
-
-// Whether the operating system is a desktop version
-bool XSystem::isDesktop() noexcept
-{
-	return !XSystem::isServer();
 }
 
 // Native system String
@@ -397,11 +318,11 @@ XString XSystem::nativeString() noexcept
 		}
 		//拼接编译版本
 		vSystemString += " (build ";
-		vSystemString += XSystem::buildVersion();
+		vSystemString += XOperatingSystem::buildVersion();
 		vSystemString += ")";
 
 		//拼接系统位数
-		if(XSystem::is_64bit())
+		if(XOperatingSystem::isBit64())
 		{
 			vSystemString += ",64-Bit";
 		}
@@ -412,37 +333,6 @@ XString XSystem::nativeString() noexcept
 		_StaticNativeString = vSystemString;
 	}
 	return _StaticNativeString;
-}
-
-// Native Build Version
-XString XSystem::buildVersion() noexcept
-{
-#if defined(XCC_SYSTEM_WINDOWS)
-	auto		vBuildVersion = XString();
-	auto		vModule = xcc::dynamic_library::open("ntdll.dll");
-	if(vModule)
-	{
-		auto		vValue1 = static_cast<long>(0);
-		auto		vValue2 = static_cast<long>(0);
-		auto		vValue3 = static_cast<long>(0);
-		typedef void(WINAPI* LP_GetVersionNumbers)(long*, long*, long*);
-		auto		GetVersionNumbers = (LP_GetVersionNumbers)xcc::dynamic_library::find(vModule, "RtlGetNtVersionNumbers");
-		if(GetVersionNumbers)
-		{
-			GetVersionNumbers(&vValue1, &vValue2, &vValue3);
-			vBuildVersion = XString::format("%ld", vValue3 & 0xFFFF);
-
-		}
-		xcc::dynamic_library::close(vModule);
-	}
-	return vBuildVersion;
-#endif
-#if defined(XCC_SYSTEM_LINUX)
-	return XString("Unknown");
-#endif
-#if defined(XCC_SYSTEM_DARWIN)
-	return XString("Unknown");
-#endif
 }
 
 
@@ -456,7 +346,7 @@ XString XSystem::machineId() noexcept
 #if defined(XCC_SYSTEM_WINDOWS)
 		HKEY		vKey = nullptr;
 		LSTATUS		vStatus = ERROR_SUCCESS;
-		if(XSystem::is_64bit())
+		if(XOperatingSystem::isBit64())
 		{
 			vStatus = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Cryptography", NULL, KEY_READ | KEY_WOW64_64KEY, &vKey);
 		}
