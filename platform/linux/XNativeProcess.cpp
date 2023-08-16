@@ -11,10 +11,18 @@ int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>&
 {
 	auto		vSync = XFileSystem::directory_traverse("/proc", [&](const XFileSystem::path& _Path)->bool
 	{
+		// 检查是否全为数字
+		auto 		vFileName = _Path.fileName();
+		for(auto vIndex = 0; vIndex < vFileName.size(); ++vIndex)
+		{
+			if(vFileName[vIndex] < '0' || '9' < vFileName[vIndex])
+			{
+				return true;
+			}
+		}
 		if(XFileSystem::path::isDirectory(_Path))
 		{
-			auto		vExepath = XString::format("/proc/%ls/exe", _Path.fileName().data());
-			auto		vApplication = vExepath.toUString();
+			auto		vApplication = XString::format("/proc/%s/exe", vFileName.data());
 			char		vDirectory[XCC_PATH_MAX] = { 0 };
 			auto		vCount = readlink(vApplication.data(), vDirectory, XCC_PATH_MAX);
 			if(0 <= vCount || vCount <= XCC_PATH_MAX)
@@ -29,9 +37,10 @@ int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>&
 						{
 							return false;
 						}
-						vPrivate->id = _Path.fileName().toLLong();
+						vPrivate->id = vFileName.toLLong();
 						vPrivate->name = XString::fromUString(vName);
-						if(!_Lambda(XProcessInfo(vPrivate)))
+						auto		vInfoProcess = XProcessInfo(vPrivate);
+						if(vInfoProcess.pid() != 0 && !_Lambda(vInfoProcess))
 						{
 							return false;
 						}
