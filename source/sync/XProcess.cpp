@@ -1,6 +1,5 @@
 ﻿#include <xcc-core/sync/XProcess.h>
 #include <xcc-core/filesystem/XFileSystem.h>
-#include <xcc-core/system/XNative.h>
 #include <platform/xpa/XPlatformProcess.h>
 
 
@@ -170,10 +169,7 @@ x_int64_t XProcess::execute(const XString& _Application, const XString& _Param, 
 	}
 	else if(vSync == 0)
 	{
-		auto		vNApplication = _Application.toNString();
-		auto		vNDirectory = _Directory.toNString();
-		auto		vNParam = _Param.toNString();
-		if(-1 == XProcess::execds(vNApplication.data(), vNDirectory.data(), vNParam.data()))
+		if(-1 == XProcess::execds(_Application.data(), _Directory.data(), _Param.data()))
 		{
 			x_posix_exit(0);
 		}

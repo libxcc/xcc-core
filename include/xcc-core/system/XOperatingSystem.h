@@ -50,6 +50,17 @@ public:
 
 	// 操作系统是否为64位数
 	static bool isBit64() noexcept;
+
+public:
+	// 本机名称
+	static XString hostName() noexcept;
+
+public:
+	// 用户名称
+	static XString userName() noexcept;
+
+	// 用户主目录
+	static XString userHome() noexcept;
 };
 
 #endif

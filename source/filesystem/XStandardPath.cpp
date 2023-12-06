@@ -1,6 +1,6 @@
 ﻿#include <xcc-core/filesystem/XStandardPath.h>
 #include <xcc-core/XCoreApplication.h>
-#include <xcc-core/system/XSystem.h>
+#include <xcc-core/system/XOperatingSystem.h>
 #include <xcc-core/filesystem/XFileSystem.h>
 
 
@@ -16,15 +16,7 @@ XStandardPath::~XStandardPath() noexcept = default;
 // 用户的主目录
 XString XStandardPath::homeLocation() noexcept
 {
-#if defined(XCC_SYSTEM_WINDOWS)
-	return XString::fromWString(L"C:/Users/") + XSystem::currentUser();
-#endif
-#if defined(XCC_SYSTEM_LINUX)
-	return XString("/home/") + XSystem::currentUser();
-#endif
-#if defined(XCC_SYSTEM_DARWIN)
-	return XString("/Users/") + XSystem::currentUser();
-#endif
+	return XOperatingSystem::userHome();
 }
 
 // 用户的桌面目录

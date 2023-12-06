@@ -3,6 +3,7 @@
 #include <source/serialize/XHashSHA1.h>
 #include <source/serialize/XHashSHA2.h>
 #include <source/serialize/XHashCRC32.h>
+#include <source/serialize/XHashCRC64_ECMA.h>
 
 
 
@@ -29,14 +30,17 @@ XCryptoHash::XCryptoHash(AlgorithmType _Algorithm) noexcept
 	d_ptr->algorithm = _Algorithm;
 	switch (d_ptr->algorithm)
 	{
-		case XCryptoHash::CRC32:
-			d_ptr->context = new(std::nothrow) XCC_CORE_CRC32_CONTEXT();
-			break;
 		case XCryptoHash::MD5:
 			d_ptr->context = new(std::nothrow) XCC_CORE_MD5_CONTEXT();
 			break;
 		case XCryptoHash::SHA1:
 			d_ptr->context = new(std::nothrow) XCC_CORE_SHA1_CONTEXT();
+			break;
+		case XCryptoHash::CRC32:
+			d_ptr->context = new(std::nothrow) XCC_CORE_CRC32_CONTEXT();
+			break;
+		case XCryptoHash::CRC64_ECMA:
+			d_ptr->context = new(std::nothrow) XCC_CORE_CRC64_CONTEXT();
 			break;
 	}
 
@@ -48,14 +52,17 @@ XCryptoHash::~XCryptoHash() noexcept
 {
 	switch (d_ptr->algorithm)
 	{
-		case XCryptoHash::CRC32:
-			delete (XCC_CORE_CRC32_CONTEXT*)(d_ptr->context);
-			break;
 		case XCryptoHash::MD5:
 			delete (XCC_CORE_MD5_CONTEXT*)(d_ptr->context);
 			break;
 		case XCryptoHash::SHA1:
 			delete (XCC_CORE_SHA1_CONTEXT*)(d_ptr->context);
+			break;
+		case XCryptoHash::CRC32:
+			delete (XCC_CORE_CRC32_CONTEXT*)(d_ptr->context);
+			break;
+		case XCryptoHash::CRC64_ECMA:
+			delete (XCC_CORE_CRC64_CONTEXT*)(d_ptr->context);
 			break;
 	}
 
@@ -70,14 +77,17 @@ void XCryptoHash::reset() noexcept
 {
 	switch (d_ptr->algorithm)
 	{
-		case XCryptoHash::CRC32:
-			xcc::CRC32_Init((XCC_CORE_CRC32_CONTEXT*)(d_ptr->context));
-			break;
 		case XCryptoHash::MD5:
 			xcc::MD5_Init((XCC_CORE_MD5_CONTEXT*)(d_ptr->context));
 			break;
 		case XCryptoHash::SHA1:
 			xcc::sha1_begin((XCC_CORE_SHA1_CONTEXT*)(d_ptr->context));
+			break;
+		case XCryptoHash::CRC32:
+			xcc::CRC32_Init((XCC_CORE_CRC32_CONTEXT*)(d_ptr->context));
+			break;
+		case XCryptoHash::CRC64_ECMA:
+			xcc::CRC64_Init((XCC_CORE_CRC64_CONTEXT*)(d_ptr->context));
 			break;
 	}
 }
@@ -87,14 +97,17 @@ void XCryptoHash::append(const void* _Data, x_uint64_t _Length) noexcept
 {
 	switch (d_ptr->algorithm)
 	{
-		case CRC32:
-			xcc::CRC32_Update((XCC_CORE_CRC32_CONTEXT*)(d_ptr->context), _Data, _Length);
-			break;
 		case MD5:
 			xcc::MD5_Update((XCC_CORE_MD5_CONTEXT*)(d_ptr->context), _Data, _Length);
 			break;
 		case SHA1:
 			xcc::sha1_hash((const unsigned char*)_Data, _Length, (XCC_CORE_SHA1_CONTEXT*)(d_ptr->context));
+			break;
+		case CRC32:
+			xcc::CRC32_Update((XCC_CORE_CRC32_CONTEXT*)(d_ptr->context), _Data, _Length);
+			break;
+		case CRC64_ECMA:
+			xcc::CRC64_Update((XCC_CORE_CRC64_CONTEXT*)(d_ptr->context), _Data, _Length);
 			break;
 	}
 }
@@ -113,14 +126,17 @@ XByteArray XCryptoHash::result() const noexcept
 		unsigned char 		vResult[128] = {0};
 		switch (d_ptr->algorithm)
 		{
-			case CRC32:
-				xcc::CRC32_Final(vResult, (XCC_CORE_CRC32_CONTEXT*)(d_ptr->context));
-				break;
 			case MD5:
 				xcc::MD5_Final(vResult, (XCC_CORE_MD5_CONTEXT*)(d_ptr->context));
 				break;
 			case SHA1:
 				xcc::sha1_end(vResult, (XCC_CORE_SHA1_CONTEXT*)(d_ptr->context));
+				break;
+			case CRC32:
+				xcc::CRC32_Final(vResult, (XCC_CORE_CRC32_CONTEXT*)(d_ptr->context));
+				break;
+			case CRC64_ECMA:
+				xcc::CRC64_Final(vResult, (XCC_CORE_CRC64_CONTEXT*)(d_ptr->context));
 				break;
 		}
 		d_ptr->hash = XByteArray((const char*)vResult, XCryptoHash::hashLength(d_ptr->algorithm));
@@ -192,12 +208,14 @@ x_size_t XCryptoHash::hashLength(AlgorithmType _Algorithm) noexcept
 {
 	switch (_Algorithm)
 	{
-		case XCryptoHash::CRC32:
-			return 4;
 		case XCryptoHash::MD5:
 			return 16;
 		case XCryptoHash::SHA1:
 			return 20;
+		case XCryptoHash::CRC32:
+			return 4;
+		case XCryptoHash::CRC64_ECMA:
+			return 8;
 		default:
 			return 0;
 	}

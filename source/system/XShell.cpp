@@ -54,68 +54,30 @@ int XShell::run(const XString& _Shell, const std::function<bool(const XString& _
 		si.wShowWindow = SW_HIDE;
 		si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-		wchar_t 	vApplication[XCC_PATH_MAX] = {0};
-		auto		vCommandLine = new(std::nothrow) wchar_t[static_cast<size_t>(vShell.size()) + 100];
-		if(vCommandLine)
+		auto		vShellW = _Shell.toWString();
+		auto		vCommandLine = x_posix_wcsdup(vShellW.data());
+		if (::CreateProcessW(nullptr, vCommandLine, nullptr, nullptr, TRUE, NULL, nullptr, nullptr, &si, &pi))
 		{
-			x_posix_wmemset(vCommandLine, 0, static_cast<size_t>(vShell.size()) + 100);
-			auto		vPos = XString::npos;
-			if(vShell[0] == L'\"')
-			{
-				vPos = vShell.find(L'\"', 1U);
-				if(vPos != XString::npos)
-				{
-					vPos += 1;
-				}
-			}
-			else
-			{
-				vPos = vShell.find(L' ');
-			}
-			if(vPos == XString::npos)
-			{
-				vPos = 0;
-				x_posix_wmemcpy(vApplication, vShell.data(), vPos);
-			}
-			else
-			{
-				x_posix_wmemcpy(vApplication, vShell.data(), vPos);
-				vPos += 1;
-			}
-			x_posix_wmemcpy(vCommandLine, vShell.data() + vPos, static_cast<size_t>(vShell.size() - vPos));
+			::CloseHandle(vWHandle);
+			x_process_read_output_from_handle(vRHandle, _Lambda);
+			::CloseHandle(vRHandle);
 
-			// 修复 CreateProcess GetLastError = 123 的错误
-			if(vApplication[0] == L'\"' && vApplication[x_posix_wcslen(vApplication) - 1] == L'\"')
-			{
-				vApplication[x_posix_wcslen(vApplication) - 1] = L'\0';
-				x_posix_wmemmove(vApplication, vApplication + 1, x_posix_wcslen(vApplication) - 1);
-				vApplication[x_posix_wcslen(vApplication) - 1] = L'\0';
-			}
-			// 创建子进程
-			if (::CreateProcessW(vApplication, vCommandLine, nullptr, nullptr, TRUE, NULL, nullptr, nullptr, &si, &pi))
-			{
-				::CloseHandle(vWHandle);
-				x_process_read_output_from_handle(vRHandle, _Lambda);
-				::CloseHandle(vRHandle);
-
-				// 等待进程结束
-				::WaitForSingleObject(pi.hProcess, INFINITE);
-				auto		vExitCode = static_cast<DWORD>(STILL_ACTIVE);
-				::GetExitCodeProcess(pi.hProcess, &vExitCode);
-				// ::CloseHandle(pi.hProcess);
-				XCC_DELETE_ARR(vCommandLine);
-				return (int)vExitCode;
-			}
-			else
-			{
-				XCC_DELETE_ARR(vCommandLine);
-				return (int)GetLastError();
-			}
-
+			// 等待进程结束
+			::WaitForSingleObject(pi.hProcess, INFINITE);
+			auto		vExitCode = static_cast<DWORD>(STILL_ACTIVE);
+			::GetExitCodeProcess(pi.hProcess, &vExitCode);
+			// ::CloseHandle(pi.hProcess);
+			x_posix_free(vCommandLine);
+			return (int)vExitCode;
+		}
+		else
+		{
+			x_posix_free(vCommandLine);
+			return (int)GetLastError();
 		}
 	}
 #else
-	auto		vHandle = x_posix_popen(_Shell.toNString().data(), "r");
+	auto		vHandle = x_posix_popen(_Shell.data(), "r");
 	if(vHandle)
 	{
 		x_process_read_output_from_file(vHandle, _Lambda);

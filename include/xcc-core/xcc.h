@@ -4,6 +4,7 @@
 #include <xcc-core/container/XAllocator.h>
 #include <xcc-core/container/XByteArray.h>
 #include <xcc-core/container/XString.h>
+#include <xcc-core/container/XReferenceCounter.h>
 
 #include <xcc-core/serialize/XBase64.h>
 #include <xcc-core/serialize/XCryptoHash.h>
@@ -22,11 +23,11 @@
 #include <xcc-core/sync/XProcess.h>
 
 #include <xcc-core/system/XEndian.h>
+#include <xcc-core/system/XEnvironmentVariables.h>
 #include <xcc-core/system/XDynamicLibrary.h>
 #include <xcc-core/system/XOperatingSystem.h>
 #include <xcc-core/system/XShell.h>
 #include <xcc-core/system/XSystem.h>
-#include <xcc-core/system/XNative.h>
 #include <xcc-core/system/XRegistry.h>
 
 #include <xcc-core/native/XNativeSoftware.h>

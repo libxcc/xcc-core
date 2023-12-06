@@ -45,19 +45,15 @@
 class _XCOREAPI_ XSystem
 {
 public:
+	// constructor
 	XSystem() noexcept;
 
+	// destructor
 	virtual ~XSystem() noexcept;
 
 public:
 	// The current version of the operating system
 	static x_int64_t SystemVersion() noexcept;
-
-	// The name of the user who is now logged in
-	static XString currentUser() noexcept;
-
-	// Computer name
-	static XString hostName() noexcept;
 
 	// Native system String
 	static XString nativeString() noexcept;

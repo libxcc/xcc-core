@@ -345,6 +345,9 @@ public:
 	// 序列化
 	static bool serialize(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, char** _Bytes, x_size_t* _Size) noexcept;
 
+	// 序列化 - 转义
+	static XString serialize_string_escape(const XString& _String) noexcept;
+
 	// 序列化 - 字符
 	static bool serialize_char(XJsonSerializePrivate* _Context, char _Char) noexcept;
 

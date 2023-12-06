@@ -16,9 +16,10 @@ public:
 	// Algorithm type
 	typedef enum AlgorithmType
 	{
-		CRC32				= 0,
-		MD5				= 1,
-		SHA1				= 2
+		MD5				= 0,
+		SHA1				= 1,
+		CRC32				= 2,
+		CRC64_ECMA			= 3
 	}AlgorithmType;
 
 private:

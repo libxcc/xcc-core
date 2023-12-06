@@ -2,6 +2,7 @@
 #define			_XCC_CORE_BYTE_TERNARY_H_
 
 #include <xcc-core/header.h>
+#include <xcc-core/container/XString.h>
 
 /// <summary>
 ///  A ternary value type
@@ -262,6 +263,10 @@ public:
 
 	// [get] Is False
 	virtual bool isFalse() const noexcept final;
+
+public:
+	// [cnv] 转换为String
+	virtual XString toString() const noexcept final;
 };
 
 #endif

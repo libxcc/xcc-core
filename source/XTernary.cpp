@@ -103,8 +103,6 @@ XTernary::~XTernary() noexcept = default;
 
 
 
-
-
 // operator override =
 XTernary& XTernary::operator = (value_type _Type) noexcept
 {
@@ -218,7 +216,6 @@ XTernary& XTernary::operator = (XTernary&& _Other) noexcept
 
 
 
-
 // operator override ==
 bool XTernary::operator == (value_type _Type) const noexcept
 {
@@ -302,8 +299,6 @@ bool XTernary::operator == (const XTernary& _Other) const noexcept
 {
 	return this->_ternary_value == _Other._ternary_value;
 }
-
-
 
 
 
@@ -492,8 +487,6 @@ XTernary::value_type XTernary::convert(const void* _Value) noexcept
 
 
 
-
-
 // swap
 void XTernary::swap(XTernary& _Other) noexcept
 {
@@ -503,8 +496,6 @@ void XTernary::swap(XTernary& _Other) noexcept
 		_Other._ternary_value = this->_ternary_value;
 	}
 }
-
-
 
 
 
@@ -538,4 +529,17 @@ bool XTernary::isTure() const noexcept
 bool XTernary::isFalse() const noexcept
 {
 	return this->_ternary_value == TernaryFalse;
+}
+
+
+
+// [cnv] 转换为String
+XString XTernary::toString() const noexcept
+{
+	switch (this->_ternary_value)
+	{
+		case TernaryNull:		return "null";
+		case TernaryTrue:		return "true";
+		case TernaryFalse:		return "false";
+	}
 }

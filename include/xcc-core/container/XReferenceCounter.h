@@ -30,6 +30,9 @@ public:
 
 public:
 	// operator override =
+	XReferenceCounter& operator = (x_uint64_t _Count) noexcept;
+
+	// operator override =
 	XReferenceCounter& operator = (const XReferenceCounter& _Right) noexcept = default;
 
 	// operator override =
@@ -43,10 +46,10 @@ public:
 	virtual bool unique() const noexcept final;
 
 	// 增加计数
-	virtual void increase() noexcept final;
+	virtual x_uint64_t increase() noexcept final;
 
 	// 减少计数
-	virtual void reduce() noexcept final;
+	virtual x_uint64_t reduce() noexcept final;
 };
 
 

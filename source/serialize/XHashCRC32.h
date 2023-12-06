@@ -19,6 +19,6 @@ namespace xcc
 
 	// CRC32 retrieves the results
 	_XCOREAPI_ void __xcall__ CRC32_Final(unsigned char* _Result, XCC_CORE_CRC32_CONTEXT* _Context) noexcept;
-};
+}
 
 #endif

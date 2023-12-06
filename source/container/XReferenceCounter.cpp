@@ -16,6 +16,16 @@ XReferenceCounter::XReferenceCounter(x_uint64_t _Count) noexcept
 
 
 
+// operator override =
+XReferenceCounter& XReferenceCounter::operator = (x_uint64_t _Count) noexcept
+{
+	XCC_MUTEX_LOCKER(_M_ref_mutex);
+	_M_ref_count = _Count;
+	return *this;
+}
+
+
+
 // 引用计数
 x_uint64_t XReferenceCounter::refCount() const noexcept
 {
@@ -31,15 +41,17 @@ bool XReferenceCounter::unique() const noexcept
 }
 
 // 增加计数
-void XReferenceCounter::increase() noexcept
+x_uint64_t XReferenceCounter::increase() noexcept
 {
 	XCC_MUTEX_LOCKER(_M_ref_mutex);
 	++_M_ref_count;
+	return _M_ref_count;
 }
 
 // 减少计数
-void XReferenceCounter::reduce() noexcept
+x_uint64_t XReferenceCounter::reduce() noexcept
 {
 	XCC_MUTEX_LOCKER(_M_ref_mutex);
 	--_M_ref_count;
+	return _M_ref_count;
 }

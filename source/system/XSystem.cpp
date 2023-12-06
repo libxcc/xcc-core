@@ -1,27 +1,22 @@
 ﻿#include <xcc-core/system/XSystem.h>
 #include <xcc-core/serialize/XCryptoHash.h>
 #include <xcc-core/system/XDynamicLibrary.h>
-#include <xcc-core/system/XShell.h>
+#include <xcc-core/system/XOperatingSystem.h>
 #include <xcc-core/XTernary.h>
 #include <xcc-core/XUuid.h>
 #if defined(XCC_SYSTEM_WINDOWS)
-#include <WtsApi32.h>
 #include <UserEnv.h>
 #else
 #include <sys/utsname.h>
+#include <xcc-core/system/XShell.h>
 #endif
-#include <xcc-core/system/XOperatingSystem.h>
 
 
 
-//static system version value
-static x_int64_t					_StaticSystemVersion = 0;
-
-
-//initialize
+// constructor
 XSystem::XSystem() noexcept = default;
 
-//release
+// destructor
 XSystem::~XSystem() noexcept = default;
 
 
@@ -29,7 +24,9 @@ XSystem::~XSystem() noexcept = default;
 // The current version of the operating system
 x_int64_t XSystem::SystemVersion() noexcept
 {
-	if(!_StaticSystemVersion)
+	//static system version value
+	static x_int64_t		static_system_version = 0;
+	if(!static_system_version)
 	{
 #if defined(XCC_SYSTEM_WINDOWS)
 		typedef void(WINAPI* _Function_GetVersionNumbers)(long*, long*, long*);
@@ -47,29 +44,29 @@ x_int64_t XSystem::SystemVersion() noexcept
 				switch(vVersion_1)
 				{
 					case 10:
-						_StaticSystemVersion = vIsServer ? XCC_OS_VERSION_WINDOWS_2016 : XCC_OS_VERSION_WINDOWS_10;
+						static_system_version = vIsServer ? XCC_OS_VERSION_WINDOWS_2016 : XCC_OS_VERSION_WINDOWS_10;
 						break;
 					case 6:
 						switch(vVersion_2)
 						{
 							case 0:
-								_StaticSystemVersion = vIsServer ? XCC_OS_VERSION_WINDOWS_2008 : XCC_OS_VERSION_WINDOWS_VISTA;
+								static_system_version = vIsServer ? XCC_OS_VERSION_WINDOWS_2008 : XCC_OS_VERSION_WINDOWS_VISTA;
 								break;
 							case 1:
-								_StaticSystemVersion = vIsServer ? XCC_OS_VERSION_WINDOWS_2008_R2 : XCC_OS_VERSION_WINDOWS_7;
+								static_system_version = vIsServer ? XCC_OS_VERSION_WINDOWS_2008_R2 : XCC_OS_VERSION_WINDOWS_7;
 								break;
 							case 2:
-								_StaticSystemVersion = vIsServer ? XCC_OS_VERSION_WINDOWS_2012 : XCC_OS_VERSION_WINDOWS_8;
+								static_system_version = vIsServer ? XCC_OS_VERSION_WINDOWS_2012 : XCC_OS_VERSION_WINDOWS_8;
 								break;
 							case 3:
-								_StaticSystemVersion = vIsServer ? XCC_OS_VERSION_WINDOWS_2012_R2 : XCC_OS_VERSION_WINDOWS_8_1;
+								static_system_version = vIsServer ? XCC_OS_VERSION_WINDOWS_2012_R2 : XCC_OS_VERSION_WINDOWS_8_1;
 								break;
 							default:
 								break;
 						}
 						break;
 					default:
-						_StaticSystemVersion = XCC_OS_VERSION_UNKNOWN;
+						static_system_version = XCC_OS_VERSION_UNKNOWN;
 						break;
 				}
 			}
@@ -87,109 +84,28 @@ x_int64_t XSystem::SystemVersion() noexcept
 			switch(vValue1)
 			{
 				case 12:
-					_StaticSystemVersion = XCC_OS_VERSION_MACOS_1012;
+					static_system_version = XCC_OS_VERSION_MACOS_1012;
 					break;
 				case 13:
-					_StaticSystemVersion = XCC_OS_VERSION_MACOS_1013;
+					static_system_version = XCC_OS_VERSION_MACOS_1013;
 					break;
 				case 14:
-					_StaticSystemVersion = XCC_OS_VERSION_MACOS_1014;
+					static_system_version = XCC_OS_VERSION_MACOS_1014;
 					break;
 				case 15:
-					_StaticSystemVersion = XCC_OS_VERSION_MACOS_1015;
+					static_system_version = XCC_OS_VERSION_MACOS_1015;
 					break;
 				case 16:
-					_StaticSystemVersion = XCC_OS_VERSION_MACOS_1100;
+					static_system_version = XCC_OS_VERSION_MACOS_1100;
 					break;
 				default:
-					_StaticSystemVersion = XCC_OS_VERSION_UNKNOWN;
+					static_system_version = XCC_OS_VERSION_UNKNOWN;
 					break;
 			}
 		}
 #endif
 	}
-	return _StaticSystemVersion;
-}
-
-// The name of the user who is now logged in
-XString XSystem::currentUser() noexcept
-{
-	static XString 		vStaticCurrentUser = nullptr;
-	if(vStaticCurrentUser.empty())
-	{
-#if defined(XCC_SYSTEM_WINDOWS)
-		auto		vUserProfileDirectory = XString();
-		auto		vProcess = ::GetCurrentProcess();
-		HANDLE		vToken = nullptr;
-		auto		vSync = ::OpenProcessToken(vProcess, TOKEN_QUERY, &vToken);
-		if (vSync)
-		{
-			DWORD		vLength = 0;
-			// First call, to determine size of the strings (with '\0').
-			vSync = ::GetUserProfileDirectoryW(vToken, nullptr, &vLength);
-			if (!vSync && vLength != 0)
-			{
-				auto		vBuffer = new(std::nothrow) wchar_t[vLength];
-				if(vBuffer)
-				{
-					vSync = ::GetUserProfileDirectoryW(vToken, vBuffer, &vLength);
-					if (vSync)
-					{
-						vUserProfileDirectory = XString::fromWString(vBuffer);
-						vUserProfileDirectory.replace("\\", "/");
-						auto		vFind = vUserProfileDirectory.rfind('/');
-						if(vFind != XString::npos)
-						{
-							vStaticCurrentUser = vUserProfileDirectory.substr(vFind + 1);
-						}
-					}
-					delete[] vBuffer;
-				}
-			}
-			::CloseHandle(vToken);
-		}
-
-		if(vStaticCurrentUser.empty())
-		{
-			LPWSTR		vInfoBuffer = nullptr;
-			DWORD		vInfoLength = 0;
-			auto		vQuery = WTSQuerySessionInformationW(WTS_CURRENT_SERVER_HANDLE, WTS_CURRENT_SESSION, WTSUserName, &vInfoBuffer, &vInfoLength);
-			if (vQuery && vInfoBuffer && vInfoLength)
-			{
-				vStaticCurrentUser = XString::fromWString(WString(vInfoBuffer, vInfoLength));
-			}
-			else
-			{
-				wchar_t		vUserName[XCC_SIZE_KB] = { 0 };
-				DWORD		vUserLength = XCC_SIZE_KB - 1;
-				GetUserNameW(vUserName, &vUserLength);
-				vStaticCurrentUser = XString::fromWString(vUserName);
-			}
-			if(vInfoBuffer)
-			{
-				WTSFreeMemory(vInfoBuffer);
-			}
-		}
-#else
-		vStaticCurrentUser = XString::fromUString(getenv("USER"));
-#endif
-	}
-	return vStaticCurrentUser;
-}
-
-// Computer name
-XString XSystem::hostName() noexcept
-{
-#if defined(XCC_SYSTEM_WINDOWS)
-	wchar_t		vHostName[XCC_PATH_MAX] = { 0 };
-	DWORD		vLength = XCC_PATH_MAX;
-	GetComputerNameW(vHostName, &vLength);
-	return XString::fromWString(vHostName);
-#else
-	char		vHostName[XCC_PATH_MAX] = { 0 };
-	gethostname(vHostName, XCC_PATH_MAX);
-	return XString::fromUString(vHostName);
-#endif
+	return static_system_version;
 }
 
 // Native system String

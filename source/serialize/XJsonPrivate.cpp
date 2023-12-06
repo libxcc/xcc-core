@@ -360,7 +360,7 @@ x_size_t XJsonPrivate::calc_length(XJsonValuePrivate* _Src, XJsonDocument::JsonF
 				return XJsonPrivate::calc_length(_Src->value.v_double);
 			}
 		case XJsonValue::String:
-			return _Src->value.v_string->size() + 2;
+			return serialize_string_escape(*(_Src->value.v_string)).size() + 2;
 		case XJsonValue::Array:
 			return XJsonPrivate::calc_length(_Src->value.v_array->memberData, _JsonFormat, _Layer);
 		case XJsonValue::Object:
@@ -413,6 +413,31 @@ bool XJsonPrivate::serialize(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat 
 	}
 
 	return vStatus;
+}
+
+// 序列化 - 转义
+XString XJsonPrivate::serialize_string_escape(const XString& _String) noexcept
+{
+	auto		vEscape = XString();
+	auto		vIndex = XString::pos_type(0);
+	auto		vFind = XString::pos_type(0);
+
+	while(true)
+	{
+		vFind = _String.find('\"', vIndex);
+		if(vFind == XString::npos)
+		{
+			vEscape += _String.mid(vIndex);
+			break;
+		}
+		else
+		{
+			vEscape += _String.mid(vIndex, vFind - vIndex);
+			vEscape += "\\\"";
+			vIndex = vFind + 1;
+		}
+	}
+	return vEscape;
 }
 
 // 序列化 - 字符
@@ -554,16 +579,17 @@ bool XJsonPrivate::serialize_string(XJsonSerializePrivate* _Context, XJsonValueP
 // 序列化 - 字符串
 bool XJsonPrivate::serialize_string(XJsonSerializePrivate* _Context, const XString& _String) noexcept
 {
+	auto		vValue = serialize_string_escape(_String);
 	auto		vData = _Context->data + _Context->pos;
-	if(_Context->pos + _String.size() + 2 >= _Context->size)
+	if(_Context->pos + vValue.size() + 2 >= _Context->size)
 	{
 		return false;
 	}
 
 	x_posix_strncpy(vData + 0, "\"", 1);
-	x_posix_strncpy(vData + 1, _String.data(), _String.size());
-	x_posix_strncpy(vData + _String.size() + 1, "\"", 1);
-	_Context->pos += _String.size() + 2;
+	x_posix_strncpy(vData + 1, vValue.data(), vValue.size());
+	x_posix_strncpy(vData + vValue.size() + 1, "\"", 1);
+	_Context->pos += vValue.size() + 2;
 	return true;
 }
 
@@ -882,7 +908,7 @@ bool XJsonPrivate::deserialize_string(XJsonDeserializePrivate* _Context, XJsonVa
 			// 如果找到末尾，则返回失败
 			return false;
 		}
-		else if(vChar == '\"')
+		else if(vChar == '\"' && *(vByteCheck - 1) != '\\')
 		{
 			// 找到结尾则跳出
 			break;

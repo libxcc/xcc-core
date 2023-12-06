@@ -1,11 +1,12 @@
 ﻿#include <xcc-core/system/XOperatingSystem.h>
 #include <xcc-core/system/XDynamicLibrary.h>
-#include <xcc-core/system/XShell.h>
 #include <xcc-core/XTernary.h>
 #if defined(XCC_SYSTEM_WINDOWS)
+#include <WtsApi32.h>
 #include <UserEnv.h>
 #else
 #include <sys/utsname.h>
+#include <xcc-core/system/XShell.h>
 #endif
 
 
@@ -268,4 +269,103 @@ bool XOperatingSystem::isBit32() noexcept
 bool XOperatingSystem::isBit64() noexcept
 {
 	return XOperatingSystem::bits() == 64;
+}
+
+
+
+// 本机名称
+XString XOperatingSystem::hostName() noexcept
+{
+#if defined(XCC_SYSTEM_WINDOWS)
+	wchar_t		vHostName[XCC_PATH_MAX] = { 0 };
+	DWORD		vLength = XCC_PATH_MAX;
+	GetComputerNameW(vHostName, &vLength);
+	return XString::fromWString(vHostName);
+#else
+	char		vHostName[XCC_PATH_MAX] = { 0 };
+	gethostname(vHostName, XCC_PATH_MAX);
+	return XString::fromUString(vHostName);
+#endif
+}
+
+
+
+// 用户名称
+XString XOperatingSystem::userName() noexcept
+{
+	static XString 		vStaticCurrentUser = nullptr;
+	if(vStaticCurrentUser.empty())
+	{
+#if defined(XCC_SYSTEM_WINDOWS)
+		auto		vUserProfileDirectory = XString();
+		auto		vProcess = ::GetCurrentProcess();
+		HANDLE		vToken = nullptr;
+		auto		vSync = ::OpenProcessToken(vProcess, TOKEN_QUERY, &vToken);
+		if (vSync)
+		{
+			DWORD		vLength = 0;
+			// First call, to determine size of the strings (with '\0').
+			vSync = ::GetUserProfileDirectoryW(vToken, nullptr, &vLength);
+			if (!vSync && vLength != 0)
+			{
+				auto		vBuffer = new(std::nothrow) wchar_t[vLength];
+				if(vBuffer)
+				{
+					vSync = ::GetUserProfileDirectoryW(vToken, vBuffer, &vLength);
+					if (vSync)
+					{
+						vUserProfileDirectory = XString::fromWString(vBuffer);
+						vUserProfileDirectory.replace("\\", "/");
+						auto		vFind = vUserProfileDirectory.rfind('/');
+						if(vFind != XString::npos)
+						{
+							vStaticCurrentUser = vUserProfileDirectory.substr(vFind + 1);
+						}
+					}
+					delete[] vBuffer;
+				}
+			}
+			::CloseHandle(vToken);
+		}
+
+		if(vStaticCurrentUser.empty())
+		{
+			LPWSTR		vInfoBuffer = nullptr;
+			DWORD		vInfoLength = 0;
+			auto		vQuery = WTSQuerySessionInformationW(WTS_CURRENT_SERVER_HANDLE, WTS_CURRENT_SESSION, WTSUserName, &vInfoBuffer, &vInfoLength);
+			if (vQuery && vInfoBuffer && vInfoLength)
+			{
+				vStaticCurrentUser = XString::fromWString(WString(vInfoBuffer, vInfoLength));
+			}
+			else
+			{
+				wchar_t		vUserName[XCC_SIZE_KB] = { 0 };
+				DWORD		vUserLength = XCC_SIZE_KB - 1;
+				GetUserNameW(vUserName, &vUserLength);
+				vStaticCurrentUser = XString::fromWString(vUserName);
+			}
+			if(vInfoBuffer)
+			{
+				WTSFreeMemory(vInfoBuffer);
+			}
+		}
+#else
+		vStaticCurrentUser = XString::fromUString(getenv("USER"));
+#endif
+	}
+	return vStaticCurrentUser;
+}
+
+// 用户主目录
+XString XOperatingSystem::userHome() noexcept
+{
+#if defined(XCC_SYSTEM_WINDOWS)
+	return XString::fromWString(L"C:/Users/") + XOperatingSystem::userName();
+#endif
+#if defined(XCC_SYSTEM_LINUX)
+	return XString("/home/") + XOperatingSystem::userName();
+#endif
+#if defined(XCC_SYSTEM_DARWIN)
+	return XString("/Users/") + XOperatingSystem::userName();
+#endif
 }

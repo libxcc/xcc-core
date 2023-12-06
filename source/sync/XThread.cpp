@@ -16,8 +16,6 @@ XThread::~XThread() noexcept = default;
 
 
 
-
-
 // operator override =
 XThread& XThread::operator = (const XThread& _Other) noexcept = default;
 
@@ -26,15 +24,11 @@ XThread& XThread::operator = (XThread&& _Other) noexcept = default;
 
 
 
-
-
 // 当前线程ID
 XThread::id_type XThread::currentThreadId() noexcept
 {
 	return (XThread::id_type)x_posix_gettid();
 }
-
-
 
 
 
@@ -58,16 +52,12 @@ unsigned int XThread::usleep(unsigned int _Microseconds) noexcept
 
 
 
-
-
 // Running thread
 void XThread::start() noexcept
 {
 	std::thread	vThread(&XThread::run, this);
 	vThread.detach();
 }
-
-
 
 
 
