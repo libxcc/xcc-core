@@ -60,6 +60,12 @@ public:
 	// [static] 获取文件大小
 	static x_uint64_t size(const XString& _Path) noexcept;
 
+	// [static] 删除指定路径
+	static bool remove(const XString& _Path) noexcept;
+
+	// [static] 重命名指定路径
+	static bool rename(const XString& _PathOld, const XString& _PathNew) noexcept;
+
 public:
 	// 清理所有状态标记
 	virtual void clear() const noexcept final;

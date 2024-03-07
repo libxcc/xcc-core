@@ -14,8 +14,8 @@ public:
 	// Json格式
 	typedef enum JsonFormat
 	{
-		Compact			= 0,
-		Indented		= 1
+		Compact			= 0,			// 紧凑格式
+		Indented		= 1			// 缩进格式
 	}JsonFormat;
 
 public:

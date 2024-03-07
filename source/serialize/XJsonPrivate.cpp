@@ -224,7 +224,7 @@ x_size_t XJsonPrivate::calc_length_new_line(XJsonDocument::JsonFormat _JsonForma
 // 预计长度
 x_size_t XJsonPrivate::calc_length(x_int64_t _Number) noexcept
 {
-	auto		vFormat = XString::format("%llu", _Number);
+	auto		vFormat = XString::format("%lld", _Number);
 	return vFormat.size();
 }
 
@@ -240,11 +240,7 @@ x_size_t XJsonPrivate::calc_length(double _Number) noexcept
 {
 	XString		vFormat;
 
-	if(fabs(floor(_Number) - _Number) <= DBL_EPSILON)
-	{
-		vFormat = XString::format("%.0f", _Number);
-	}
-	else if(fabs(_Number) < 1.0e-6 || fabs(_Number) > 1.0e9)
+	if(fabs(_Number) < 1.0e-6 || fabs(_Number) > 1.0e9)
 	{
 		vFormat = XString::format("%lf", _Number);
 	}
@@ -540,11 +536,7 @@ bool XJsonPrivate::serialize_number(XJsonSerializePrivate* _Context, XJsonValueP
 	else
 	{
 		auto		vDouble = _Private->value.v_double;
-		if(fabs(floor(vDouble) - vDouble) <= DBL_EPSILON)
-		{
-			x_posix_sprintf(vBuffer, "%.0f", vDouble);
-		}
-		else if(fabs(vDouble) < 1.0e-6 || fabs(vDouble) > 1.0e9)
+		if(fabs(vDouble) < 1.0e-6 || fabs(vDouble) > 1.0e9)
 		{
 			x_posix_sprintf(vBuffer, "%lf", vDouble);
 		}

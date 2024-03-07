@@ -6,6 +6,8 @@
 #include <xcc-core/container/XString.h>
 #include <xcc-core/container/XReferenceCounter.h>
 
+#include <xcc-core/XObject.h>
+
 #include <xcc-core/serialize/XBase64.h>
 #include <xcc-core/serialize/XCryptoHash.h>
 #include <xcc-core/serialize/XJsonArray.h>

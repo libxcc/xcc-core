@@ -578,7 +578,7 @@ XFileSystem::path XFileSystem::path::repair(const XFileSystem::path& _Path) noex
 {
 	auto		vFilePath = _Path.filePath();
 	auto		vPos = vFilePath.rfind('/');
-	for(auto vIndex = vPos; vIndex < vFilePath.size(); ++vIndex)
+	for(auto vIndex = ((vPos == XString::npos) ? 0 : vPos); vIndex < vFilePath.size(); ++vIndex)
 	{
 		switch(vFilePath[vIndex])
 		{

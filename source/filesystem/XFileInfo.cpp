@@ -1,5 +1,6 @@
 ﻿#include <xcc-core/filesystem/XFileInfo.h>
 #include <source/filesystem/XFileInfoPrivate.h>
+#include <xcc-core/filesystem/XFileSystem.h>
 
 
 // constructor
@@ -147,6 +148,18 @@ x_uint64_t XFileInfo::size(const XString& _Path) noexcept
 {
 	auto		vFilePath = XFileInfo::pathToNative(_Path);
 	return x_posix_fsize(vFilePath.data());
+}
+
+// [static] 删除指定路径
+bool XFileInfo::remove(const XString& _Path) noexcept
+{
+	return XFileSystem::path::remove(_Path, nullptr);
+}
+
+// [static] 重命名指定路径
+bool XFileInfo::rename(const XString& _PathOld, const XString& _PathNew) noexcept
+{
+	return XFileSystem::file::rename(_PathOld, _PathNew);
 }
 
 
