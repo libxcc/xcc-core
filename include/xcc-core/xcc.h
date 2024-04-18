@@ -32,8 +32,6 @@
 #include <xcc-core/system/XSystem.h>
 #include <xcc-core/system/XRegistry.h>
 
-#include <xcc-core/native/XNativeSoftware.h>
-
 #include <xcc-core/XCoreApplication.h>
 #include <xcc-core/XDateTime.h>
 #include <xcc-core/XException.h>
