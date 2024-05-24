@@ -64,10 +64,10 @@ bool XJsonDocument::toFile(const XJsonValue& _JsonValue, const XString& _FilePat
 
 
 // [fmt] 从字节数组格式化
-XJsonValue XJsonDocument::fromBytes(const char* _JsonBytes, x_size_t _JsonLength) noexcept
+XJsonValue XJsonDocument::fromBytes(const void* _JsonBytes, x_size_t _JsonLength) noexcept
 {
 	auto		vPrivate = static_cast<XJsonValuePrivate*>(nullptr);
-	auto		vStatus = XJsonPrivate::deserialize(_JsonBytes, _JsonLength, &vPrivate);
+	auto		vStatus = XJsonPrivate::deserialize((const char*)_JsonBytes, _JsonLength, &vPrivate);
 	if(vStatus)
 	{
 		return XJsonValue(vPrivate);

@@ -538,8 +538,8 @@ XString XTernary::toString() const noexcept
 {
 	switch (this->_ternary_value)
 	{
-		case TernaryNull:		return "null";
 		case TernaryTrue:		return "true";
 		case TernaryFalse:		return "false";
+		default:			return "null";
 	}
 }
