@@ -1,5 +1,5 @@
 ﻿#include <platform/xpa/XPlatformProcess.h>
-#include <platform/windows/XNativeNtdll.h>
+#include <platform/win32/XNativeNtdll.h>
 #include <TlHelp32.h>
 
 

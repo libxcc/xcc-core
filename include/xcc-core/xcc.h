@@ -18,7 +18,10 @@
 #include <xcc-core/filesystem/path.h>
 #include <xcc-core/filesystem/XFileInfo.h>
 #include <xcc-core/filesystem/XFileSystem.h>
+#include <xcc-core/filesystem/XFolder.h>
 #include <xcc-core/filesystem/XStandardPath.h>
+
+#include <xcc-core/XMachineCpu.h>
 
 #include <xcc-core/sync/XMutex.h>
 #include <xcc-core/sync/XThread.h>

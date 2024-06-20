@@ -1,4 +1,4 @@
-﻿#include <platform/windows/XNativeNtdll.h>
+﻿#include <platform/win32/XNativeNtdll.h>
 
 
 
