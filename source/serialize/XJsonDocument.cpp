@@ -1,5 +1,5 @@
 ﻿#include <source/serialize/XJsonPrivate.h>
-#include <xcc-core/filesystem/XFileSystem.h>
+#include <xcc-core/filesystem/XFile.h>
 
 
 // constructor
@@ -58,7 +58,7 @@ XString XJsonDocument::toString(const XJsonValue& _JsonValue, XJsonDocument::Jso
 bool XJsonDocument::toFile(const XJsonValue& _JsonValue, const XString& _FilePath, XJsonDocument::JsonFormat _JsonFormat) noexcept
 {
 	auto		vJsonBytes = XJsonDocument::toBytes(_JsonValue, _JsonFormat);
-	return XFileSystem::file::fromBytes(_FilePath, vJsonBytes);
+	return XFile::fromBytes(_FilePath, vJsonBytes);
 }
 
 
@@ -90,6 +90,6 @@ XJsonValue XJsonDocument::fromString(const XString& _JsonString) noexcept
 // [fmt] 从文件加载
 XJsonValue XJsonDocument::fromFile(const XString& _FilePath) noexcept
 {
-	auto		vFileBytes = XFileSystem::file::toBytes(_FilePath);
+	auto		vFileBytes = XFile::toBytes(_FilePath);
 	return XJsonDocument::fromBytes(vFileBytes.data(), vFileBytes.size());
 }

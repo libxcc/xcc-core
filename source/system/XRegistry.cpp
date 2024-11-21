@@ -162,7 +162,7 @@ bool XRegistry::setItemString(const XString& _Name, const XString& _Value) noexc
 	auto		vNameW = _Name.toWString();
 	auto		vValue = _Value.toWString();
 
-	auto		vStatus = RegSetValueExW(d_ptr->handle, vNameW.data(), 0, REG_SZ, (const BYTE*)vValue.data(), (vValue.size() + 1) * sizeof(wchar_t));
+	auto		vStatus = RegSetValueExW(d_ptr->handle, vNameW.data(), 0, REG_SZ, (const BYTE*)vValue.data(), (DWORD)((vValue.size() + 1) * sizeof(wchar_t)));
 	return ERROR_SUCCESS == vStatus;
 #else
 	XCC_UNUSED(_Name);

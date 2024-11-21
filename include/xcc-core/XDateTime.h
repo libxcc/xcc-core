@@ -80,27 +80,27 @@ public:
 	XDateTime& operator = (const XDateTime& _Other) noexcept;
 
 public:
-	// 当前时间日期
+	// [get] 当前时间日期
 	static XDateTime currentDateTime(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
-	// 当前毫秒数
+	// [get] 当前毫秒数
 	static x_time_type currentMillisecond(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
-	// 当前秒数
+	// [get] 当前秒数
 	static x_time_type currentSecond(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
 public:
-	// 从毫秒数格式化
+	// [fmt] 从毫秒数格式化
 	static XDateTime fromMillisecond(x_time_type _Millisecond, const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
-	// 从秒数格式化
+	// [fmt] 从秒数格式化
 	static XDateTime fromSecond(x_time_type _Second, const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
 public:
-	// 是否为闰年
+	// [get] 是否为闰年
 	static bool yearIsLeap(x_time_type _Year) noexcept;
 
-	// 周数开始偏移
+	// [get] 周数开始偏移
 	static x_time_type weekStartOffset(x_time_type _Year) noexcept;
 
 public:

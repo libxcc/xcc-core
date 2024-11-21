@@ -13,8 +13,11 @@ typedef struct XCoreApplicationPrivate		XCoreApplicationPrivate;
 class _XCOREAPI_ XCoreApplication
 {
 private:
-	static XCoreApplication*		d_self;			// 实例指针
-	XCoreApplicationPrivate*		d_ptr;			// 私有数据
+	// 实例指针
+	static XCoreApplication*		d_self;
+
+	// 私有数据
+	XCoreApplicationPrivate*		d_ptr;
 
 private:
 	XCC_DISABLE_COPY(XCoreApplication);
@@ -33,6 +36,10 @@ public:
 
 	// [get] 当前应用程序参数列表
 	static std::vector<XString> arguments() noexcept;
+
+public:
+	// [get] 应用程序当前位数
+	static x_uint64_t appCurrentBit() noexcept;
 
 public:
 	// [get] 应用程序文件路径

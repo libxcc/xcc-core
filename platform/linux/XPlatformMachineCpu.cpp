@@ -1,5 +1,5 @@
 ﻿#include <source/machine/XMachineCpuPrivate.h>
-#include <xcc-core/filesystem/XFileSystem.h>
+#include <xcc-core/filesystem/XFile.h>
 
 
 /*
@@ -45,7 +45,7 @@ static std::pair<XString, XString> XMachineCpuPrivatePair(const XString& _Text) 
 // [set] 初始化对象
 bool XMachineCpuPrivate::init(XMachineCpuPrivate* _Private) noexcept
 {
-	auto		vCpuInfo = XFileSystem::file::toBytes("/proc/cpuinfo");
+	auto		vCpuInfo = XFile::toBytes("/proc/cpuinfo");
 	if(nullptr == vCpuInfo || nullptr == _Private)
 	{
 		return false;

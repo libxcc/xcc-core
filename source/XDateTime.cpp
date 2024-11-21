@@ -88,7 +88,7 @@ XDateTime& XDateTime::operator = (const XDateTime& _Other) noexcept = default;
 
 
 
-// 当前时间日期
+// [get] 当前时间日期
 XDateTime XDateTime::currentDateTime(const XTimeZone& _TimeZone) noexcept
 {
 	XDateTime	vDateTime;
@@ -96,13 +96,13 @@ XDateTime XDateTime::currentDateTime(const XTimeZone& _TimeZone) noexcept
 	return vDateTime;
 }
 
-// 当前毫秒数
+// [get] 当前毫秒数
 x_time_type XDateTime::currentMillisecond(const XTimeZone& _TimeZone) noexcept
 {
 	return XDateTime::currentDateTime(_TimeZone).toMillisecond();
 }
 
-// 当前秒数
+// [get] 当前秒数
 x_time_type XDateTime::currentSecond(const XTimeZone& _TimeZone) noexcept
 {
 	return XDateTime::currentDateTime(_TimeZone).toSecond();
@@ -111,7 +111,7 @@ x_time_type XDateTime::currentSecond(const XTimeZone& _TimeZone) noexcept
 
 
 
-// 从毫秒数格式化
+// [fmt] 从毫秒数格式化
 XDateTime XDateTime::fromMillisecond(x_time_type _Millisecond, const XTimeZone& _TimeZone) noexcept
 {
 	XDateTime	vDateTime;
@@ -119,7 +119,7 @@ XDateTime XDateTime::fromMillisecond(x_time_type _Millisecond, const XTimeZone& 
 	return vDateTime;
 }
 
-// 从秒数格式化
+// [fmt] 从秒数格式化
 XDateTime XDateTime::fromSecond(x_time_type _Second, const XTimeZone& _TimeZone) noexcept
 {
 	return XDateTime::fromMillisecond(_Second * XDateTime::millisecond_second, _TimeZone);
@@ -127,13 +127,13 @@ XDateTime XDateTime::fromSecond(x_time_type _Second, const XTimeZone& _TimeZone)
 
 
 
-// 是否为闰年
+// [get] 是否为闰年
 bool XDateTime::yearIsLeap(x_time_type _Year) noexcept
 {
 	return (_Year % 4 == 0 && _Year % 100 != 0) || (_Year % 400 == 0);
 }
 
-// 周数开始偏移
+// [get] 周数开始偏移
 x_time_type XDateTime::weekStartOffset(x_time_type _Year) noexcept
 {
 	// 一周起始定为周一

@@ -38,6 +38,7 @@ public:
 		S1000	= -1000,		// -10:00
 		S1100	= -1100,		// -11:00
 		S1200	= -1200,		// -12:00
+		LOCAL	= -1,			// 本地时区
 		ZH_CN	= A0800,		// 中国，中华人民共和国
 		ZH_HK	= A0800,		// 中国，香港特别行政区
 	}Region;
@@ -68,7 +69,7 @@ public:
 
 public:
 	// [set] 当前区域
-	virtual void setRegion(XTimeZone::Region _Region) noexcept final;
+	virtual void region(XTimeZone::Region _Region) noexcept final;
 
 	// [get] 当前区域
 	virtual XTimeZone::Region region() const noexcept final;

@@ -1,9 +1,6 @@
 ﻿#include <xcc-core/system/XSystem.h>
-#include <xcc-core/serialize/XCryptoHash.h>
 #include <xcc-core/system/XDynamicLibrary.h>
 #include <xcc-core/system/XOperatingSystem.h>
-#include <xcc-core/XTernary.h>
-#include <xcc-core/XUuid.h>
 #if defined(XCC_SYSTEM_WINDOWS)
 #include <UserEnv.h>
 #else
@@ -251,71 +248,6 @@ XString XSystem::nativeString() noexcept
 	return _StaticNativeString;
 }
 
-
-
-// [get] 系统唯一ID
-XString XSystem::machineId() noexcept
-{
-	static XString		static_object_example = nullptr;
-	if(static_object_example.empty())
-	{
-#if defined(XCC_SYSTEM_WINDOWS)
-		HKEY		vKey = nullptr;
-		LSTATUS		vStatus = ERROR_SUCCESS;
-		if(XOperatingSystem::isBit64())
-		{
-			vStatus = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Cryptography", NULL, KEY_READ | KEY_WOW64_64KEY, &vKey);
-		}
-		else
-		{
-			vStatus = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Cryptography", NULL, KEY_READ, &vKey);
-		}
-		if(ERROR_SUCCESS == vStatus)
-		{
-			wchar_t		vBuffer[MAX_PATH] = { 0 };
-			DWORD		vLength = MAX_PATH;
-			DWORD		vType = REG_SZ;
-			x_posix_memset(vBuffer, 0, sizeof(wchar_t) * MAX_PATH);
-			LSTATUS		vQuery = RegQueryValueExW(vKey, L"MachineGuid", nullptr, &vType, (byte*)vBuffer, &vLength);
-			if(vQuery == ERROR_SUCCESS)
-			{
-				static_object_example = XUuid::fromString(XString::fromWString(vBuffer)).toString(XUuid::WithoutBraces);
-			}
-			RegCloseKey(vKey);
-		}
-#endif
-#if defined(XCC_SYSTEM_LINUX)
-		const char*	vCommandMachineId = "cat /etc/machine-id";
-		XString		vCommandResult = nullptr;
-		XShell::run(vCommandMachineId, [&](const XString& _Output)->bool
-		{
-			vCommandResult += _Output;
-			return true;
-		});
-		if(vCommandResult.size() == 32)
-		{
-			static_object_example = XUuid::fromString(vCommandResult).toString(XUuid::WithoutBraces);
-		}
-#endif
-#if defined(XCC_SYSTEM_DARWIN)
-		const char*	vCommandKernUuid = "sysctl kern.uuid";
-		XString		vCommandResult = nullptr;
-		XShell::run(vCommandKernUuid, [&](const XString& _Output)->bool
-		{
-			vCommandResult += _Output;
-			return true;
-		});
-
-		auto		vFindBegin = x_posix_strlen("kern.uuid: ");
-		if(vCommandResult.size() == vFindBegin + 36)
-		{
-			static_object_example = XUuid::fromString(vCommandResult).toString(XUuid::WithoutBraces);
-		}
-#endif
-	}
-	return {};
-}
-
 // [get] 硬盘ID
 XString XSystem::diskID() noexcept
 {
@@ -382,38 +314,4 @@ XString XSystem::diskID() noexcept
 #endif
 	}
 	return {_StaticDiskID};
-}
-
-// [get] 当前计算机唯一的字符串
-XString XSystem::uniqueId() noexcept
-{
-	static XString		static_object_example = nullptr;
-	if(static_object_example.empty())
-	{
-		auto		vTempOnlyString = XSystem::nativeString();
-		vTempOnlyString += XString::format(" DISK[%s]", XSystem::diskID().data());
-		vTempOnlyString += XString::format(" HOST-ID[%016lld]", (x_int64_t)x_posix_gethostid());
-		vTempOnlyString += XString::format(" MACHINE-ID[%s]", XSystem::machineId().data());
-
-#if defined(XCC_SYSTEM_DARWIN)
-		// 获取macOS计算机序列号
-		XShell::run("ioreg -rd1 -c IOPlatformExpertDevice | awk \'/IOPlatformSerialNumber/ { print $3; }\'", [&](const XString& _Output)->bool
-		{
-			auto		vIOPlatformSerialNumber = _Output;
-			vIOPlatformSerialNumber.remove("\"");
-			vIOPlatformSerialNumber = vIOPlatformSerialNumber.simplified();
-			vTempOnlyString += XString::format(" SERIAL-NUMBER[%s]", vIOPlatformSerialNumber.data());
-			return true;
-		});
-		// Get Hardware UUID in Mac OS X
-		XShell::run("system_profiler SPHardwareDataType | awk \'/UUID/ { print $3; }\'", [&](const XString& _Output)->bool
-		{
-			vTempOnlyString += XString::format(" HARDWARE-UUID[%s]", _Output.data());
-			return true;
-		});
-#endif
-
-		static_object_example = XString::fromBytes(XCryptoHash::hashBytes(vTempOnlyString.toBytes(), XCryptoHash::MD5).toHex().toUpper());
-	}
-	return static_object_example;
 }

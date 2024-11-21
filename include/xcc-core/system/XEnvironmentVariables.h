@@ -16,6 +16,9 @@ public:
 	virtual ~XEnvironmentVariables() noexcept;
 
 public:
+	// 获取环境变量列表
+	static std::map<XString, XString> envs() noexcept;
+
 	// 检查指定Key的环境变量是否不存在
 	static bool empty(const XString& _Key) noexcept;
 

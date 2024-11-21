@@ -75,7 +75,7 @@ static bool pe_format_nt_header(const void* _Memory, x_uint64_t _Length, const I
 		return false;
 	}
 
-	(*_NtHeader) = PIMAGE_NT_HEADERS(DWORD(_Memory) + _DosHeader->e_lfanew);
+	(*_NtHeader) = PIMAGE_NT_HEADERS(x_size_t(_Memory) + _DosHeader->e_lfanew);
 	if((*_NtHeader)->Signature != IMAGE_NT_SIGNATURE)
 	{
 		return false;
@@ -227,8 +227,8 @@ int XPA_ProcessRunByMemory(const XPrivateProcessRunMemory& _Context, const std::
 				// 写入节点
 				for(auto vIndex = 0; vIndex < NtHeader->FileHeader.NumberOfSections; ++vIndex)
 				{
-					SectionHeader = PIMAGE_SECTION_HEADER(DWORD(NtHeader) + sizeof(IMAGE_NT_HEADERS) + sizeof(IMAGE_SECTION_HEADER) * vIndex);
-					ntdll::NtWriteVirtualMemory(PI.hProcess, LPVOID(DWORD(AppBaseAddr) + SectionHeader->VirtualAddress), LPVOID(DWORD(AppMemory) + SectionHeader->PointerToRawData), SectionHeader->SizeOfRawData, nullptr);
+					SectionHeader = PIMAGE_SECTION_HEADER(x_size_t(NtHeader) + sizeof(IMAGE_NT_HEADERS) + sizeof(IMAGE_SECTION_HEADER) * vIndex);
+					ntdll::NtWriteVirtualMemory(PI.hProcess, LPVOID(x_size_t(AppBaseAddr) + SectionHeader->VirtualAddress), LPVOID(x_size_t(AppMemory) + SectionHeader->PointerToRawData), SectionHeader->SizeOfRawData, nullptr);
 				}
 
 				// 替换 PE头 与 入口点地址

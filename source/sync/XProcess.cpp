@@ -1,5 +1,4 @@
 ﻿#include <xcc-core/sync/XProcess.h>
-#include <xcc-core/filesystem/XFileSystem.h>
 #include <platform/xpa/XPlatformProcess.h>
 
 
@@ -190,7 +189,7 @@ int XProcess::execds(const char* _Application, const char* _Directory, const cha
 
 	// 在这里调用exec系列函数
 #if defined(XCC_SYSTEM_WINDOWS)
-	vSync = ::_execv(_Application, vArgs);
+	vSync = (int)::_execv(_Application, vArgs);
 #else
 	vSync = ::execv(_Application, vArgs);
 #endif

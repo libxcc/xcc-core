@@ -240,7 +240,11 @@ x_size_t XJsonPrivate::calc_length(double _Number) noexcept
 {
 	XString		vFormat;
 
-	if(fabs(_Number) < 1.0e-6 || fabs(_Number) > 1.0e9)
+	if(std::isnan(_Number))
+	{
+		vFormat = XString::format("%lf", 0.0f);
+	}
+	else if(fabs(_Number) < 1.0e-6 || fabs(_Number) > 1.0e9)
 	{
 		vFormat = XString::format("%lf", _Number);
 	}
@@ -536,7 +540,11 @@ bool XJsonPrivate::serialize_number(XJsonSerializePrivate* _Context, XJsonValueP
 	else
 	{
 		auto		vDouble = _Private->value.v_double;
-		if(fabs(vDouble) < 1.0e-6 || fabs(vDouble) > 1.0e9)
+		if(std::isnan(vDouble))
+		{
+			x_posix_sprintf(vBuffer, "%lf", 0.0f);
+		}
+		else if(fabs(vDouble) < 1.0e-6 || fabs(vDouble) > 1.0e9)
 		{
 			x_posix_sprintf(vBuffer, "%lf", vDouble);
 		}

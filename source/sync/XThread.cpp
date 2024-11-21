@@ -55,8 +55,7 @@ unsigned int XThread::usleep(unsigned int _Microseconds) noexcept
 // Running thread
 void XThread::start() noexcept
 {
-	std::thread	vThread(&XThread::run, this);
-	vThread.detach();
+	std::thread(&XThread::run, this).detach();
 }
 
 

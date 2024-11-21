@@ -1,7 +1,7 @@
 ﻿#include <xcc-core/filesystem/XStandardPath.h>
 #include <xcc-core/XCoreApplication.h>
 #include <xcc-core/system/XOperatingSystem.h>
-#include <xcc-core/filesystem/XFileSystem.h>
+#include <xcc-core/filesystem/XFolder.h>
 
 
 
@@ -51,7 +51,7 @@ XString XStandardPath::appStandardName() noexcept
 XString XStandardPath::appConfigLocation() noexcept
 {
 	auto		vPath = XStandardPath::systemConfigLocation() + "/" + appStandardName();
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -59,7 +59,7 @@ XString XStandardPath::appConfigLocation() noexcept
 XString XStandardPath::appDataLocation() noexcept
 {
 	auto		vPath = XStandardPath::systemDataLocation() + "/" + appStandardName();
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -67,7 +67,7 @@ XString XStandardPath::appDataLocation() noexcept
 XString XStandardPath::appCacheLocation() noexcept
 {
 	auto		vPath = XStandardPath::systemCacheLocation() + "/" + appStandardName();
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -75,7 +75,7 @@ XString XStandardPath::appCacheLocation() noexcept
 XString XStandardPath::appTempLocation() noexcept
 {
 	auto		vPath = XStandardPath::systemTempLocation() + "/" + appStandardName();
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -91,7 +91,7 @@ XString XStandardPath::appEnvLocation() noexcept
 #else
 		auto		vDirectory = systemConfigLocation() + "/com.xanadu." + vApplicationName;
 #endif
-		XFileSystem::directory_create(vDirectory);
+		XFolder::mkpath(vDirectory);
 		vEnvironmentDirPath = vDirectory;
 	}
 	return vEnvironmentDirPath;
@@ -112,7 +112,7 @@ XString XStandardPath::systemConfigLocation() noexcept
 	auto		vPath = XStandardPath::homeLocation() + "/Library/Preferences";
 #endif
 
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -129,7 +129,7 @@ XString XStandardPath::systemDataLocation() noexcept
 	auto		vPath = XStandardPath::homeLocation() + "/Library/Application Support";
 #endif
 
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -146,7 +146,7 @@ XString XStandardPath::systemCacheLocation() noexcept
 	auto		vPath = XStandardPath::homeLocation() + "/Library/Caches";
 #endif
 
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -163,7 +163,7 @@ XString XStandardPath::systemTempLocation() noexcept
 	auto		vPath = XString("/private/tmp");
 #endif
 
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 
@@ -180,7 +180,7 @@ XString XStandardPath::systemAutorunLocation() noexcept
 	auto		vPath = XStandardPath::homeLocation() + "/Library/LaunchAgents";
 #endif
 
-	XFileSystem::directory_create(vPath);
+	XFolder::mkpath(vPath);
 	return vPath;
 }
 

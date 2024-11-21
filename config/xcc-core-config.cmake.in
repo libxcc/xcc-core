@@ -20,5 +20,4 @@ endif ()
 # Setting
 if(XCC_CORE_INCLUDE AND XCC_CORE_LIBRARY)
 	set(XCC_CORE_FOUND TRUE)
-	add_definitions(-D${XCC_CORE_BUILD_REPLACE})
 endif()

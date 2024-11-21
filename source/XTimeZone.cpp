@@ -35,7 +35,7 @@ XTimeZone& XTimeZone::operator = (const XTimeZone& _Other) noexcept = default;
 
 
 // [set] 当前区域
-void XTimeZone::setRegion(XTimeZone::Region _Region) noexcept
+void XTimeZone::region(XTimeZone::Region _Region) noexcept
 {
 	memberRegion = _Region;
 }
@@ -71,6 +71,15 @@ x_time_type XTimeZone::toMillisecond(XTimeZone::Region _Region) noexcept
 // [cnv] 转化为秒
 x_time_type XTimeZone::toSecond(XTimeZone::Region _Region) noexcept
 {
+	// 特定时区转换
+	if(XTimeZone::LOCAL == _Region)
+	{
+		auto		vTimeNow = time(nullptr);
+		auto		vOffsetSeconds = difftime(mktime(localtime(&vTimeNow)), mktime(gmtime(&vTimeNow)));
+		return (x_time_type)vOffsetSeconds;
+	}
+
+	// 其它时区转换
 	auto		vHour = _Region / 100;
 	auto		vMinute = _Region % 100;
 

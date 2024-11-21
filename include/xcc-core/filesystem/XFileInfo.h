@@ -47,6 +47,15 @@ public:
 	// [fmt] 转换至通用路径
 	static XString pathToCommon(const XString& _Path) noexcept;
 
+	// [fmt] 路径修复\/:*?"<>|
+	static XString pathRepairInvalid(const XString& _Path) noexcept;
+
+	// [fmt] 路径包装空格
+	static XString pathRepairSpace(const XString& _Path) noexcept;
+
+	// [opt] 检查名称是否符合规范
+	static bool isCorrect(const XString& _FileName) noexcept;
+
 public:
 	// [static] 检查路径是否存在
 	static bool exist(const XString& _Path) noexcept;

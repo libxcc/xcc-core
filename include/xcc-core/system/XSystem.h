@@ -58,15 +58,8 @@ public:
 	// Native system String
 	static XString nativeString() noexcept;
 
-public:
-	// [get] 系统唯一ID
-	static XString machineId() noexcept;
-
 	// [get] 硬盘ID
 	static XString diskID() noexcept;
-
-	// [get] 当前计算机唯一的字符串
-	static XString uniqueId() noexcept;
 };
 
 #endif

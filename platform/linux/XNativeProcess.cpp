@@ -1,4 +1,5 @@
 ﻿#include <platform/xpa/XPlatformProcess.h>
+#include <xcc-core/filesystem/XFolder.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -9,18 +10,20 @@
 // XPA: 遍历本机进程数据
 int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>& _Lambda) noexcept
 {
-	auto		vSync = XFileSystem::directory_traverse("/proc", [&](const XFileSystem::path& _Path)->bool
+	auto 		vSyncB = true;
+	auto		vInfoArray = XFolder::entryInfoList("/proc", XFolder::DefFilter);
+	for(const auto & vIterator : vInfoArray)
 	{
 		// 检查是否全为数字
-		auto 		vFileName = _Path.fileName();
-		for(auto vIndex = 0; vIndex < vFileName.size(); ++vIndex)
+		auto 		vFileName = vIterator.fileName();
+		for(auto vIndex = 0u; vIndex < vFileName.size(); ++vIndex)
 		{
 			if(vFileName[vIndex] < '0' || '9' < vFileName[vIndex])
 			{
-				return true;
+				continue;
 			}
 		}
-		if(XFileSystem::path::isDirectory(_Path))
+		if(vIterator.isDir())
 		{
 			auto		vApplication = XString::format("/proc/%s/exe", vFileName.data());
 			char		vDirectory[XCC_PATH_MAX] = { 0 };
@@ -35,22 +38,23 @@ int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>&
 						auto		vPrivate = new(std::nothrow) XPrivateProcessData();
 						if(vPrivate == nullptr)
 						{
-							return false;
+							vSyncB = false;
+							break;
 						}
 						vPrivate->id = vFileName.toLLong();
 						vPrivate->name = XString::fromUString(vName);
 						auto		vInfoProcess = XProcessInfo(vPrivate);
 						if(vInfoProcess.pid() != 0 && !_Lambda(vInfoProcess))
 						{
-							return false;
+							vSyncB = false;
+							break;
 						}
 					}
 				}
 			}
 		}
-		return true;
-	});
-	return vSync ? 0 : -1;
+	}
+	return vSyncB ? 0 : -1;
 }
 
 // XPA: 根据进程ID结束进程

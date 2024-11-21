@@ -1,6 +1,5 @@
 ﻿#include <xcc-core/XCoreApplication.h>
-#include <xcc-core/filesystem/XFileSystem.h>
-#include <xcc-core/system/XSystem.h>
+#include <xcc-core/filesystem/XFileInfo.h>
 #if defined(XCC_SYSTEM_DARWIN)
 #include <mach-o/dyld.h>
 #endif
@@ -69,6 +68,20 @@ std::vector<XString> XCoreApplication::arguments() noexcept
 
 
 
+// [get] 应用程序当前位数
+x_uint64_t XCoreApplication::appCurrentBit() noexcept
+{
+#if defined(XCC_PLATFORM_BIT_32)
+	return 32;
+#elif defined(XCC_PLATFORM_BIT_64)
+	return 64;
+#else
+	return 0;
+#endif
+}
+
+
+
 // [get] 应用程序文件路径
 XString XCoreApplication::applicationFilePath() noexcept
 {
@@ -78,7 +91,7 @@ XString XCoreApplication::applicationFilePath() noexcept
 #if defined(XCC_SYSTEM_WINDOWS)
 		wchar_t		vDirectory[XCC_PATH_MAX] = { 0 };
 		::GetModuleFileNameW(::GetModuleHandleW(nullptr), vDirectory, XCC_PATH_MAX);
-		static_object_example = XFileSystem::path::format(XString::fromWString(vDirectory)).filePath();
+		static_object_example = XFileInfo::pathToCommon(XString::fromWString(vDirectory));
 #else
 #if defined(XCC_SYSTEM_DARWIN)
 		char		vDirectory[XCC_PATH_MAX];
@@ -168,8 +181,8 @@ XString XCoreApplication::applicationFileStem() noexcept
 XString XCoreApplication::setCurrentDirectory(const XString& _Directory) noexcept
 {
 	auto		vDirectory = XCoreApplication::currentDirectory();
-	auto		vNewDirectory = XFileSystem::path::format(_Directory).filePath();
-	x_posix_chdir(vNewDirectory.toUString().data());
+	auto		vNewDirectory = XFileInfo::pathToNative(_Directory);
+	x_posix_chdir(vNewDirectory.data());
 	return vDirectory;
 }
 
@@ -178,6 +191,6 @@ XString XCoreApplication::currentDirectory() noexcept
 {
 	char		vDirectory[XCC_PATH_MAX] = { 0 };
 	x_posix_getcwd(vDirectory, XCC_PATH_MAX);
-	auto		vDirectoryPath = XFileSystem::path::format(XString::fromUString(vDirectory));
-	return vDirectoryPath.filePath();
+	auto		vDirPath = XFileInfo::pathToCommon(vDirectory);
+	return vDirPath;
 }

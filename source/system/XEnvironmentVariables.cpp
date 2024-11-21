@@ -1,4 +1,8 @@
 ﻿#include <xcc-core/system/XEnvironmentVariables.h>
+#if defined(XCC_SYSTEM_WINDOWS)
+#else
+extern char**		environ;
+#endif
 
 
 // constructor
@@ -8,6 +12,44 @@ XEnvironmentVariables::XEnvironmentVariables() noexcept = default;
 XEnvironmentVariables::~XEnvironmentVariables() noexcept = default;
 
 
+
+// 获取环境变量列表
+std::map<XString, XString> XEnvironmentVariables::envs() noexcept
+{
+	auto		vEnvs = std::map<XString, XString>();
+#if defined(XCC_SYSTEM_WINDOWS)
+	auto		vTextA = GetEnvironmentStringsW();
+	if(nullptr == vTextA)
+	{
+		return {};
+	}
+	auto		vTextS = vTextA;
+	while (*vTextS != L'\0')
+	{
+		auto		vEnv = XString::fromWString(vTextS);
+		auto		vFind = vEnv.find("=");
+		if(vFind != XString::npos)
+		{
+			vEnvs.insert(std::map<XString, XString>::value_type(vEnv.left(vFind), vEnv.mid(vFind + 1)));
+		}
+		vTextS += x_posix_wcslen(vTextS) + 1;
+	}
+	FreeEnvironmentStringsW(vTextA);
+#else
+	auto		vTextS = environ;
+	while (nullptr != vTextS && nullptr != *vTextS)
+	{
+		auto		vEnv = XString(*vTextS);
+		auto		vFind = vEnv.find("=");
+		if(vFind != XString::npos)
+		{
+			vEnvs.insert(std::map<XString, XString>::value_type(vEnv.left(vFind), vEnv.mid(vFind + 1)));
+		}
+		++vTextS;
+	}
+#endif
+	return vEnvs;
+}
 
 // 检查指定Key的环境变量是否不存在
 bool XEnvironmentVariables::empty(const XString& _Key) noexcept

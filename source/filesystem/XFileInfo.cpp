@@ -1,6 +1,8 @@
 ﻿#include <xcc-core/filesystem/XFileInfo.h>
 #include <source/filesystem/XFileInfoPrivate.h>
-#include <xcc-core/filesystem/XFileSystem.h>
+#include <xcc-core/filesystem/XFile.h>
+#include <xcc-core/filesystem/XFolder.h>
+#include <xcc-core/filesystem/XStandardPath.h>
 
 
 // constructor
@@ -75,9 +77,11 @@ XString XFileInfo::pathToNative(const XString& _Path) noexcept
 	auto		vFilePath = _Path;
 #if defined(XCC_SYSTEM_WINDOWS)
 	vFilePath.replace('/', '\\');
+	vFilePath.replace("\\\\", '\\');
 	while(vFilePath.size() > 1 && vFilePath[vFilePath.size() - 1] == '\\')
 #else
 	vFilePath.replace('\\', '/');
+	vFilePath.replace("//", '/');
 	while(vFilePath.size() > 1 && vFilePath[vFilePath.size() - 1] == '/')
 #endif
 	{
@@ -91,11 +95,62 @@ XString XFileInfo::pathToCommon(const XString& _Path) noexcept
 {
 	auto		vFilePath = _Path;
 	vFilePath.replace('\\', '/');
+	vFilePath.replace("//", '/');
 	while(vFilePath.size() > 1 && vFilePath[vFilePath.size() - 1] == '/')
 	{
 		vFilePath.remove(vFilePath.size() - 1, 1);
 	}
 	return vFilePath;
+}
+
+// [fmt] 路径修复\/:*?"<>|
+XString XFileInfo::pathRepairInvalid(const XString& _Path) noexcept
+{
+	auto		vRevPath = _Path;
+	auto		vPos = vRevPath.rfind('/');
+	for(auto vIndex = ((vPos == XString::npos) ? 0 : vPos); vIndex < vRevPath.size(); ++vIndex)
+	{
+		switch(vRevPath[vIndex])
+		{
+			//\/:*?"<>|
+			case ':':
+			case '*':
+			case '?':
+			case '\"':
+			case '<':
+			case '>':
+			case '|':
+				vRevPath[vIndex] = '_';
+				break;
+			default:
+				break;
+		}
+	}
+	return vRevPath;
+}
+
+// [fmt] 路径包装空格
+XString XFileInfo::pathRepairSpace(const XString& _Path) noexcept
+{
+	if(_Path.contains(" "))
+	{
+		return XString("\"") + _Path + XString("\"");
+	}
+	return _Path;
+}
+
+// [opt] 检查名称是否符合规范
+bool XFileInfo::isCorrect(const XString& _FileName) noexcept
+{
+	auto		vFilePath = XStandardPath::appCacheLocation() + "/" + _FileName;
+	auto		vHandle = XFile::fopen(vFilePath, "wb");
+	if(vHandle)
+	{
+		XFile::fclose(vHandle);
+		XFile::remove(vFilePath);
+		return true;
+	}
+	return false;
 }
 
 
@@ -146,20 +201,33 @@ bool XFileInfo::isFile(const XString& _Path) noexcept
 // [static] 获取文件大小
 x_uint64_t XFileInfo::size(const XString& _Path) noexcept
 {
-	auto		vFilePath = XFileInfo::pathToNative(_Path);
-	return x_posix_fsize(vFilePath.data());
+	if(XFileInfo::isDir(_Path))
+	{
+		return XFolder::dirSize(_Path);
+	}
+	else
+	{
+		return XFile::fsize(_Path);
+	}
 }
 
 // [static] 删除指定路径
 bool XFileInfo::remove(const XString& _Path) noexcept
 {
-	return XFileSystem::path::remove(_Path, nullptr);
+	if(XFileInfo::isDir(_Path))
+	{
+		return XFolder::dirRemove(_Path, nullptr);
+	}
+	else
+	{
+		return XFile::remove(_Path);
+	}
 }
 
 // [static] 重命名指定路径
 bool XFileInfo::rename(const XString& _PathOld, const XString& _PathNew) noexcept
 {
-	return XFileSystem::file::rename(_PathOld, _PathNew);
+	return XFile::rename(_PathOld, _PathNew);
 }
 
 

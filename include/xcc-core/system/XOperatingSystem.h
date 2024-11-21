@@ -35,6 +35,13 @@ public:
 	static XString displayName() noexcept;
 
 public:
+	// [get] 系统唯一ID
+	static XString machineId() noexcept;
+
+	// [get] 当前计算机唯一的字符串
+	static XString uniqueId() noexcept;
+
+public:
 	// 检查是否为服务端系统
 	static bool isServerVersion() noexcept;
 
