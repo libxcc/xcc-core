@@ -10,7 +10,7 @@ static struct tm* __xcall__ x_datetime_millisecond_to_tm(x_time_type _Millisecon
 }
 
 // 当前毫秒数
-static x_time_type __xcall__ x_datetime_current_millisecond_utc() noexcept
+static x_time_type __xcall__ _XCC_DT_get_utc_msec() noexcept
 {
 #if defined(XCC_SYSTEM_ANDROID)
 	/*
@@ -27,6 +27,38 @@ static x_time_type __xcall__ x_datetime_current_millisecond_utc() noexcept
 	ftime(&vRawTime);
 	return vRawTime.time * 1000LL + vRawTime.millitm;
 #endif
+}
+
+// 设置毫秒数
+static bool __xcall__ _XCC_DT_set_utc_msec(x_time_type _MSecTime) noexcept
+{
+#if defined(XCC_SYSTEM_WINDOWS)
+	time_t		vUTC_Sec = _MSecTime / 1000;
+	SYSTEMTIME	vST;
+	auto		vTM = gmtime(&vUTC_Sec);
+
+	vST.wYear = (WORD)(vTM->tm_year + 1900);
+	vST.wMonth = (WORD)(vTM->tm_mon + 1);
+	vST.wDay = (WORD)(vTM->tm_mday);
+	vST.wHour = (WORD)(vTM->tm_hour);
+	vST.wMinute = (WORD)(vTM->tm_min);
+	vST.wSecond = (WORD)(vTM->tm_sec);
+	vST.wMilliseconds = (WORD)(_MSecTime % 1000);
+
+	if(!SetSystemTime(&vST))
+	{
+		return false;
+	}
+#else
+	struct timeval	vTV;
+	vTV.tv_sec = (long)(_MSecTime / 1000);
+	vTV.tv_usec = (long)(_MSecTime % 1000);
+	if (settimeofday(&vTV, NULL) != 0)
+	{
+		return false;
+	}
+#endif
+	return true;
 }
 
 // 检查相同字符数量
@@ -56,7 +88,7 @@ static int __xcall__ xcc_datetime_repeat_count(const XString& _String) noexcept
 // constructors
 XDateTime::XDateTime() noexcept
 {
-	memberMillisecond = x_datetime_current_millisecond_utc();
+	memberMillisecond = _XCC_DT_get_utc_msec();
 }
 
 // constructors Year[1970-9999] Month[1-12] Day[1-31]
@@ -76,7 +108,7 @@ XDateTime::XDateTime(x_int32_t _Year, x_int32_t _Month, x_int32_t _Day, x_int32_
 }
 
 // constructors
-XDateTime::XDateTime(const XDateTime& _Info) noexcept = default;
+XDateTime::XDateTime(const XDateTime& _Right) noexcept = default;
 
 // destructor
 XDateTime::~XDateTime() noexcept = default;
@@ -84,16 +116,34 @@ XDateTime::~XDateTime() noexcept = default;
 
 
 // operator override =
-XDateTime& XDateTime::operator = (const XDateTime& _Other) noexcept = default;
+XDateTime& XDateTime::operator = (const XDateTime& _Right) noexcept = default;
 
 
 
-// [get] 当前时间日期
-XDateTime XDateTime::currentDateTime(const XTimeZone& _TimeZone) noexcept
+// [set] 当前秒数
+bool XDateTime::setCurrentSecond(x_time_type _SecTime, const XTimeZone& _TimeZone) noexcept
 {
-	XDateTime	vDateTime;
-	vDateTime.memberMillisecond += _TimeZone.toMillisecond();
-	return vDateTime;
+	return XDateTime::setCurrentMillisecond(_SecTime * 1000, _TimeZone);
+}
+
+// [set] 当前毫秒数
+bool XDateTime::setCurrentMillisecond(x_time_type _MSecTime, const XTimeZone& _TimeZone) noexcept
+{
+	return _XCC_DT_set_utc_msec(_MSecTime + _TimeZone.toMillisecond());
+}
+
+// [set] 当前时间日期
+bool XDateTime::setCurrentDateTime(const XDateTime& _DateTime, const XTimeZone& _TimeZone) noexcept
+{
+	return XDateTime::setCurrentMillisecond(_DateTime.toMillisecond(), _TimeZone);
+}
+
+
+
+// [get] 当前秒数
+x_time_type XDateTime::currentSecond(const XTimeZone& _TimeZone) noexcept
+{
+	return XDateTime::currentDateTime(_TimeZone).toSecond();
 }
 
 // [get] 当前毫秒数
@@ -102,12 +152,13 @@ x_time_type XDateTime::currentMillisecond(const XTimeZone& _TimeZone) noexcept
 	return XDateTime::currentDateTime(_TimeZone).toMillisecond();
 }
 
-// [get] 当前秒数
-x_time_type XDateTime::currentSecond(const XTimeZone& _TimeZone) noexcept
+// [get] 当前时间日期
+XDateTime XDateTime::currentDateTime(const XTimeZone& _TimeZone) noexcept
 {
-	return XDateTime::currentDateTime(_TimeZone).toSecond();
+	XDateTime	vDateTime;
+	vDateTime.memberMillisecond += _TimeZone.toMillisecond();
+	return vDateTime;
 }
-
 
 
 

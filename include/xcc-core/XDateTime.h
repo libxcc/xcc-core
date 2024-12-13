@@ -70,24 +70,34 @@ public:
 	XDateTime(x_int32_t _Year, x_int32_t _Month, x_int32_t _Day, x_int32_t _Hour, x_int32_t _Minute, x_int32_t _Second, x_int32_t _Millisecond) noexcept;
 
 	// constructors
-	XDateTime(const XDateTime& _Info) noexcept;
+	XDateTime(const XDateTime& _Right) noexcept;
 
 	// destructor
 	virtual ~XDateTime() noexcept;
 
 public:
 	// operator override =
-	XDateTime& operator = (const XDateTime& _Other) noexcept;
+	XDateTime& operator = (const XDateTime& _Right) noexcept;
 
 public:
-	// [get] 当前时间日期
-	static XDateTime currentDateTime(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
+	// [set] 当前秒数
+	static bool setCurrentSecond(x_time_type _SecTime, const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
+
+	// [set] 当前毫秒数
+	static bool setCurrentMillisecond(x_time_type _MSecTime, const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
+
+	// [set] 当前时间日期
+	static bool setCurrentDateTime(const XDateTime& _DateTime, const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
+
+public:
+	// [get] 当前秒数
+	static x_time_type currentSecond(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
 	// [get] 当前毫秒数
 	static x_time_type currentMillisecond(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
-	// [get] 当前秒数
-	static x_time_type currentSecond(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
+	// [get] 当前时间日期
+	static XDateTime currentDateTime(const XTimeZone& _TimeZone = XTimeZone::UTC) noexcept;
 
 public:
 	// [fmt] 从毫秒数格式化

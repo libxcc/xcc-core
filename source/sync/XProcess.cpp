@@ -25,7 +25,7 @@ void XProcess::delay_exit(x_uint32_t _Millisecond, int _Code) noexcept
 
 
 
-// Kills the process by the specified name
+// 终止指定名称的进程
 bool XProcess::kill(const XString& _ProcessName) noexcept
 {
 	if(_ProcessName.empty())
@@ -37,11 +37,28 @@ bool XProcess::kill(const XString& _ProcessName) noexcept
 	return 0 == vSync;
 }
 
-// Kill the process with the specified process ID
+// 终止指定进程ID的进程
 bool XProcess::kill(x_uint64_t _ProcessID) noexcept
 {
 	auto		vSync = XPA_ProcessTerminateById(_ProcessID);
 	return 0 == vSync;
+}
+
+// 终止除自己外的其它同名进程
+bool XProcess::killSameName() noexcept
+{
+	auto		vProcessName = XCoreApplication::applicationFileName();
+	auto		vProcessID = XProcess::currentProcessID();
+	auto		vSyncB = true;
+	XProcess::traverse([&](const XProcessInfo& _Info)->bool
+	{
+		if (_Info.name() == vProcessName && _Info.pid() != vProcessID)
+		{
+			vSyncB = XProcess::kill(_Info.pid());
+		}
+		return vSyncB;
+	});
+	return vSyncB;
 }
 
 

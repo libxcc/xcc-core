@@ -5,6 +5,7 @@
 #include <xcc-core/container/XByteArray.h>
 #include <xcc-core/container/XString.h>
 #include <xcc-core/container/XReferenceCounter.h>
+#include <xcc-core/container/XVersionInfo.h>
 
 #include <xcc-core/XObject.h>
 

@@ -31,11 +31,14 @@ public:
 	static void delay_exit(x_uint32_t _Millisecond, int _Code) noexcept;
 
 public:
-	// Kills the process by the specified name
+	// 终止指定名称的进程
 	static bool kill(const XString& _ProcessName) noexcept;
 
-	// Kill the process with the specified process ID
+	// 终止指定进程ID的进程
 	static bool kill(x_uint64_t _ProcessID) noexcept;
+
+	// 终止除自己外的其它同名进程
+	static bool killSameName() noexcept;
 
 public:
 	// Gets the current process ID
