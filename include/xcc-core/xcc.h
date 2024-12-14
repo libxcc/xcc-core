@@ -17,6 +17,7 @@
 #include <xcc-core/serialize/XJsonValue.h>
 
 #include <xcc-core/filesystem/XFile.h>
+#include <xcc-core/filesystem/XFileCache.h>
 #include <xcc-core/filesystem/XFileInfo.h>
 #include <xcc-core/filesystem/XFolder.h>
 #include <xcc-core/filesystem/XStandardPath.h>
