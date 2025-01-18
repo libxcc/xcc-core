@@ -42,6 +42,9 @@ public:
 
 	// 关闭动态链接库句柄
 	static void close(handle_type _Handle) noexcept;
+
+	// 最近一次的错误消息
+	static XString error() noexcept;
 };
 
 

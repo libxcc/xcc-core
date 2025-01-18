@@ -66,7 +66,7 @@ XRegistry::~XRegistry() noexcept
 // [get] 是否存在注册表项
 bool XRegistry::exist(HKEY _Root, const XString& _Path) noexcept
 {
-	if(_Root == nullptr || _Path.empty())
+	if(nullptr == _Root || _Path.empty())
 	{
 		return false;
 	}
@@ -97,7 +97,7 @@ bool XRegistry::exist(const XString& _Path) noexcept
 // [opt] 打开
 bool XRegistry::open(xcc::OpenMode _Mode) noexcept
 {
-	if(d_ptr->root == nullptr || d_ptr->path.empty())
+	if(nullptr == d_ptr->root || d_ptr->path.empty())
 	{
 		return false;
 	}

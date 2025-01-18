@@ -449,7 +449,7 @@ XString XString::mid(const elem_type* _Left, size_type _LengthL, const elem_type
 	pos_type 	vPosL = 0;
 	pos_type 	vPosR = 0;
 
-	if(_Left == nullptr || _Right == nullptr || _LengthL == 0 || _LengthR == 0)
+	if(nullptr == _Left || nullptr == _Right || _LengthL == 0 || _LengthR == 0)
 	{
 		return {};
 	}
@@ -682,7 +682,7 @@ XString::pos_type XString::find(const elem_type* _String, size_type _Length, pos
 {
 	auto 		vFind = static_cast<const XString::elem_type*>(nullptr);
 
-	if(_String == nullptr || _Length == 0 || (this->size() - _Pos) < _Length)
+	if(nullptr == _String || _Length == 0 || (this->size() - _Pos) < _Length)
 	{
 		return XString::npos;
 	}
@@ -792,7 +792,7 @@ XString::pos_type XString::rfind(const elem_type* _String, size_type _Length, po
 {
 	auto 		vFind = static_cast<int>(1);
 
-	if(_String == nullptr || _Length == 0 || this->size() < _Length)
+	if(nullptr == _String || _Length == 0 || this->size() < _Length)
 	{
 		return XString::npos;
 	}
@@ -1053,7 +1053,7 @@ int XString::compare(const elem_type* _String, size_type _Length, xcc::CaseSensi
 		}
 		return vCompare;
 	}
-	else if(this->empty() && _String == nullptr)
+	else if(this->empty() && nullptr == _String)
 	{
 		return 0;
 	}
@@ -1714,7 +1714,7 @@ XString XString::fromHex(const elem_type* _Hex) noexcept
 // [conv] 从HEX转换
 XString XString::fromHex(const elem_type* _Hex, size_type _Size) noexcept
 {
-	if (_Hex == nullptr || _Size == 0)
+	if (nullptr == _Hex || _Size == 0)
 	{
 		return {};
 	}

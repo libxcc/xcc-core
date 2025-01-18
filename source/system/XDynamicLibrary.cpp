@@ -31,9 +31,15 @@ XDynamicLibrary::func_type XDynamicLibrary::find(handle_type _Handle, const XStr
 // 关闭动态链接库句柄
 void XDynamicLibrary::close(handle_type _Handle) noexcept
 {
-	if(_Handle == nullptr)
+	if(nullptr == _Handle)
 	{
 		return;
 	}
 	x_posix_dlclose(_Handle);
+}
+
+// 最近一次的错误消息
+XString XDynamicLibrary::error() noexcept
+{
+	return x_posix_dlerror();
 }

@@ -34,6 +34,59 @@ XTimeZone& XTimeZone::operator = (const XTimeZone& _Other) noexcept = default;
 
 
 
+// [fmt] 从字符串格式化 (-0800)(+0800)
+XTimeZone XTimeZone::fromString(const XString& _Format) noexcept
+{
+	// 格式化数据
+	if(nullptr == _Format)
+	{
+		return XTimeZone::UTC;
+	}
+	auto		vFormat = _Format;
+	if('+' != vFormat[0] && '-' != vFormat[0])
+	{
+		vFormat.insert(0, '+');
+	}
+
+	// 检查是否存在分割符
+	if(XString::npos == vFormat.find(":"))
+	{
+		for(x_size_t vIndex = 0; zone_name_link[vIndex]; ++vIndex)
+		{
+			if(vFormat == zone_name_link[vIndex])
+			{
+				return zone_name_enum[vIndex];
+			}
+		}
+	}
+	else
+	{
+		for(x_size_t vIndex = 0; zone_name_div[vIndex]; ++vIndex)
+		{
+			if(vFormat == zone_name_div[vIndex])
+			{
+				return zone_name_enum[vIndex];
+			}
+		}
+	}
+	return XTimeZone::UTC;
+}
+
+// [fmt] 从字符串格式化 (-0800)(+0800)
+XString XTimeZone::toString() const noexcept
+{
+	for(x_size_t vIndex = 0; LOCAL != zone_name_enum[vIndex]; ++vIndex)
+	{
+		if(memberRegion == zone_name_enum[vIndex])
+		{
+			return zone_name_link[vIndex];
+		}
+	}
+	return zone_name_link[0];
+}
+
+
+
 // [set] 当前区域
 void XTimeZone::region(XTimeZone::Region _Region) noexcept
 {

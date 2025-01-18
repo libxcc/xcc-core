@@ -31,7 +31,7 @@ int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>&
 					proc_pidpath(vProcessID, vProcessPATH, 2048);
 					//proc_pidinfo(vProcessID, PROC_PIDTBSDINFO, 0, &vProcessINFO, PROC_PIDTBSDINFO_SIZE);
 					auto		vPrivate = new(std::nothrow) XPrivateProcessData();
-					if(vPrivate == nullptr)
+					if(nullptr == vPrivate)
 					{
 						vError = -1;
 						break;

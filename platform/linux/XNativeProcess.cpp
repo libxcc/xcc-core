@@ -36,7 +36,7 @@ int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>&
 					if(vName && x_posix_strlen(vName))
 					{
 						auto		vPrivate = new(std::nothrow) XPrivateProcessData();
-						if(vPrivate == nullptr)
+						if(nullptr == vPrivate)
 						{
 							vSyncB = false;
 							break;

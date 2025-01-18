@@ -63,7 +63,7 @@ bool XEnvironmentVariables::empty(const XString& _Key) noexcept
 	}
 	return false;
 #else
-	return getenv(_Key.data()) == nullptr;
+	return nullptr == getenv(_Key.data());
 #endif
 }
 

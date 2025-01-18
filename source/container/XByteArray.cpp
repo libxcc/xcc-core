@@ -343,7 +343,7 @@ XByteArray XByteArray::mid(const void* _Left, size_type _LengthL, const void* _R
 	pos_type 	vPosL = 0;
 	pos_type 	vPosR = 0;
 
-	if(_Left == nullptr || _Right == nullptr || _LengthL == 0 || _LengthR == 0)
+	if(nullptr == _Left || nullptr == _Right || _LengthL == 0 || _LengthR == 0)
 	{
 		return {};
 	}
@@ -1127,7 +1127,7 @@ XByteArray XByteArray::fromHex(const elem_type* _Hex) noexcept
 // [conv] 从HEX转换
 XByteArray XByteArray::fromHex(const elem_type* _Hex, size_type _Size) noexcept
 {
-	if (_Hex == nullptr || _Size == 0)
+	if (nullptr == _Hex || _Size == 0)
 	{
 		return {};
 	}

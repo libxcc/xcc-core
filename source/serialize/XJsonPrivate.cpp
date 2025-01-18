@@ -93,7 +93,7 @@ void XJsonPrivate::free(XJsonObjectIterPrivate* _Object) noexcept
 // 释放数据
 void XJsonPrivate::free(XJsonValuePrivate* _Object) noexcept
 {
-	if(_Object == nullptr)
+	if(nullptr == _Object)
 	{
 		return;
 	}
@@ -375,7 +375,7 @@ x_size_t XJsonPrivate::calc_length(XJsonValuePrivate* _Src, XJsonDocument::JsonF
 // 序列化
 bool XJsonPrivate::serialize(XJsonValuePrivate* _Src, XJsonDocument::JsonFormat _JsonFormat, char** _Bytes, x_size_t* _Size) noexcept
 {
-	if(_Src == nullptr || _Bytes == nullptr || _Size == nullptr)
+	if(nullptr == _Src || nullptr == _Bytes || nullptr == _Size)
 	{
 		return false;
 	}
@@ -569,7 +569,7 @@ bool XJsonPrivate::serialize_number(XJsonSerializePrivate* _Context, XJsonValueP
 bool XJsonPrivate::serialize_string(XJsonSerializePrivate* _Context, XJsonValuePrivate* _Private) noexcept
 {
 	auto		vString = _Private->value.v_string;
-	if(vString == nullptr)
+	if(nullptr == vString)
 	{
 		return false;
 	}
@@ -742,7 +742,7 @@ bool XJsonPrivate::serialize_object(XJsonSerializePrivate* _Context, XJsonObject
 // 反序列化
 bool XJsonPrivate::deserialize(const char* _Bytes, x_size_t _Size, XJsonValuePrivate** _Src) noexcept
 {
-	if(_Src == nullptr || _Bytes == nullptr)
+	if(nullptr == _Src || nullptr == _Bytes)
 	{
 		return false;
 	}
@@ -982,7 +982,7 @@ bool XJsonPrivate::deserialize_array_item(XJsonDeserializePrivate* _Context, XJs
 {
 	// 首选创建一个子级
 	auto		vChildFirst = XJsonPrivate::newValue();
-	if(vChildFirst == nullptr)
+	if(nullptr == vChildFirst)
 	{
 		return false;
 	}
@@ -1065,7 +1065,7 @@ bool XJsonPrivate::deserialize_object_item(XJsonDeserializePrivate* _Context, XJ
 	}
 
 	// 检查子级格式
-	if(vChildKey->type != XJsonValue::String || vChildKey->value.v_string == nullptr || vChildKey->value.v_string->empty())
+	if(vChildKey->type != XJsonValue::String || nullptr == vChildKey->value.v_string || vChildKey->value.v_string->empty())
 	{
 		XJsonPrivate::free(vChildKey);
 		return false;
@@ -1090,7 +1090,7 @@ bool XJsonPrivate::deserialize_object_item(XJsonDeserializePrivate* _Context, XJ
 
 	// 首选创建一个子级
 	auto		vChildValue = XJsonPrivate::newValue();
-	if(vChildValue == nullptr)
+	if(nullptr == vChildValue)
 	{
 		return false;
 	}
@@ -1111,7 +1111,7 @@ bool XJsonPrivate::deserialize_object_item(XJsonDeserializePrivate* _Context, XJ
 // 反序列化 - 值
 bool XJsonPrivate::deserialize_value(XJsonDeserializePrivate* _Context, XJsonValuePrivate* _Private) noexcept
 {
-	if(_Private == nullptr || _Context->pos >= _Context->size)
+	if(nullptr == _Private || _Context->pos >= _Context->size)
 	{
 		return false;
 	}

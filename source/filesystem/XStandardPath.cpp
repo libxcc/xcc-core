@@ -42,9 +42,14 @@ XString XStandardPath::downloadLocation() noexcept
 // 应用程序XCC目录名称 - com.libxcc.[app]
 XString XStandardPath::appStandardName() noexcept
 {
-	auto		vApplicationName = XCoreApplication::applicationFileStem().toLower();
-	auto		vStandardName = XString("com.libxcc.") + vApplicationName;
-	return vStandardName;
+	static auto	static_object_example = XString();
+	if(nullptr == static_object_example)
+	{
+		auto		vAppPrefix = XString("com.libxcc.");
+		auto		vAppStem = XCoreApplication::applicationFileStem().toLower();
+		static_object_example = vAppPrefix + vAppStem;
+	}
+	return static_object_example;
 }
 
 // 应用程序的配置目录
@@ -82,8 +87,8 @@ XString XStandardPath::appTempLocation() noexcept
 // 应用程序的Env目录
 XString XStandardPath::appEnvLocation() noexcept
 {
-	static auto	vEnvironmentDirPath = XString();
-	if(vEnvironmentDirPath.empty())
+	static auto	static_object_example = XString();
+	if(nullptr == static_object_example)
 	{
 		auto		vApplicationName = XCoreApplication::applicationFileStem().toLower();
 #if defined(XCC_SYSTEM_DARWIN)
@@ -92,9 +97,9 @@ XString XStandardPath::appEnvLocation() noexcept
 		auto		vDirectory = systemConfigLocation() + "/com.xanadu." + vApplicationName;
 #endif
 		XFolder::mkpath(vDirectory);
-		vEnvironmentDirPath = vDirectory;
+		static_object_example = vDirectory;
 	}
-	return vEnvironmentDirPath;
+	return static_object_example;
 }
 
 

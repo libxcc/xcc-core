@@ -24,7 +24,7 @@ XCoreApplication::XCoreApplication(int _Argc, char** _Argv) noexcept
 	XCoreApplication::d_self = this;
 
 	d_ptr = new(std::nothrow) XCoreApplicationPrivate();
-	if(d_ptr == nullptr)
+	if(nullptr == d_ptr)
 	{
 		return;
 	}

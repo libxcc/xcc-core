@@ -156,7 +156,7 @@ public:
 	// 获取引用计数
 	int useCount() const noexcept
 	{
-		return _M_origin_ptr == nullptr ? 0 : _M_ref_count->refCount();
+		return nullptr == _M_origin_ptr ? 0 : _M_ref_count->refCount();
 	}
 
 	// 重置指针

@@ -17,7 +17,7 @@ int XPA_ProcessList(const std::function<bool(const XProcessInfo& _ProcessInfo)>&
 		while(vMore)
 		{
 			auto		vPrivate = new(std::nothrow) XPrivateProcessData();
-			if(vPrivate == nullptr)
+			if(nullptr == vPrivate)
 			{
 				break;
 			}
@@ -53,7 +53,7 @@ int XPA_ProcessTerminateById(x_uint64_t _ProcessID) noexcept
 // 格式化DOS头
 static bool pe_format_dos_header(const void* _Memory, x_uint64_t _Length, IMAGE_DOS_HEADER** _DosHeader) noexcept
 {
-	if(_DosHeader == nullptr || _Length < sizeof(IMAGE_DOS_HEADER))
+	if(nullptr == _DosHeader || _Length < sizeof(IMAGE_DOS_HEADER))
 	{
 		return false;
 	}
@@ -70,7 +70,7 @@ static bool pe_format_dos_header(const void* _Memory, x_uint64_t _Length, IMAGE_
 // 格式化NT头
 static bool pe_format_nt_header(const void* _Memory, x_uint64_t _Length, const IMAGE_DOS_HEADER* _DosHeader, IMAGE_NT_HEADERS** _NtHeader) noexcept
 {
-	if(_DosHeader == nullptr || _NtHeader == nullptr || _Length < (_DosHeader->e_lfanew + sizeof(IMAGE_NT_HEADERS)))
+	if(nullptr == _DosHeader || nullptr == _NtHeader || _Length < (_DosHeader->e_lfanew + sizeof(IMAGE_NT_HEADERS)))
 	{
 		return false;
 	}
@@ -215,7 +215,7 @@ int XPA_ProcessRunByMemory(const XPrivateProcessRunMemory& _Context, const std::
 
 				// AppBaseAddr = VirtualAllocEx(PI.hProcess, (void*)NtHeader->OptionalHeader.ImageBase, NtHeader->OptionalHeader.SizeOfImage, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 				AppBaseAddr = VirtualAllocEx(PI.hProcess, nullptr, NtHeader->OptionalHeader.SizeOfImage, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-				if(AppBaseAddr == nullptr)
+				if(nullptr == AppBaseAddr)
 				{
 					XLOG_ERROR(nullptr, u8"[ %s : %d ] VirtualAllocEx : ERROR %d", __XFUNCTION__, __XLINE__, (int)GetLastError());
 					return false;

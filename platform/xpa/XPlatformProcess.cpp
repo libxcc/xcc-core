@@ -230,7 +230,7 @@ char* x_process_param_argv_to_string(char** _Argv) noexcept
 // 进程参数释放
 void x_process_param_free(char** _Argv) noexcept
 {
-	if(_Argv == nullptr)
+	if(nullptr == _Argv)
 	{
 		return;
 	}

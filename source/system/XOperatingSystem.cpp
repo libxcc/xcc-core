@@ -304,7 +304,7 @@ XString XOperatingSystem::uniqueId() noexcept
 bool XOperatingSystem::isServerVersion() noexcept
 {
 	static XTernary		vValueServer = nullptr;
-	if(vValueServer == nullptr)
+	if(nullptr == vValueServer)
 	{
 #if defined(XCC_SYSTEM_WINDOWS)
 		typedef BOOL(WINAPI* func_IsWindowsServer)();

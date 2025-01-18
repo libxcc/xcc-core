@@ -223,7 +223,7 @@ XString XDateTime::toString(const XString& _Format) const noexcept
 {
 	auto		vMillisecond = this->toMillisecond();
 	auto		vTM = x_datetime_millisecond_to_tm(vMillisecond);
-	if(vTM == nullptr)
+	if(nullptr == vTM)
 	{
 		return "null";
 	}
@@ -393,11 +393,13 @@ XString XDateTime::toString(const XString& _Format) const noexcept
 	return vFormatDT;
 }
 
+
+
 // [cnv] 转换到年份
 x_time_type XDateTime::convertToYear() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
-	if(vTM == nullptr)
+	if(nullptr == vTM)
 	{
 		return 0;
 	}
@@ -408,7 +410,7 @@ x_time_type XDateTime::convertToYear() const noexcept
 x_time_type XDateTime::convertToMonth() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
-	if(vTM == nullptr)
+	if(nullptr == vTM)
 	{
 		return 0;
 	}
@@ -419,7 +421,7 @@ x_time_type XDateTime::convertToMonth() const noexcept
 x_time_type XDateTime::convertToDay() const noexcept
 {
 	auto		vTM = x_datetime_millisecond_to_tm(memberMillisecond);
-	if(vTM == nullptr)
+	if(nullptr == vTM)
 	{
 		return 0;
 	}

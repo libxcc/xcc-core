@@ -7,32 +7,20 @@
 static XAllocator::elem_type* __xcall__ x_core_allocator_malloc(XAllocator::size_type _Size) noexcept
 {
 	auto		vMemory = new(std::nothrow) XAllocator::elem_type [_Size];
-	if(vMemory == nullptr)
-	{
-		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory new error size = %llu", __XFUNCTION__, __XLINE__, (x_uint64_t)_Size);
-	}
 	return vMemory;
 }
 
 // Core分配器: 释放内存
-static void __xcall__ x_core_allocator_free(XAllocator::elem_type* _Address) noexcept
+static void __xcall__ x_core_allocator_free(const XAllocator::elem_type* _Address) noexcept
 {
-	try
-	{
-		delete[] _Address;
-	}
-	catch(...)
-	{
-		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory address : %llu", __XFUNCTION__, __XLINE__, (x_uint64_t)_Address);
-		XLOG_ERROR(nullptr, u8"[ %s : %d ] memory content : %s", __XFUNCTION__, __XLINE__, _Address ? (const char*)_Address : "null");
-	}
+	delete[] _Address;
 }
 
 
 
-// static value
-const XAllocator::size_type XAllocator::redundancy = 2;
-const XAllocator::size_type XAllocator::minimum_capacity = 16;
+// 分配器的静态值
+const XAllocator::size_type		XAllocator::redundancy = 2;
+const XAllocator::size_type		XAllocator::minimum_capacity = 16;
 
 
 
@@ -211,7 +199,7 @@ bool XAllocator::malloc(size_type _Length) noexcept
 	auto		vCapacity = XAllocator::capacity_from_length(_Length);
 	auto		vMemory = x_core_allocator_malloc(vCapacity);
 
-	if(vMemory == nullptr)
+	if(nullptr == vMemory)
 	{
 		return false;
 	}
@@ -242,7 +230,7 @@ bool XAllocator::resize(size_type _Length) noexcept
 		if(_Length > this->_memory_capacity)
 		{
 			vMemory = x_core_allocator_malloc(vCapacity);
-			if(vMemory == nullptr)
+			if(nullptr == vMemory)
 			{
 				return false;
 			}
@@ -276,7 +264,7 @@ bool XAllocator::reverse(size_type _Length) noexcept
 	if(_Length > this->_memory_capacity)
 	{
 		vMemory = x_core_allocator_malloc(vCapacity);
-		if(vMemory == nullptr)
+		if(nullptr == vMemory)
 		{
 			return false;
 		}
@@ -390,7 +378,7 @@ bool XAllocator::append(const XAllocator& _Allocator) noexcept
 // [opt] insert
 bool XAllocator::insert(pos_type _Pos, const void* _Memory, size_type _Length) noexcept
 {
-	if(_Memory == nullptr || _Length == 0)
+	if(nullptr == _Memory || _Length == 0)
 	{
 		return false;
 	}
@@ -525,7 +513,7 @@ int XAllocator::compare(const void* _Memory, size_type _Length) const noexcept
 		}
 		return vCompare;
 	}
-	else if(this->empty() && _Memory == nullptr)
+	else if(this->empty() && nullptr == _Memory)
 	{
 		return 0;
 	}
@@ -556,7 +544,7 @@ XAllocator::pos_type XAllocator::find(const void* _Memory, size_type _Length, po
 	{
 		return 0;
 	}
-	if(this->_memory_length == 0 || _Memory == nullptr || _Length == 0 || _Pos > this->_memory_length  || (this->_memory_length - _Pos) < _Length)
+	if(this->_memory_length == 0 || nullptr == _Memory || _Length == 0 || _Pos > this->_memory_length  || (this->_memory_length - _Pos) < _Length)
 	{
 		return XAllocator::npos;
 	}
@@ -590,7 +578,7 @@ XAllocator::pos_type XAllocator::rfind(const void* _Memory, size_type _Length, p
 	{
 		return 0;
 	}
-	if(this->_memory_length == 0 || _Memory == nullptr || _Length == 0 || _Pos > this->_memory_length  || (this->_memory_length - _Pos) < _Length)
+	if(this->_memory_length == 0 || nullptr == _Memory || _Length == 0 || _Pos > this->_memory_length  || (this->_memory_length - _Pos) < _Length)
 	{
 		return XAllocator::npos;
 	}
@@ -635,7 +623,7 @@ bool XAllocator::isSameElements(size_type _ElementSize) const noexcept
 	}
 	auto		vMatchStatus = false;
 	auto		vMatchData = new(std::nothrow) XAllocator::elem_type [_ElementSize];
-	if(vMatchData == nullptr)
+	if(nullptr == vMatchData)
 	{
 		return false;
 	}
@@ -649,7 +637,7 @@ bool XAllocator::isSameElements(size_type _ElementSize) const noexcept
 // [opt] 子项是否全部一样
 bool XAllocator::isSameElements(size_type _ElementSize, const void* _MatchData) const noexcept
 {
-	if(this->_memory_length == 0 || _ElementSize == 0 || _MatchData == nullptr || this->_memory_length % _ElementSize != 0)
+	if(this->_memory_length == 0 || _ElementSize == 0 || nullptr == _MatchData || this->_memory_length % _ElementSize != 0)
 	{
 		return false;
 	}

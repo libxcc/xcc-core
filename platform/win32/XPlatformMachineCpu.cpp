@@ -50,7 +50,7 @@ static int GetLogicalProcessorInformation(SYSTEM_LOGICAL_PROCESSOR_INFORMATION**
 		return 0;
 	}
 	vProcessInfo = (SYSTEM_LOGICAL_PROCESSOR_INFORMATION*) x_posix_malloc(vReturnedLength);
-	if(vProcessInfo == nullptr)
+	if(nullptr == vProcessInfo)
 	{
 		return 0;
 	}

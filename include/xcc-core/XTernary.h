@@ -269,4 +269,88 @@ public:
 	virtual XString toString() const noexcept final;
 };
 
+
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (XTernary::value_type _Type, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (bool _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (char _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (unsigned char _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (short _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (unsigned short _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (int _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (unsigned int _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (unsigned long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (long long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (unsigned long long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator ==
+_XCOREAPI_ bool __xcall__ operator == (const void* _Value, const XTernary& _Object) noexcept;
+
+
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (XTernary::value_type _Type, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (bool _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (char _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (unsigned char _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (short _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (unsigned short _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (int _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (unsigned int _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (unsigned long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (long long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (unsigned long long _Value, const XTernary& _Object) noexcept;
+
+// Syntax sugar: operator !=
+_XCOREAPI_ bool __xcall__ operator != (const void* _Value, const XTernary& _Object) noexcept;
+
+
+
 #endif
